@@ -1,6 +1,6 @@
 CMakeFiles/jogodaforcagpu.dir/src/util.cpp.obj: \
- C:\Users\Rina\Desktop\jogo-da-forca-gpu\src\util.cpp \
- C:\Users\Rina\Desktop\jogo-da-forca-gpu\src\util.hpp \
+ C:\Users\Rina\Desktop\jogo-da-forca-gpu-edition\src\util.cpp \
+ C:\Users\Rina\Desktop\jogo-da-forca-gpu-edition\src\util.hpp \
  C:/MinGW/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/iostream \
  C:/MinGW/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/x86_64-w64-mingw32/bits/c++config.h \
  C:/MinGW/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/x86_64-w64-mingw32/bits/os_defines.h \
@@ -137,4 +137,8 @@ CMakeFiles/jogodaforcagpu.dir/src/util.cpp.obj: \
  C:/MinGW/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/codecvt.h \
  C:/MinGW/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/x86_64-w64-mingw32/bits/basic_file.h \
  C:/MinGW/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/x86_64-w64-mingw32/bits/c++io.h \
- C:/MinGW/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/fstream.tcc
+ C:/MinGW/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/fstream.tcc \
+ C:/MinGW/x86_64-w64-mingw32/include/gl/glew.h \
+ C:/MinGW/x86_64-w64-mingw32/include/inttypes.h \
+ C:/MinGW/x86_64-w64-mingw32/include/GL/glu.h \
+ C:/MinGW/x86_64-w64-mingw32/include/GL/gl.h

@@ -9,6 +9,9 @@
 namespace util {
 	void log(const std::string &input_str);
 	bool read_file(std::string &input_str, const std::string &path);
+	
+	void viewport(float* mat);
+	void projection_view_ortho(float* mat, float left, float right, float bottom, float top);
 
 	struct rect {
 		float x = 0.0f;

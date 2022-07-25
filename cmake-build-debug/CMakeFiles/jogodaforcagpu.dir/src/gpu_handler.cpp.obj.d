@@ -1,7 +1,7 @@
 CMakeFiles/jogodaforcagpu.dir/src/gpu_handler.cpp.obj: \
- C:\Users\Rina\Desktop\jogo-da-forca-gpu\src\gpu_handler.cpp \
- C:\Users\Rina\Desktop\jogo-da-forca-gpu\src\gpu_handler.hpp \
- C:\Users\Rina\Desktop\jogo-da-forca-gpu\src\util.hpp \
+ C:\Users\Rina\Desktop\jogo-da-forca-gpu-edition\src\gpu_handler.cpp \
+ C:\Users\Rina\Desktop\jogo-da-forca-gpu-edition\src\gpu_handler.hpp \
+ C:\Users\Rina\Desktop\jogo-da-forca-gpu-edition\src\util.hpp \
  C:/MinGW/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/iostream \
  C:/MinGW/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/x86_64-w64-mingw32/bits/c++config.h \
  C:/MinGW/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/x86_64-w64-mingw32/bits/os_defines.h \

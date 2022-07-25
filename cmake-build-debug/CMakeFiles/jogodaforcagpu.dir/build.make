@@ -52,10 +52,10 @@ RM = "C:\Program Files\CMake\bin\cmake.exe" -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = C:\Users\Rina\Desktop\jogo-da-forca-gpu
+CMAKE_SOURCE_DIR = C:\Users\Rina\Desktop\jogo-da-forca-gpu-edition
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = C:\Users\Rina\Desktop\jogo-da-forca-gpu\cmake-build-debug
+CMAKE_BINARY_DIR = C:\Users\Rina\Desktop\jogo-da-forca-gpu-edition\cmake-build-debug
 
 # Include any dependencies generated for this target.
 include CMakeFiles/jogodaforcagpu.dir/depend.make
@@ -70,48 +70,48 @@ include CMakeFiles/jogodaforcagpu.dir/flags.make
 
 CMakeFiles/jogodaforcagpu.dir/src/gpu_handler.cpp.obj: CMakeFiles/jogodaforcagpu.dir/flags.make
 CMakeFiles/jogodaforcagpu.dir/src/gpu_handler.cpp.obj: CMakeFiles/jogodaforcagpu.dir/includes_CXX.rsp
-CMakeFiles/jogodaforcagpu.dir/src/gpu_handler.cpp.obj: C:/Users/Rina/Desktop/jogo-da-forca-gpu/src/gpu_handler.cpp
+CMakeFiles/jogodaforcagpu.dir/src/gpu_handler.cpp.obj: C:/Users/Rina/Desktop/jogo-da-forca-gpu-edition/src/gpu_handler.cpp
 CMakeFiles/jogodaforcagpu.dir/src/gpu_handler.cpp.obj: CMakeFiles/jogodaforcagpu.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\Rina\Desktop\jogo-da-forca-gpu\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/jogodaforcagpu.dir/src/gpu_handler.cpp.obj"
-	C:\MinGW\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/jogodaforcagpu.dir/src/gpu_handler.cpp.obj -MF CMakeFiles\jogodaforcagpu.dir\src\gpu_handler.cpp.obj.d -o CMakeFiles\jogodaforcagpu.dir\src\gpu_handler.cpp.obj -c C:\Users\Rina\Desktop\jogo-da-forca-gpu\src\gpu_handler.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\Rina\Desktop\jogo-da-forca-gpu-edition\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/jogodaforcagpu.dir/src/gpu_handler.cpp.obj"
+	C:\MinGW\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/jogodaforcagpu.dir/src/gpu_handler.cpp.obj -MF CMakeFiles\jogodaforcagpu.dir\src\gpu_handler.cpp.obj.d -o CMakeFiles\jogodaforcagpu.dir\src\gpu_handler.cpp.obj -c C:\Users\Rina\Desktop\jogo-da-forca-gpu-edition\src\gpu_handler.cpp
 
 CMakeFiles/jogodaforcagpu.dir/src/gpu_handler.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/jogodaforcagpu.dir/src/gpu_handler.cpp.i"
-	C:\MinGW\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\Rina\Desktop\jogo-da-forca-gpu\src\gpu_handler.cpp > CMakeFiles\jogodaforcagpu.dir\src\gpu_handler.cpp.i
+	C:\MinGW\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\Rina\Desktop\jogo-da-forca-gpu-edition\src\gpu_handler.cpp > CMakeFiles\jogodaforcagpu.dir\src\gpu_handler.cpp.i
 
 CMakeFiles/jogodaforcagpu.dir/src/gpu_handler.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/jogodaforcagpu.dir/src/gpu_handler.cpp.s"
-	C:\MinGW\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\Rina\Desktop\jogo-da-forca-gpu\src\gpu_handler.cpp -o CMakeFiles\jogodaforcagpu.dir\src\gpu_handler.cpp.s
+	C:\MinGW\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\Rina\Desktop\jogo-da-forca-gpu-edition\src\gpu_handler.cpp -o CMakeFiles\jogodaforcagpu.dir\src\gpu_handler.cpp.s
 
 CMakeFiles/jogodaforcagpu.dir/src/main.cpp.obj: CMakeFiles/jogodaforcagpu.dir/flags.make
 CMakeFiles/jogodaforcagpu.dir/src/main.cpp.obj: CMakeFiles/jogodaforcagpu.dir/includes_CXX.rsp
-CMakeFiles/jogodaforcagpu.dir/src/main.cpp.obj: C:/Users/Rina/Desktop/jogo-da-forca-gpu/src/main.cpp
+CMakeFiles/jogodaforcagpu.dir/src/main.cpp.obj: C:/Users/Rina/Desktop/jogo-da-forca-gpu-edition/src/main.cpp
 CMakeFiles/jogodaforcagpu.dir/src/main.cpp.obj: CMakeFiles/jogodaforcagpu.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\Rina\Desktop\jogo-da-forca-gpu\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/jogodaforcagpu.dir/src/main.cpp.obj"
-	C:\MinGW\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/jogodaforcagpu.dir/src/main.cpp.obj -MF CMakeFiles\jogodaforcagpu.dir\src\main.cpp.obj.d -o CMakeFiles\jogodaforcagpu.dir\src\main.cpp.obj -c C:\Users\Rina\Desktop\jogo-da-forca-gpu\src\main.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\Rina\Desktop\jogo-da-forca-gpu-edition\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/jogodaforcagpu.dir/src/main.cpp.obj"
+	C:\MinGW\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/jogodaforcagpu.dir/src/main.cpp.obj -MF CMakeFiles\jogodaforcagpu.dir\src\main.cpp.obj.d -o CMakeFiles\jogodaforcagpu.dir\src\main.cpp.obj -c C:\Users\Rina\Desktop\jogo-da-forca-gpu-edition\src\main.cpp
 
 CMakeFiles/jogodaforcagpu.dir/src/main.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/jogodaforcagpu.dir/src/main.cpp.i"
-	C:\MinGW\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\Rina\Desktop\jogo-da-forca-gpu\src\main.cpp > CMakeFiles\jogodaforcagpu.dir\src\main.cpp.i
+	C:\MinGW\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\Rina\Desktop\jogo-da-forca-gpu-edition\src\main.cpp > CMakeFiles\jogodaforcagpu.dir\src\main.cpp.i
 
 CMakeFiles/jogodaforcagpu.dir/src/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/jogodaforcagpu.dir/src/main.cpp.s"
-	C:\MinGW\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\Rina\Desktop\jogo-da-forca-gpu\src\main.cpp -o CMakeFiles\jogodaforcagpu.dir\src\main.cpp.s
+	C:\MinGW\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\Rina\Desktop\jogo-da-forca-gpu-edition\src\main.cpp -o CMakeFiles\jogodaforcagpu.dir\src\main.cpp.s
 
 CMakeFiles/jogodaforcagpu.dir/src/util.cpp.obj: CMakeFiles/jogodaforcagpu.dir/flags.make
 CMakeFiles/jogodaforcagpu.dir/src/util.cpp.obj: CMakeFiles/jogodaforcagpu.dir/includes_CXX.rsp
-CMakeFiles/jogodaforcagpu.dir/src/util.cpp.obj: C:/Users/Rina/Desktop/jogo-da-forca-gpu/src/util.cpp
+CMakeFiles/jogodaforcagpu.dir/src/util.cpp.obj: C:/Users/Rina/Desktop/jogo-da-forca-gpu-edition/src/util.cpp
 CMakeFiles/jogodaforcagpu.dir/src/util.cpp.obj: CMakeFiles/jogodaforcagpu.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\Rina\Desktop\jogo-da-forca-gpu\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/jogodaforcagpu.dir/src/util.cpp.obj"
-	C:\MinGW\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/jogodaforcagpu.dir/src/util.cpp.obj -MF CMakeFiles\jogodaforcagpu.dir\src\util.cpp.obj.d -o CMakeFiles\jogodaforcagpu.dir\src\util.cpp.obj -c C:\Users\Rina\Desktop\jogo-da-forca-gpu\src\util.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\Rina\Desktop\jogo-da-forca-gpu-edition\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/jogodaforcagpu.dir/src/util.cpp.obj"
+	C:\MinGW\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/jogodaforcagpu.dir/src/util.cpp.obj -MF CMakeFiles\jogodaforcagpu.dir\src\util.cpp.obj.d -o CMakeFiles\jogodaforcagpu.dir\src\util.cpp.obj -c C:\Users\Rina\Desktop\jogo-da-forca-gpu-edition\src\util.cpp
 
 CMakeFiles/jogodaforcagpu.dir/src/util.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/jogodaforcagpu.dir/src/util.cpp.i"
-	C:\MinGW\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\Rina\Desktop\jogo-da-forca-gpu\src\util.cpp > CMakeFiles\jogodaforcagpu.dir\src\util.cpp.i
+	C:\MinGW\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\Rina\Desktop\jogo-da-forca-gpu-edition\src\util.cpp > CMakeFiles\jogodaforcagpu.dir\src\util.cpp.i
 
 CMakeFiles/jogodaforcagpu.dir/src/util.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/jogodaforcagpu.dir/src/util.cpp.s"
-	C:\MinGW\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\Rina\Desktop\jogo-da-forca-gpu\src\util.cpp -o CMakeFiles\jogodaforcagpu.dir\src\util.cpp.s
+	C:\MinGW\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\Rina\Desktop\jogo-da-forca-gpu-edition\src\util.cpp -o CMakeFiles\jogodaforcagpu.dir\src\util.cpp.s
 
 # Object files for target jogodaforcagpu
 jogodaforcagpu_OBJECTS = \
@@ -122,18 +122,18 @@ jogodaforcagpu_OBJECTS = \
 # External object files for target jogodaforcagpu
 jogodaforcagpu_EXTERNAL_OBJECTS =
 
-C:/Users/Rina/Desktop/jogo-da-forca-gpu/build/jogodaforcagpu.exe: CMakeFiles/jogodaforcagpu.dir/src/gpu_handler.cpp.obj
-C:/Users/Rina/Desktop/jogo-da-forca-gpu/build/jogodaforcagpu.exe: CMakeFiles/jogodaforcagpu.dir/src/main.cpp.obj
-C:/Users/Rina/Desktop/jogo-da-forca-gpu/build/jogodaforcagpu.exe: CMakeFiles/jogodaforcagpu.dir/src/util.cpp.obj
-C:/Users/Rina/Desktop/jogo-da-forca-gpu/build/jogodaforcagpu.exe: CMakeFiles/jogodaforcagpu.dir/build.make
-C:/Users/Rina/Desktop/jogo-da-forca-gpu/build/jogodaforcagpu.exe: CMakeFiles/jogodaforcagpu.dir/linklibs.rsp
-C:/Users/Rina/Desktop/jogo-da-forca-gpu/build/jogodaforcagpu.exe: CMakeFiles/jogodaforcagpu.dir/objects1.rsp
-C:/Users/Rina/Desktop/jogo-da-forca-gpu/build/jogodaforcagpu.exe: CMakeFiles/jogodaforcagpu.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=C:\Users\Rina\Desktop\jogo-da-forca-gpu\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX executable C:\Users\Rina\Desktop\jogo-da-forca-gpu\build\jogodaforcagpu.exe"
+C:/Users/Rina/Desktop/jogo-da-forca-gpu-edition/build/jogodaforcagpu.exe: CMakeFiles/jogodaforcagpu.dir/src/gpu_handler.cpp.obj
+C:/Users/Rina/Desktop/jogo-da-forca-gpu-edition/build/jogodaforcagpu.exe: CMakeFiles/jogodaforcagpu.dir/src/main.cpp.obj
+C:/Users/Rina/Desktop/jogo-da-forca-gpu-edition/build/jogodaforcagpu.exe: CMakeFiles/jogodaforcagpu.dir/src/util.cpp.obj
+C:/Users/Rina/Desktop/jogo-da-forca-gpu-edition/build/jogodaforcagpu.exe: CMakeFiles/jogodaforcagpu.dir/build.make
+C:/Users/Rina/Desktop/jogo-da-forca-gpu-edition/build/jogodaforcagpu.exe: CMakeFiles/jogodaforcagpu.dir/linklibs.rsp
+C:/Users/Rina/Desktop/jogo-da-forca-gpu-edition/build/jogodaforcagpu.exe: CMakeFiles/jogodaforcagpu.dir/objects1.rsp
+C:/Users/Rina/Desktop/jogo-da-forca-gpu-edition/build/jogodaforcagpu.exe: CMakeFiles/jogodaforcagpu.dir/link.txt
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=C:\Users\Rina\Desktop\jogo-da-forca-gpu-edition\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX executable C:\Users\Rina\Desktop\jogo-da-forca-gpu-edition\build\jogodaforcagpu.exe"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles\jogodaforcagpu.dir\link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
-CMakeFiles/jogodaforcagpu.dir/build: C:/Users/Rina/Desktop/jogo-da-forca-gpu/build/jogodaforcagpu.exe
+CMakeFiles/jogodaforcagpu.dir/build: C:/Users/Rina/Desktop/jogo-da-forca-gpu-edition/build/jogodaforcagpu.exe
 .PHONY : CMakeFiles/jogodaforcagpu.dir/build
 
 CMakeFiles/jogodaforcagpu.dir/clean:
@@ -141,6 +141,6 @@ CMakeFiles/jogodaforcagpu.dir/clean:
 .PHONY : CMakeFiles/jogodaforcagpu.dir/clean
 
 CMakeFiles/jogodaforcagpu.dir/depend:
-	$(CMAKE_COMMAND) -E cmake_depends "MinGW Makefiles" C:\Users\Rina\Desktop\jogo-da-forca-gpu C:\Users\Rina\Desktop\jogo-da-forca-gpu C:\Users\Rina\Desktop\jogo-da-forca-gpu\cmake-build-debug C:\Users\Rina\Desktop\jogo-da-forca-gpu\cmake-build-debug C:\Users\Rina\Desktop\jogo-da-forca-gpu\cmake-build-debug\CMakeFiles\jogodaforcagpu.dir\DependInfo.cmake --color=$(COLOR)
+	$(CMAKE_COMMAND) -E cmake_depends "MinGW Makefiles" C:\Users\Rina\Desktop\jogo-da-forca-gpu-edition C:\Users\Rina\Desktop\jogo-da-forca-gpu-edition C:\Users\Rina\Desktop\jogo-da-forca-gpu-edition\cmake-build-debug C:\Users\Rina\Desktop\jogo-da-forca-gpu-edition\cmake-build-debug C:\Users\Rina\Desktop\jogo-da-forca-gpu-edition\cmake-build-debug\CMakeFiles\jogodaforcagpu.dir\DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/jogodaforcagpu.dir/depend
 

@@ -1,4 +1,4 @@
-# Install script for directory: C:/Users/Rina/Desktop/jogo-da-forca-gpu
+# Install script for directory: C:/Users/Rina/Desktop/jogo-da-forca-gpu-edition
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -45,5 +45,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "C:/Users/Rina/Desktop/jogo-da-forca-gpu/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "C:/Users/Rina/Desktop/jogo-da-forca-gpu-edition/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

@@ -8,9 +8,9 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "C:/Users/Rina/Desktop/jogo-da-forca-gpu/src/gpu_handler.cpp" "CMakeFiles/jogodaforcagpu.dir/src/gpu_handler.cpp.obj" "gcc" "CMakeFiles/jogodaforcagpu.dir/src/gpu_handler.cpp.obj.d"
-  "C:/Users/Rina/Desktop/jogo-da-forca-gpu/src/main.cpp" "CMakeFiles/jogodaforcagpu.dir/src/main.cpp.obj" "gcc" "CMakeFiles/jogodaforcagpu.dir/src/main.cpp.obj.d"
-  "C:/Users/Rina/Desktop/jogo-da-forca-gpu/src/util.cpp" "CMakeFiles/jogodaforcagpu.dir/src/util.cpp.obj" "gcc" "CMakeFiles/jogodaforcagpu.dir/src/util.cpp.obj.d"
+  "C:/Users/Rina/Desktop/jogo-da-forca-gpu-edition/src/gpu_handler.cpp" "CMakeFiles/jogodaforcagpu.dir/src/gpu_handler.cpp.obj" "gcc" "CMakeFiles/jogodaforcagpu.dir/src/gpu_handler.cpp.obj.d"
+  "C:/Users/Rina/Desktop/jogo-da-forca-gpu-edition/src/main.cpp" "CMakeFiles/jogodaforcagpu.dir/src/main.cpp.obj" "gcc" "CMakeFiles/jogodaforcagpu.dir/src/main.cpp.obj.d"
+  "C:/Users/Rina/Desktop/jogo-da-forca-gpu-edition/src/util.cpp" "CMakeFiles/jogodaforcagpu.dir/src/util.cpp.obj" "gcc" "CMakeFiles/jogodaforcagpu.dir/src/util.cpp.obj.d"
   )
 
 # Targets to which this target links.

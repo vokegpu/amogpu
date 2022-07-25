@@ -1,5 +1,5 @@
 CMakeFiles/jogodaforcagpu.dir/src/main.cpp.obj: \
- C:\Users\Rina\Desktop\jogo-da-forca-gpu\src\main.cpp \
+ C:\Users\Rina\Desktop\jogo-da-forca-gpu-edition\src\main.cpp \
  C:/MinGW/x86_64-w64-mingw32/include/SDL2/SDL.h \
  C:/MinGW/x86_64-w64-mingw32/include/SDL2/SDL_main.h \
  C:/MinGW/x86_64-w64-mingw32/include/SDL2/SDL_stdinc.h \
@@ -178,7 +178,7 @@ CMakeFiles/jogodaforcagpu.dir/src/main.cpp.obj: \
  C:/MinGW/x86_64-w64-mingw32/include/inttypes.h \
  C:/MinGW/x86_64-w64-mingw32/include/GL/glu.h \
  C:/MinGW/x86_64-w64-mingw32/include/GL/gl.h \
- C:\Users\Rina\Desktop\jogo-da-forca-gpu\src\util.hpp \
+ C:\Users\Rina\Desktop\jogo-da-forca-gpu-edition\src\util.hpp \
  C:/MinGW/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/iostream \
  C:/MinGW/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/ostream \
  C:/MinGW/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/ios \
@@ -280,4 +280,10 @@ CMakeFiles/jogodaforcagpu.dir/src/main.cpp.obj: \
  C:/MinGW/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/basic_ios.tcc \
  C:/MinGW/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/ostream.tcc \
  C:/MinGW/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/istream \
- C:/MinGW/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/istream.tcc
+ C:/MinGW/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/istream.tcc \
+ C:\Users\Rina\Desktop\jogo-da-forca-gpu-edition\src\gpu_handler.hpp \
+ C:/MinGW/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/vector \
+ C:/MinGW/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/stl_uninitialized.h \
+ C:/MinGW/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/stl_vector.h \
+ C:/MinGW/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/stl_bvector.h \
+ C:/MinGW/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/vector.tcc

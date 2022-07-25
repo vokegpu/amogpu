@@ -2,9 +2,24 @@
 #include <gl/glew.h>
 
 #include "util.hpp"
+#include "gpu_handler.hpp"
 
 SDL_Window* sdl_win;
 bool running = true;
+
+void update_window_viewport() {
+	int32_t w, h;
+	SDL_GetWindowSize(sdl_win, &w, &h);
+
+	float width = static_cast<float>(w);
+	float height = static_cast<float>(h);
+
+	// Set the viewport of window.
+	glViewport(0.0f, 0.0f, width, height);
+	dynamic_batching::matrix();
+
+	util::log("Window viewport update (" + std::to_string(width) + ", " + std::to_string(height) + ")");
+}
 
 void on_poll_event(SDL_Event &sdl_event) {
 	switch (sdl_event.type) {
@@ -14,10 +29,9 @@ void on_poll_event(SDL_Event &sdl_event) {
 		}
 
 		case SDL_WINDOWEVENT: {
-			switch (sdl_event.window.type) {
+			switch (sdl_event.window.event) {
 				case SDL_WINDOWEVENT_SIZE_CHANGED: {
-					// Set the viewport of window.
-					glViewport(0.0f, 0.0f, static_cast<float>(sdl_event.window.data1), static_cast<float>(sdl_event.window.data2));
+					update_window_viewport();
 					break;
 				}
 			}
@@ -40,16 +54,18 @@ int main(int argv, char** argc) {
 
 	SDL_Init(SDL_INIT_EVERYTHING);
 
-	sdl_win = SDL_CreateWindow("The Jogo da Forca x GPU Edition", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 600, SDL_WINDOW_OPENGL);
+	sdl_win = SDL_CreateWindow("The Jogo da Forca x GPU Edition", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 600, SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE);
 	SDL_GLContext sdl_gl_context = SDL_GL_CreateContext(sdl_win);
 
 	glewExperimental = true;
 	glewInit();
 
-	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 4);
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
 	SDL_GL_SetSwapInterval(1); // v-sync
 
+	update_window_viewport();
 	util::log("Window and OpenGL context created!");
 
 	SDL_Event sdl_event;
@@ -62,6 +78,32 @@ int main(int argv, char** argc) {
 	uint64_t ticks_going_on = 0;
 	uint64_t current_ticks = 0;
 	uint64_t interval = 1000 / (uint64_t) cpu_fps;
+
+	util::log("Initinalising buffers!");
+	dynamic_batching::init();
+
+	dynamic_batching batch;
+
+	float x = 0;
+	float y = 0;
+
+	batch.invoke();
+	batch.instance(20, 20);
+	batch.fill(1, 1, 1, 1);
+	batch.vertex(x, y);
+	batch.vertex(x, y + 50);
+	batch.vertex(x + 50, y + 50);
+	batch.vertex(x + 50, y + 50);
+	batch.vertex(x + 50, y);
+	batch.vertex(x, y);
+	batch.coords(0.0f, 0.0f);
+	batch.coords(0.0f, 0.0f);
+	batch.coords(0.0f, 0.0f);
+	batch.coords(0.0f, 0.0f);
+	batch.coords(0.0f, 0.0f);
+	batch.coords(0.0f, 0.0f);
+	batch.next();
+	batch.revoke();
 
 	while (running) {
 		current_ticks = SDL_GetTicks64();
@@ -89,6 +131,8 @@ int main(int argv, char** argc) {
 			// Update and render section.
 			on_update();
 			on_render();
+
+			batch.draw();
 
 			// Count ticked frames.
 			ticked_frames++;

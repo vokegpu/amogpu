@@ -56,10 +56,10 @@ RM = "C:\Program Files\CMake\bin\cmake.exe" -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = C:\Users\Rina\Desktop\jogo-da-forca-gpu
+CMAKE_SOURCE_DIR = C:\Users\Rina\Desktop\jogo-da-forca-gpu-edition
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = C:\Users\Rina\Desktop\jogo-da-forca-gpu\cmake-build-debug
+CMAKE_BINARY_DIR = C:\Users\Rina\Desktop\jogo-da-forca-gpu-edition\cmake-build-debug
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -86,9 +86,9 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\Rina\Desktop\jogo-da-forca-gpu\cmake-build-debug\CMakeFiles C:\Users\Rina\Desktop\jogo-da-forca-gpu\cmake-build-debug\\CMakeFiles\progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\Rina\Desktop\jogo-da-forca-gpu-edition\cmake-build-debug\CMakeFiles C:\Users\Rina\Desktop\jogo-da-forca-gpu-edition\cmake-build-debug\\CMakeFiles\progress.marks
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\Rina\Desktop\jogo-da-forca-gpu\cmake-build-debug\CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\Rina\Desktop\jogo-da-forca-gpu-edition\cmake-build-debug\CMakeFiles 0
 .PHONY : all
 
 # The main clean target

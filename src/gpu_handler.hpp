@@ -9,6 +9,18 @@
 struct gpu_gl_program {
 	GLuint program = 0;
 	bool validation = false;
+
+	void use();
+	void end();
+
+	/* Start of uniform setters. */
+	void setb(const std::string &uniform_name, bool val);
+	void seti(const std::string &uniform_name, int32_t val);
+	void setf(const std::string &uniform_name, float val);
+	void set2f(const std::string &uniform_name, const float* val);
+	void set4f(const std::string &uniform_name, const float* val);
+	void setm4f(const std::string &uniform_name, const float* val);
+	/* End of uniform setters. */
 };
 
 namespace opengl {
@@ -24,37 +36,49 @@ struct gpu_data {
 	GLint begin;
 	GLint end;
 
-	GLuint texture_slot;
+	uint8_t texture_slot;
 	GLuint texture;
 };
 
 struct dynamic_batching {
 protected:
+	std::vector<GLfloat> concurrent_allocated_textures;
 	std::vector<float> concurrent_allocated_vertices;
 	std::vector<float> concurrent_allocated_texture_coords;
 
 	uint32_t sizeof_allocated_gpu_data;
-	uint32_t sizeof_instanced_allocated_gpu_data;
+	uint32_t sizeof_previous_allocated_gpu_data;
+
+	uint32_t sizeof_allocated_vertices;
+	uint32_t sizeof_instanced_allocated_vertices;
 
 	gpu_data allocated_gpu_data[2048];
+	bool should_alloc_new_buffers;
+	bool should_not_create_buffers;
 
 	GLuint vertex_arr_object;
 	GLuint vbo_vertices;
 	GLuint vbo_texture_coords;
+
+	static gpu_gl_program fx_shape;
+	static float matrix_view_ortho[16];
+	static float matrix_viewport[4];
 public:
 	static void init();
+	static void matrix();
 
-	void call();
-	void begin();
+	void invoke();
+	void instance(float x, float y);
 
 	void fill(util::vec4f &color);
+	void fill(float r, float g, float b, float a = 1.0f);
 	void vertex(float x, float y);
 
 	void bind(GLuint texture);
 	void coords(float u, float v);
 
-	void end();
-	void release();
+	void next();
+	void revoke();
 
 	void draw();
 	void free_buffers();

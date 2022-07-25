@@ -28,7 +28,7 @@ set(CMAKE_MAKEFILE_DEPENDS
   "C:/Program Files/CMake/share/cmake-3.24/Modules/Platform/Windows-windres.cmake"
   "C:/Program Files/CMake/share/cmake-3.24/Modules/Platform/Windows.cmake"
   "C:/Program Files/CMake/share/cmake-3.24/Modules/Platform/WindowsPaths.cmake"
-  "C:/Users/Rina/Desktop/jogo-da-forca-gpu/CMakeLists.txt"
+  "C:/Users/Rina/Desktop/jogo-da-forca-gpu-edition/CMakeLists.txt"
   "CMakeFiles/3.24.0-rc1/CMakeCCompiler.cmake"
   "CMakeFiles/3.24.0-rc1/CMakeCXXCompiler.cmake"
   "CMakeFiles/3.24.0-rc1/CMakeRCCompiler.cmake"
