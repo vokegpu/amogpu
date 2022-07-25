@@ -71,7 +71,7 @@ void gpu_gl_program::end() {
 }
 
 void gpu_gl_program::setb(const std::string &uniform_name, bool val) {
-	glUniform1i(glGetUniformLocation(this->program, uniform_name.c_str()), val);
+	glUniform1i(glGetUniformLocation(this->program, uniform_name.c_str()), (int32_t) val);
 }
 
 void gpu_gl_program::seti(const std::string &uniform_name, int32_t val) {
@@ -225,7 +225,7 @@ void dynamic_batching::draw() {
 
 	glBindVertexArray(this->vertex_arr_object);
 	glEnable(GL_BLEND);
-	glBlendFunc(GL_BLEND_SRC, GL_ONE_MINUS_SRC_ALPHA);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 	for (uint32_t i = 0; i < this->sizeof_allocated_gpu_data; i++) {
 		data = this->allocated_gpu_data[i];
@@ -236,10 +236,10 @@ void dynamic_batching::draw() {
 		dynamic_batching::fx_shape.setb("u_bool_texture_active", flag);
 
 		if (flag) {
-			glActiveTexture(GL_TEXTURE0 + (int32_t) data.texture_slot);
+			glActiveTexture(GL_TEXTURE0 + data.texture_slot);
 			glBindTexture(GL_TEXTURE_2D, data.texture);
 			
-			dynamic_batching::fx_shape.seti("u_sampler_texture_slot", (int32_t) data.texture_slot);
+			dynamic_batching::fx_shape.seti("u_sampler_texture_slot", data.texture_slot);
 		}
 
 		glDrawArrays(GL_TRIANGLES, data.begin, data.end);

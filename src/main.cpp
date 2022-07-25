@@ -91,7 +91,7 @@ int main(int argv, char** argc) {
 
 	draw::batch.invoke();
 	draw::rectangle(50, 50, 200, 200, util::vec4f(1.0f, 0.0f, 1.0f, 0.5f));
-	font::renderer.render("hi sou linda", 10, 10, util::vec4f(1.0f, 1.0f, 1.0f, 1.0f));
+	font::renderer.render("hi sou linda", 10, 10, util::vec4f(0.0f, 0.0f, 1.0f, 0.5f));
 	draw::batch.revoke();
 
 	while (running) {

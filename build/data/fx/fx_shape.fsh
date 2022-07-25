@@ -11,7 +11,7 @@ void main() {
 
 	if (u_bool_texture_active) {
 		frag_color = texture(u_sampler_texture_slot, varying_attrib_tex_coords);
-		frag_color = frag_color * u_vec_color;
+		frag_color = vec4(frag_color.xyz - ((1.0 - u_vec_color.xyz) - 1.0), frag_color.w * u_vec_color.w);
 	}
 
 	gl_FragColor = frag_color;
