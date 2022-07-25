@@ -68,7 +68,7 @@ public:
 	static void matrix();
 
 	void invoke();
-	void instance(float x, float y);
+	void instance(float x, float y, int32_t factor = -1);
 
 	void fill(util::vec4f &color);
 	void fill(float r, float g, float b, float a = 1.0f);
@@ -85,7 +85,9 @@ public:
 };
 
 namespace draw {
-	void rectangle(float x, float y, float w, float h, util::vec4f &color);
+	extern dynamic_batching batch;
+
+	void rectangle(float x, float y, float w, float h, util::vec4f color);
 }
 
 #endif

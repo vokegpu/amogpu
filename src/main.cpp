@@ -46,6 +46,9 @@ void on_update() {
 void on_render() {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glClearColor(.5f, .5f, 1.0f, 1.0f);
+
+	// Draw the batch.
+	draw::batch.draw();
 }
 
 int main(int argv, char** argc) {
@@ -65,6 +68,8 @@ int main(int argv, char** argc) {
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
 	SDL_GL_SetSwapInterval(1); // v-sync
 
+	glEnable(GL_DEPTH_TEST);
+
 	update_window_viewport();
 	util::log("Window and OpenGL context created!");
 
@@ -82,28 +87,9 @@ int main(int argv, char** argc) {
 	util::log("Initinalising buffers!");
 	dynamic_batching::init();
 
-	dynamic_batching batch;
-
-	float x = 0;
-	float y = 0;
-
-	batch.invoke();
-	batch.instance(20, 20);
-	batch.fill(1, 1, 1, 1);
-	batch.vertex(x, y);
-	batch.vertex(x, y + 50);
-	batch.vertex(x + 50, y + 50);
-	batch.vertex(x + 50, y + 50);
-	batch.vertex(x + 50, y);
-	batch.vertex(x, y);
-	batch.coords(0.0f, 0.0f);
-	batch.coords(0.0f, 0.0f);
-	batch.coords(0.0f, 0.0f);
-	batch.coords(0.0f, 0.0f);
-	batch.coords(0.0f, 0.0f);
-	batch.coords(0.0f, 0.0f);
-	batch.next();
-	batch.revoke();
+	draw::batch.invoke();
+	draw::rectangle(50, 50, 200, 200, util::vec4f(1.0f, 0.0f, 1.0f, 0.5f));
+	draw::batch.revoke();
 
 	while (running) {
 		current_ticks = SDL_GetTicks64();
@@ -131,8 +117,6 @@ int main(int argv, char** argc) {
 			// Update and render section.
 			on_update();
 			on_render();
-
-			batch.draw();
 
 			// Count ticked frames.
 			ticked_frames++;

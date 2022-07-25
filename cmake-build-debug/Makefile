@@ -128,6 +128,30 @@ jogodaforcagpu/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\jogodaforcagpu.dir\build.make CMakeFiles/jogodaforcagpu.dir/build
 .PHONY : jogodaforcagpu/fast
 
+src/font_renderer.obj: src/font_renderer.cpp.obj
+.PHONY : src/font_renderer.obj
+
+# target to build an object file
+src/font_renderer.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\jogodaforcagpu.dir\build.make CMakeFiles/jogodaforcagpu.dir/src/font_renderer.cpp.obj
+.PHONY : src/font_renderer.cpp.obj
+
+src/font_renderer.i: src/font_renderer.cpp.i
+.PHONY : src/font_renderer.i
+
+# target to preprocess a source file
+src/font_renderer.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\jogodaforcagpu.dir\build.make CMakeFiles/jogodaforcagpu.dir/src/font_renderer.cpp.i
+.PHONY : src/font_renderer.cpp.i
+
+src/font_renderer.s: src/font_renderer.cpp.s
+.PHONY : src/font_renderer.s
+
+# target to generate assembly for a file
+src/font_renderer.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\jogodaforcagpu.dir\build.make CMakeFiles/jogodaforcagpu.dir/src/font_renderer.cpp.s
+.PHONY : src/font_renderer.cpp.s
+
 src/gpu_handler.obj: src/gpu_handler.cpp.obj
 .PHONY : src/gpu_handler.obj
 
@@ -209,6 +233,9 @@ help:
 	@echo ... edit_cache
 	@echo ... rebuild_cache
 	@echo ... jogodaforcagpu
+	@echo ... src/font_renderer.obj
+	@echo ... src/font_renderer.i
+	@echo ... src/font_renderer.s
 	@echo ... src/gpu_handler.obj
 	@echo ... src/gpu_handler.i
 	@echo ... src/gpu_handler.s

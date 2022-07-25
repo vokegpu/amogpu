@@ -3,6 +3,8 @@ file(REMOVE_RECURSE
   "C:/Users/Rina/Desktop/jogo-da-forca-gpu-edition/build/jogodaforcagpu.exe.manifest"
   "C:/Users/Rina/Desktop/jogo-da-forca-gpu-edition/build/jogodaforcagpu.pdb"
   "C:/Users/Rina/Desktop/jogo-da-forca-gpu-edition/build/libjogodaforcagpu.dll.a"
+  "CMakeFiles/jogodaforcagpu.dir/src/font_renderer.cpp.obj"
+  "CMakeFiles/jogodaforcagpu.dir/src/font_renderer.cpp.obj.d"
   "CMakeFiles/jogodaforcagpu.dir/src/gpu_handler.cpp.obj"
   "CMakeFiles/jogodaforcagpu.dir/src/gpu_handler.cpp.obj.d"
   "CMakeFiles/jogodaforcagpu.dir/src/main.cpp.obj"
