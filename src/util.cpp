@@ -5,6 +5,10 @@
 float util::clock::dt = 0.0f;
 uint32_t util::clock::fps = 0;
 
+bool util::rect::aabb_collide_with_point(float x, float y) {
+	return x > this->x && x < this->x + this->w && y > this->y && y < this->y + this->h;
+}
+
 void util::log(const std::string &input_str) {
 	std::cout << ("[MAIN] " + input_str).c_str() << std::endl;
 }
@@ -56,7 +60,7 @@ void util::projection_view_ortho(float* mat, float left, float right, float bott
 
 	mat[12] = (-(right + left) * xinv);
 	mat[13] = (-(top + bottom) * yinv);
-	mat[14] = (-(zfar - znear) * zinv);
+	mat[14] = (-(zfar + znear) * zinv);
 	mat[15] = 1.0f;
 }
 

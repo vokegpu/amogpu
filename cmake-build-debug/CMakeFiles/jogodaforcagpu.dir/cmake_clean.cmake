@@ -7,6 +7,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/jogodaforcagpu.dir/src/font_renderer.cpp.obj.d"
   "CMakeFiles/jogodaforcagpu.dir/src/gpu_handler.cpp.obj"
   "CMakeFiles/jogodaforcagpu.dir/src/gpu_handler.cpp.obj.d"
+  "CMakeFiles/jogodaforcagpu.dir/src/keyboard.cpp.obj"
+  "CMakeFiles/jogodaforcagpu.dir/src/keyboard.cpp.obj.d"
   "CMakeFiles/jogodaforcagpu.dir/src/main.cpp.obj"
   "CMakeFiles/jogodaforcagpu.dir/src/main.cpp.obj.d"
   "CMakeFiles/jogodaforcagpu.dir/src/util.cpp.obj"

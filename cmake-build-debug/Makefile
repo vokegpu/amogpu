@@ -176,6 +176,30 @@ src/gpu_handler.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\jogodaforcagpu.dir\build.make CMakeFiles/jogodaforcagpu.dir/src/gpu_handler.cpp.s
 .PHONY : src/gpu_handler.cpp.s
 
+src/keyboard.obj: src/keyboard.cpp.obj
+.PHONY : src/keyboard.obj
+
+# target to build an object file
+src/keyboard.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\jogodaforcagpu.dir\build.make CMakeFiles/jogodaforcagpu.dir/src/keyboard.cpp.obj
+.PHONY : src/keyboard.cpp.obj
+
+src/keyboard.i: src/keyboard.cpp.i
+.PHONY : src/keyboard.i
+
+# target to preprocess a source file
+src/keyboard.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\jogodaforcagpu.dir\build.make CMakeFiles/jogodaforcagpu.dir/src/keyboard.cpp.i
+.PHONY : src/keyboard.cpp.i
+
+src/keyboard.s: src/keyboard.cpp.s
+.PHONY : src/keyboard.s
+
+# target to generate assembly for a file
+src/keyboard.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\jogodaforcagpu.dir\build.make CMakeFiles/jogodaforcagpu.dir/src/keyboard.cpp.s
+.PHONY : src/keyboard.cpp.s
+
 src/main.obj: src/main.cpp.obj
 .PHONY : src/main.obj
 
@@ -239,6 +263,9 @@ help:
 	@echo ... src/gpu_handler.obj
 	@echo ... src/gpu_handler.i
 	@echo ... src/gpu_handler.s
+	@echo ... src/keyboard.obj
+	@echo ... src/keyboard.i
+	@echo ... src/keyboard.s
 	@echo ... src/main.obj
 	@echo ... src/main.i
 	@echo ... src/main.s

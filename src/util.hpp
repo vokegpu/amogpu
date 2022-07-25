@@ -18,6 +18,8 @@ namespace util {
 		float y = 0.0f;
 		float w = 0.0f;
 		float h = 0.0f;
+
+		bool aabb_collide_with_point(float x, float y);
 	};
 
 	struct vec4f {

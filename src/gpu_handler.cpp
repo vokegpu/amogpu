@@ -234,6 +234,7 @@ void dynamic_batching::draw() {
 		dynamic_batching::fx_shape.set2f("u_vec_pos", data.pos);
 		dynamic_batching::fx_shape.set4f("u_vec_color", data.color);
 		dynamic_batching::fx_shape.setb("u_bool_texture_active", flag);
+		dynamic_batching::fx_shape.setf("u_float_zdepth", static_cast<float>(i + 1));
 
 		if (flag) {
 			glActiveTexture(GL_TEXTURE0 + data.texture_slot);

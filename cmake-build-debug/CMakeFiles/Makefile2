@@ -80,12 +80,12 @@ clean: CMakeFiles/jogodaforcagpu.dir/clean
 CMakeFiles/jogodaforcagpu.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\jogodaforcagpu.dir\build.make CMakeFiles/jogodaforcagpu.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\jogodaforcagpu.dir\build.make CMakeFiles/jogodaforcagpu.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=C:\Users\Rina\Desktop\jogo-da-forca-gpu-edition\cmake-build-debug\CMakeFiles --progress-num=1,2,3,4,5 "Built target jogodaforcagpu"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=C:\Users\Rina\Desktop\jogo-da-forca-gpu-edition\cmake-build-debug\CMakeFiles --progress-num=1,2,3,4,5,6 "Built target jogodaforcagpu"
 .PHONY : CMakeFiles/jogodaforcagpu.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/jogodaforcagpu.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\Rina\Desktop\jogo-da-forca-gpu-edition\cmake-build-debug\CMakeFiles 5
+	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\Rina\Desktop\jogo-da-forca-gpu-edition\cmake-build-debug\CMakeFiles 6
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 CMakeFiles/jogodaforcagpu.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\Rina\Desktop\jogo-da-forca-gpu-edition\cmake-build-debug\CMakeFiles 0
 .PHONY : CMakeFiles/jogodaforcagpu.dir/rule

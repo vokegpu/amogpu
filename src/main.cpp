@@ -2,6 +2,7 @@
 #include <gl/glew.h>
 #include "font_renderer.hpp"
 #include "gpu_handler.hpp"
+#include "keyboard.hpp"
 
 SDL_Window* sdl_win;
 bool running = true;
@@ -89,9 +90,16 @@ int main(int argv, char** argc) {
 	font_renderer::init();
 	font::renderer.load("data/fonts/impact.ttf", 30);
 
+	keyboard _keyboard;
+	_keyboard.init();
+	_keyboard.set_size(200, 200);
+	_keyboard.set_pos(100, 100);
+	_keyboard.calculate_scale();
+
 	draw::batch.invoke();
 	draw::rectangle(50, 50, 200, 200, util::vec4f(1.0f, 0.0f, 1.0f, 0.5f));
 	font::renderer.render("hi sou linda", 10, 10, util::vec4f(0.0f, 0.0f, 1.0f, 0.5f));
+	_keyboard.on_draw_reload();
 	draw::batch.revoke();
 
 	while (running) {

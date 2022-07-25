@@ -304,4 +304,5 @@ CMakeFiles/jogodaforcagpu.dir/src/main.cpp.obj: \
  C:/MinGW/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/stl_uninitialized.h \
  C:/MinGW/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/stl_vector.h \
  C:/MinGW/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/stl_bvector.h \
- C:/MinGW/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/vector.tcc
+ C:/MinGW/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/vector.tcc \
+ C:\Users\Rina\Desktop\jogo-da-forca-gpu-edition\src\keyboard.hpp
