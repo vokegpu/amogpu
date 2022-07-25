@@ -118,14 +118,17 @@ void dynamic_batching::instance(float x, float y, int32_t factor) {
 	data.pos[0] = x;
 	data.pos[1] = y;
 
-	if (factor != -1 && data.factor != factor) {
-		this->should_alloc_new_buffers = true;
-	}
-
+	this->factor(factor);
 	this->sizeof_instanced_allocated_vertices = 0;
 }
 
-void dynamic_batching::fill(util::vec4f &color) {
+void dynamic_batching::factor(int32_t factor) {
+	if (factor != -1 && this->allocated_gpu_data[this->sizeof_allocated_gpu_data].factor != factor) {
+		this->should_alloc_new_buffers = true;
+	}
+}
+
+void dynamic_batching::fill(const util::vec4f &color) {
 	this->fill(color.x, color.y, color.z, color.w);
 }
 
@@ -161,11 +164,11 @@ void dynamic_batching::bind(GLuint texture) {
 	}
 
 	if (data.texture == 0 && data.texture_slot == 0) {
-		this->concurrent_allocated_textures.push_back(texture);
-
 		// Set the slot and push new texture to memory.
 		data.texture = texture;
 		data.texture_slot = (uint8_t) this->concurrent_allocated_textures.size();
+
+		this->concurrent_allocated_textures.push_back(texture);
 	}
 }
 
@@ -195,13 +198,13 @@ void dynamic_batching::revoke() {
 
 		glBindVertexArray(this->vertex_arr_object);
 
-		glBindBuffer(GL_ARRAY_BUFFER, this->vbo_vertices);
 		glEnableVertexAttribArray(0); // Location 0; the vertexes data.
+		glBindBuffer(GL_ARRAY_BUFFER, this->vbo_vertices);
 		glBufferData(GL_ARRAY_BUFFER, sizeof(float) * this->concurrent_allocated_vertices.size(), &this->concurrent_allocated_vertices[0], GL_STATIC_DRAW);
 		glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 0, (void*) 0);
 
-		glBindBuffer(GL_ARRAY_BUFFER, this->vbo_texture_coords);
 		glEnableVertexAttribArray(1); // Location 1; the coordinates texture data.
+		glBindBuffer(GL_ARRAY_BUFFER, this->vbo_texture_coords);
 		glBufferData(GL_ARRAY_BUFFER, sizeof(float) * this->concurrent_allocated_texture_coords.size(), &this->concurrent_allocated_texture_coords[0], GL_STATIC_DRAW);
 		glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 0, (void*) 0);
 
@@ -214,9 +217,6 @@ void dynamic_batching::revoke() {
 }
 
 void dynamic_batching::draw() {
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_BLEND_SRC, GL_ONE_MINUS_SRC_ALPHA);
-
 	dynamic_batching::fx_shape.use();
 	dynamic_batching::fx_shape.setm4f("u_mat_projection", dynamic_batching::matrix_view_ortho);
 
@@ -224,6 +224,8 @@ void dynamic_batching::draw() {
 	bool flag;
 
 	glBindVertexArray(this->vertex_arr_object);
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_BLEND_SRC, GL_ONE_MINUS_SRC_ALPHA);
 
 	for (uint32_t i = 0; i < this->sizeof_allocated_gpu_data; i++) {
 		data = this->allocated_gpu_data[i];
@@ -234,18 +236,18 @@ void dynamic_batching::draw() {
 		dynamic_batching::fx_shape.setb("u_bool_texture_active", flag);
 
 		if (flag) {
-			dynamic_batching::fx_shape.seti("u_sampler_texture_slot", data.texture_slot);
-
+			glActiveTexture(GL_TEXTURE0 + (int32_t) data.texture_slot);
 			glBindTexture(GL_TEXTURE_2D, data.texture);
-			glActiveTexture(GL_TEXTURE0 + data.texture_slot);
+			
+			dynamic_batching::fx_shape.seti("u_sampler_texture_slot", (int32_t) data.texture_slot);
 		}
 
 		glDrawArrays(GL_TRIANGLES, data.begin, data.end);
 		glBindTexture(GL_TEXTURE_2D, 0);
 	}
 
-	glBindVertexArray(0);
 	dynamic_batching::fx_shape.end();
+	glBindVertexArray(0);
 }
 
 void dynamic_batching::free_buffers() {
@@ -253,7 +255,7 @@ void dynamic_batching::free_buffers() {
 	glDeleteBuffers(1, &this->vbo_texture_coords);
 }
 
-void draw::rectangle(float x, float y, float w, float h, util::vec4f color) {
+void draw::rectangle(float x, float y, float w, float h, const util::vec4f &color) {
 	// Clamp the sizes.
 	w = w < 0 ? 1 : w;
 	h = h < 0 ? 1 : h;

@@ -178,6 +178,28 @@ CMakeFiles/jogodaforcagpu.dir/src/main.cpp.obj: \
  C:/MinGW/x86_64-w64-mingw32/include/inttypes.h \
  C:/MinGW/x86_64-w64-mingw32/include/GL/glu.h \
  C:/MinGW/x86_64-w64-mingw32/include/GL/gl.h \
+ C:\Users\Rina\Desktop\jogo-da-forca-gpu-edition\src\font_renderer.hpp \
+ C:/MinGW/x86_64-w64-mingw32/include/ft2build.h \
+ C:/MinGW/x86_64-w64-mingw32/include/freetype/config/ftheader.h \
+ C:/MinGW/x86_64-w64-mingw32/include/freetype/freetype.h \
+ C:/MinGW/x86_64-w64-mingw32/include/freetype/config/ftconfig.h \
+ C:/MinGW/x86_64-w64-mingw32/include/freetype/config/ftoption.h \
+ C:/MinGW/x86_64-w64-mingw32/include/freetype/config/ftstdlib.h \
+ C:/MinGW/x86_64-w64-mingw32/include/string.h \
+ C:/MinGW/x86_64-w64-mingw32/include/sec_api/string_s.h \
+ C:/MinGW/x86_64-w64-mingw32/include/stdio.h \
+ C:/MinGW/x86_64-w64-mingw32/include/corecrt_stdio_config.h \
+ C:/MinGW/x86_64-w64-mingw32/include/swprintf.inl \
+ C:/MinGW/x86_64-w64-mingw32/include/sec_api/stdio_s.h \
+ C:/MinGW/x86_64-w64-mingw32/include/freetype/config/integer-types.h \
+ C:/MinGW/x86_64-w64-mingw32/include/freetype/config/public-macros.h \
+ C:/MinGW/x86_64-w64-mingw32/include/freetype/config/mac-support.h \
+ C:/MinGW/x86_64-w64-mingw32/include/freetype/fttypes.h \
+ C:/MinGW/x86_64-w64-mingw32/include/freetype/ftsystem.h \
+ C:/MinGW/x86_64-w64-mingw32/include/freetype/ftimage.h \
+ C:/MinGW/x86_64-w64-mingw32/include/freetype/fterrors.h \
+ C:/MinGW/x86_64-w64-mingw32/include/freetype/ftmoderr.h \
+ C:/MinGW/x86_64-w64-mingw32/include/freetype/fterrdef.h \
  C:\Users\Rina\Desktop\jogo-da-forca-gpu-edition\src\util.hpp \
  C:/MinGW/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/iostream \
  C:/MinGW/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/ostream \
@@ -188,9 +210,7 @@ CMakeFiles/jogodaforcagpu.dir/src/main.cpp.obj: \
  C:/MinGW/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/postypes.h \
  C:/MinGW/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/cwchar \
  C:/MinGW/x86_64-w64-mingw32/include/wchar.h \
- C:/MinGW/x86_64-w64-mingw32/include/corecrt_stdio_config.h \
  C:/MinGW/x86_64-w64-mingw32/include/_mingw_stat64.h \
- C:/MinGW/x86_64-w64-mingw32/include/swprintf.inl \
  C:/MinGW/x86_64-w64-mingw32/include/sec_api/wchar_s.h \
  C:/MinGW/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/exception \
  C:/MinGW/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/exception.h \
@@ -223,8 +243,6 @@ CMakeFiles/jogodaforcagpu.dir/src/main.cpp.obj: \
  C:/MinGW/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/x86_64-w64-mingw32/bits/c++locale.h \
  C:/MinGW/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/clocale \
  C:/MinGW/x86_64-w64-mingw32/include/locale.h \
- C:/MinGW/x86_64-w64-mingw32/include/stdio.h \
- C:/MinGW/x86_64-w64-mingw32/include/sec_api/stdio_s.h \
  C:/MinGW/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/cctype \
  C:/MinGW/x86_64-w64-mingw32/include/ctype.h \
  C:/MinGW/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/ios_base.h \

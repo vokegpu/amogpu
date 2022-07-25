@@ -1,7 +1,6 @@
 #include <SDL2/SDL.h>
 #include <gl/glew.h>
-
-#include "util.hpp"
+#include "font_renderer.hpp"
 #include "gpu_handler.hpp"
 
 SDL_Window* sdl_win;
@@ -69,8 +68,8 @@ int main(int argv, char** argc) {
 	SDL_GL_SetSwapInterval(1); // v-sync
 
 	glEnable(GL_DEPTH_TEST);
-
 	update_window_viewport();
+
 	util::log("Window and OpenGL context created!");
 
 	SDL_Event sdl_event;
@@ -87,8 +86,12 @@ int main(int argv, char** argc) {
 	util::log("Initinalising buffers!");
 	dynamic_batching::init();
 
+	font_renderer::init();
+	font::renderer.load("data/fonts/impact.ttf", 30);
+
 	draw::batch.invoke();
 	draw::rectangle(50, 50, 200, 200, util::vec4f(1.0f, 0.0f, 1.0f, 0.5f));
+	font::renderer.render("hi sou linda", 10, 10, util::vec4f(1.0f, 1.0f, 1.0f, 1.0f));
 	draw::batch.revoke();
 
 	while (running) {

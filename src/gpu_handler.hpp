@@ -33,11 +33,11 @@ struct gpu_data {
 	float color[4];
 	float pos[2];
 
-	GLint begin;
-	GLint end;
+	GLint begin = 0;
+	GLint end = 0;
 
-	uint8_t texture_slot;
-	GLuint texture;
+	uint8_t texture_slot = 0;
+	GLuint texture = 0;
 };
 
 struct dynamic_batching {
@@ -69,8 +69,9 @@ public:
 
 	void invoke();
 	void instance(float x, float y, int32_t factor = -1);
+	void factor(int32_t factor);
 
-	void fill(util::vec4f &color);
+	void fill(const util::vec4f &color);
 	void fill(float r, float g, float b, float a = 1.0f);
 	void vertex(float x, float y);
 
@@ -87,7 +88,7 @@ public:
 namespace draw {
 	extern dynamic_batching batch;
 
-	void rectangle(float x, float y, float w, float h, util::vec4f color);
+	void rectangle(float x, float y, float w, float h, const util::vec4f &color);
 }
 
 #endif
