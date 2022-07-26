@@ -20,6 +20,16 @@ namespace util {
 		float h = 0.0f;
 
 		bool aabb_collide_with_point(float x, float y);
+
+		void operator += (util::rect &rect) {
+			this->x += rect.x;
+			this->y += rect.y;
+		}
+
+		void operator -= (util::rect &rect) {
+			this->x -= rect.x;
+			this->y -= rect.y;
+		}
 	};
 
 	struct vec4f {

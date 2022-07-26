@@ -87,6 +87,7 @@ public:
 
 namespace draw {
 	extern dynamic_batching batch;
+	extern bool refresh;
 
 	void rectangle(float x, float y, float w, float h, const util::vec4f &color);
 }

@@ -1,6 +1,7 @@
 #include "gpu_handler.hpp"
 
-dynamic_batching draw::batch; 
+dynamic_batching draw::batch;
+bool draw::refresh;
 
 gpu_gl_program dynamic_batching::fx_shape;
 float dynamic_batching::matrix_view_ortho[16];
@@ -190,7 +191,6 @@ void dynamic_batching::revoke() {
 		glGenBuffers(1, &this->vbo_texture_coords);
 		this->should_not_create_buffers = true;
 	}
-
 
 	if ((this->sizeof_previous_allocated_gpu_data != this->sizeof_allocated_gpu_data) || this->should_alloc_new_buffers) {
 		this->sizeof_previous_allocated_gpu_data = this->sizeof_allocated_gpu_data;
