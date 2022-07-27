@@ -45,11 +45,11 @@ batch.vertex(triangle_width / 2, triangle_height / 2);
 batch.vertex(0, triangle_height);
 batch.vertex(triangle_width, triangle_height);
 
-// Pra cada vértice devemos espeficiar coordenadas uv.
-// Como é texturizado devemos pasar as coordenadas normalisadas, se não tiver textura inclusa é só passar 0.0f as 3 de coordenadas.
-batch.coords(0.0f, 0.0f);
-batch.coords(0.0f, 0.0f);
-batch.coords(0.0f, 0.0f);
+// Se temos 3 vértices então devemos aplicar 3 vezes coordenadas uv.
+// Como é texturizado devemos pasar as coordenadas normalisadas, se não tiver textura inclusa é só passar 0.0f 3 vezes.
+batch.coords(0.5f, 0.5f);
+batch.coords(0.0f, 1.0f);
+batch.coords(1.0f, 1.0f);
 
 batch.next(); // Se você quiser desenhar 30 triangulos é só pegar esse sub-segmento de (instance() - next()) calls e replicar.
 
