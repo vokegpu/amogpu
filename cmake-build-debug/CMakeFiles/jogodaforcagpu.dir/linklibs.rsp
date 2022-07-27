@@ -1,1 +1,0 @@
- -lmingw32 -lglew32 -lopengl32 -lSDL2main -lSDL2 -lfreetype -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32 

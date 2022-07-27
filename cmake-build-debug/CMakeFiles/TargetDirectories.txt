@@ -1,3 +1,0 @@
-C:/Users/Rina/Desktop/jogo-da-forca-gpu-edition/cmake-build-debug/CMakeFiles/jogodaforcagpu.dir
-C:/Users/Rina/Desktop/jogo-da-forca-gpu-edition/cmake-build-debug/CMakeFiles/edit_cache.dir
-C:/Users/Rina/Desktop/jogo-da-forca-gpu-edition/cmake-build-debug/CMakeFiles/rebuild_cache.dir
