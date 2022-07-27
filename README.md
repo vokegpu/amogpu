@@ -5,7 +5,7 @@ Ao longo dos anos sempre amei qualquer coisa que envolvia assuntos visuais que u
 
 Esse repo é um simples projeto mostrando como podemos utilizar corretamente funções do OpenGL moderno, diferente da versão legacy, lembre é preciso estudar um pouco o código antes de querer aplicar por aí em qualquer contexto GL (OpenGL ES, WebGL etc)!
 
---
+---
 
 - O que é tessellator?
 Do mesmo modo que traçamos linhas para formar um tecido, em computação trassamos linhas por vértices, quando tratamos de elementos UI que elaboram uma GUI, é preciso manipular cada evento de cada elemento UI sincronizado com o desenho, para isso preciamos passar para a GPU vértices e as posições na tela, entretanto não dá pra só atualizar a todo tick e passar vértices a todo tick e a todo momento.
@@ -13,7 +13,7 @@ Do mesmo modo que traçamos linhas para formar um tecido, em computação trassa
 - O que é dynamic batching?
 Batch é salvar em forma de lote e utilizar depois, diferente de você enviar vértices todo instante (tick), podemos armazenar as vértices em lote e depois renderizar, e mais, salvar as posições, cor ou textura para renderizar sem a necessidade de mandar todas as vértices denovo para a GPU, com isso é possível ter uma performance muito maior se comparada com outros métodos.
 
---
+---
 
 O funcionamento é simples:
 ```c++
@@ -24,4 +24,41 @@ batch.revoke(); // Finalizamos o segmento de desenhar da GPU.
 
 // Em um loop com contexto OpenGL.
 batch.draw();
+```
+
+Dentro do segmento de desenhar podemos renderizar muitos rects (dá pra facilmente renderizar circulos mas nesse caso é feito no fragment shader):
+```c++
+batch.invoke(); // Iniciamos esse segmento.
+
+float triangle_width = 50;
+float triangle_height = 50;
+
+batch.instance(20, 20); // 1 desenho.
+batch.fill(1.0f, 1.0f, 1.0f, 1.0f); // definimos a cor em RGBA normalisados (1.0 - 0.0).
+batch.bind(texture); // texture é um uint que guarda dados de uma textura.
+
+// Note que esse factor é um metódo que vai ser descontinuado em versões futuras.
+batch.factor(triangle_width / triangle_height) // O que é isso? se o triangulo mudar de tamanho então devemos mencionar isso para o batch.
+
+// Mesh de vértices.
+batch.vertex(triangle_width / 2, triangle_height / 2);
+batch.vertex(0, triangle_height);
+batch.vertex(triangle_width, triangle_height);
+
+// Pra cada vértice devemos espeficiar coordenadas uv.
+// Como é texturizado devemos pasar as coordenadas normalisadas, se não tiver textura inclusa é só passar 0.0f as 3 de coordenadas.
+batch.coords(0.0f, 0.0f);
+batch.coords(0.0f, 0.0f);
+batch.coords(0.0f, 0.0f);
+
+batch.next(); // Se você quiser desenhar 30 triangulos é só pegar esse sub-segmento de (instance() - next()) calls e replicar.
+
+// e.g
+// você colocou todo o código acima dentro de uma função ou metódo com parametros para apenas a posição.
+// então você pode invocar muitas vezes.
+push_triangle(20, 50);
+push_triangle(90, 80);
+push_triangle(700, 250);
+
+batch.revoke(); // Finalizamos esse segmento.
 ```
