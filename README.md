@@ -33,7 +33,7 @@ batch.invoke(); // Iniciamos esse segmento.
 float triangle_width = 50;
 float triangle_height = 50;
 
-batch.instance(20, 20); // 1 desenho.
+batch.instance(20, 20); // Instancia contém 3 argumentos, 2 primeiros são [x, y] e o ultimo é o factor, mas não precisa especificar agora.
 batch.fill(1.0f, 1.0f, 1.0f, 1.0f); // definimos a cor em RGBA normalisados (1.0 - 0.0).
 batch.bind(texture); // texture é um uint que guarda dados de uma textura.
 
