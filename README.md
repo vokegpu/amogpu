@@ -1,4 +1,4 @@
-# Amo GPU
+# Dynamic Batching
 
 Entenda, a GPU é muito importante para nós programdores e programadoras, sem ela aplicações que nós usamos não teria o minimo de performance e design bonito!
 Ao longo dos anos sempre amei qualquer coisa que envolvia assuntos visuais que usam das APIs OpenGL, DirectX e Vulkan! Infelizmente poucas pessoas se interessam por este íncrivel lado do hardware!
