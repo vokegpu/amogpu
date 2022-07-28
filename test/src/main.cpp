@@ -16,7 +16,7 @@ void update_window_viewport() {
 
 	// Set the viewport of window.
 	glViewport(0.0f, 0.0f, width, height);
-	dynamic_batching::matrix();
+	amogpu::matrix();
 
 	amogpu::log("Window viewport update (" + std::to_string(width) + ", " + std::to_string(height) + ")");
 
@@ -53,15 +53,22 @@ void on_render() {
 	glClearColor(.5f, .5f, 1.0f, 1.0f);
 
 	if (draw::refresh) {
+		draw::font.batch()->invoke();
 		draw::batch.invoke();
+
 		draw::rectangle(50, 50, 200, 200, amogpu::vec4f(1.0f, 0.0f, 1.0f, 0.5f));
-		draw::font.render("hi sou linda", 10, 10, amogpu::vec4f(0.0f, 0.0f, 1.0f, 0.5f));
 		_keyboard.on_draw_reload();
+		draw::font.render("hi sou linda", 10, 10, amogpu::vec4f(0.0f, 0.0f, 1.0f, 0.5f));
+
 		draw::batch.revoke();
+		draw::font.batch()->revoke();
 	}
 
 	// Draw the batch.
 	draw::batch.draw();
+
+	// Draw the batch 2;
+	draw::font.batch()->draw();
 }
 
 int main(int argv, char** argc) {
@@ -98,7 +105,10 @@ int main(int argv, char** argc) {
 	amogpu::log("Initinalising buffers!");
 	amogpu::init();
 
+	dynamic_batching batch2;
+
 	draw::font.load("data/fonts/impact.ttf", 30);
+	draw::font.from(&batch2);
 
 	_keyboard.init();
 	_keyboard.calculate_scale();

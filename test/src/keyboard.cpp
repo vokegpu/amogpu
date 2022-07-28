@@ -30,7 +30,7 @@ void keyboard::on_event(SDL_Event &sdl_event) {
 
 			if (this->rect.aabb_collide_with_point(mx, my)) {
 				for (uint8_t i = 0; i < this->key_list.size(); i++) {
-					util::rect &rekts = this->key_list.at(i);
+					amogpu::rect &rekts = this->key_list.at(i);
 					char* key = const_cast<char*>(this->key_char_list.at(i));
 
 					// Add the rects.

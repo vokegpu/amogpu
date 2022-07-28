@@ -6,48 +6,14 @@
 #include <string>
 #include <vector>
 #include <gl/glew.h>
-
-/**
- * Mini-programs on GPU.
- **/
-struct gpu_gl_program {
-	GLuint program = 0;
-	bool validation = false;
-
-	void use();
-	void end();
-
-	/* Start of uniform setters. */
-	void setb(const std::string &uniform_name, bool val);
-	void seti(const std::string &uniform_name, int32_t val);
-	void setf(const std::string &uniform_name, float val);
-	void set2f(const std::string &uniform_name, const float* val);
-	void set4f(const std::string &uniform_name, const float* val);
-	void setm4f(const std::string &uniform_name, const float* val);
-	/* End of uniform setters. */
-};
-
-/**
- * Store GPU data.
- **/
-struct gpu_data {
-	uint32_t factor;
-	float color[4];
-	float pos[2];
-
-	GLint begin = 0;
-	GLint end = 0;
-
-	uint8_t texture_slot = 0;
-	GLuint texture = 0;
-};
+#include "amogpu/core.hpp"
 
 /**
  * Batch but dynamic, high performance.
  **/
 struct dynamic_batching {
 protected:
-	std::vector<GLfloat> concurrent_allocated_textures;
+	std::vector<float> concurrent_allocated_textures;
 	std::vector<float> concurrent_allocated_vertices;
 	std::vector<float> concurrent_allocated_texture_coords;
 
@@ -57,7 +23,7 @@ protected:
 	uint32_t sizeof_allocated_vertices;
 	uint32_t sizeof_instanced_allocated_vertices;
 
-	gpu_data allocated_gpu_data[2048];
+	amogpu::gpu_data allocated_gpu_data[2048];
 	bool should_alloc_new_buffers;
 	bool should_not_create_buffers;
 
@@ -65,10 +31,20 @@ protected:
 	GLuint vbo_vertices;
 	GLuint vbo_texture_coords;
 
-	static gpu_gl_program fx_shape;
+	static amogpu::gpu_gl_program fx_shape;
 	static float matrix_view_ortho[16];
 	static float matrix_viewport[4];
 public:
+	/*
+	 * The current invoked batch.
+	 */
+	static dynamic_batching* invoked;
+
+	/*
+	 * The current z depth position of all draws.
+	 */
+	static uint32_t depth;
+
 	/*
 	 * Init the dynamic batching.
 	 */
@@ -90,14 +66,19 @@ public:
 	void instance(float x, float y, int32_t factor = -1);
 
 	/*
-	 * For complex shapes as string or tile.
+	 * For a simple shapes.
+	 */
+	void modal(float w, float h);
+
+	/*
+	 * For complex shapes.
 	 */
 	void factor(int32_t factor);
 
 	/*
 	 * Fill with RGBA color normalised.
 	 */
-	void fill(const util::vec4f &color);
+	void fill(const amogpu::vec4f &color);
 
     /*
 	 * Fill with RGBA color normalised.

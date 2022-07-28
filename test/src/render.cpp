@@ -1,23 +1,19 @@
 #include "render.hpp"
 
-dynamic_batching const draw::batch;
-font_renderer const draw::font;
+dynamic_batching draw::batch;
+font_renderer draw::font;
 bool draw::refresh = true;
 
 void draw::rectangle(float x, float y, float w, float h, const amogpu::vec4f &color) {
-	// Clamp the sizes.
-	w = w < 0 ? 1 : w;
-	h = h < 0 ? 1 : h;
-
-	// NOTE: the factor value in instance is to mark concurrent changes in geometry,
-	// flagging it the gpu handler can alloc the new size buffer. 
-
 	// Call an instance of the global batch.
-	draw::batch.instance(x, y, w / h);
+	draw::batch.instance(x, y);
+	draw::batch.modal(w, h);
 
 	// We need to reset the coords for the geometry mesh.
-	x = 0;
-	y = 0;
+	x = 0.0f;
+	y = 0.0f;
+	w = 1.0f;
+	h = 1.0f;
 
 	// Fill with the color.
 	draw::batch.fill(color);

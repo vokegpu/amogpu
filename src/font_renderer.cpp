@@ -1,7 +1,10 @@
 #include "amogpu/amogpu.hpp"
 
 FT_Library font_renderer::ft_library;
-font_renderer font::renderer;
+
+dynamic_batching* font_renderer::batch() {
+	return this->batch_mode == amogpu::invoked ? dynamic_batching::invoked : this->binded_batch;
+}
 
 void font_renderer::init() {
 	FT_Init_FreeType(&font_renderer::ft_library);
@@ -12,11 +15,15 @@ void font_renderer::end_ft_library() {
 }
 
 void font_renderer::load(const std::string &font_path, uint8_t font_size) {
+	if (this->batch_mode == 0) {
+		this->from(amogpu::invoked);
+	}
+
 	if (this->current_font_path == font_path && this->current_font_size == font_size) {
 		return;
 	}
 
-	if (this->current_font_path != font && FT_New_Face(font_renderer::ft_library, font_path.c_str(), 0, &this->ft_face)) {
+	if (this->current_font_path != font_path && FT_New_Face(font_renderer::ft_library, font_path.c_str(), 0, &this->ft_face)) {
 		amogpu::log("Could not load font or invalid path.");
 		return;
 	}
@@ -59,7 +66,7 @@ void font_renderer::load(const std::string &font_path, uint8_t font_size) {
 			continue;
 		}
 
-		font_char &f_char = this->allocated_font_char[i];
+		amogpu::font_char &f_char = this->allocated_font_char[i];
 
 		f_char.x = offset / static_cast<float>(this->texture_width);
 		f_char.w = static_cast<float>(this->ft_glyph_slot->bitmap.width);
@@ -83,6 +90,15 @@ void font_renderer::load(const std::string &font_path, uint8_t font_size) {
 	amogpu::log("Font loaded, created bitmap!");
 }
 
+void font_renderer::from(dynamic_batching* concurrent_batch) {
+	this->binded_batch = concurrent_batch;
+	this->batch_mode = amogpu::dynamic;
+}
+
+void font_renderer::from(uint8_t mode) {
+	this->batch_mode = mode;
+}
+
 float font_renderer::get_text_width(const std::string &text) {
 	FT_Vector vec;
 	this->previous = 0;
@@ -91,7 +107,7 @@ float font_renderer::get_text_width(const std::string &text) {
 	float render_x = 0.0f;
 	float text_width = 0.0f;
 
-	font_char f_char;
+	amogpu::font_char f_char;
 
 	for (const char* i = text.c_str(); *i; i++) {
 		if (this->use_kerneking && this->previous && *i) {
@@ -129,16 +145,18 @@ void font_renderer::render(const std::string &text, float x, float y, const amog
     y = static_cast<float>(static_cast<int32_t>(y));
 
     // Call GPU instance.
-    draw::batch.instance(x, y - (impl / 2));
-    draw::batch.fill(color);
-    draw::batch.bind(this->texture_bitmap);
+    dynamic_batching* batch = this->batch();
+
+    batch->instance(x, y - (impl / 2));
+    batch->fill(color);
+    batch->bind(this->texture_bitmap);
 
     // Reset to mesh geometry.
     x = 0;
     y = 0;
 
     this->previous = 0;
-    font_char f_char;
+    amogpu::font_char f_char;
 
     for (const char* i = char_str; *i; i++) {
     	if (this->use_kerneking && this->previous && *i) {
@@ -160,25 +178,25 @@ void font_renderer::render(const std::string &text, float x, float y, const amog
         diff += static_cast<int32_t>(texture_x);
 
         // Draw a quad.
-        draw::batch.vertex(render_x, render_y);
-        draw::batch.vertex(render_x, render_y + render_h);
-        draw::batch.vertex(render_x + render_w, render_y + render_h);
-        draw::batch.vertex(render_x + render_w, render_y + render_h);
-        draw::batch.vertex(render_x + render_w, render_y);
-        draw::batch.vertex(render_x, render_y);
+        batch->vertex(render_x, render_y);
+        batch->vertex(render_x, render_y + render_h);
+        batch->vertex(render_x + render_w, render_y + render_h);
+        batch->vertex(render_x + render_w, render_y + render_h);
+        batch->vertex(render_x + render_w, render_y);
+        batch->vertex(render_x, render_y);
         
         // Also set the modal rect texture.
-        draw::batch.coords(texture_x, texture_y);
-        draw::batch.coords(texture_x, texture_y + texture_h);
-        draw::batch.coords(texture_x + texture_w, texture_y + texture_h);
-        draw::batch.coords(texture_x + texture_w, texture_y + texture_h);
-        draw::batch.coords(texture_x + texture_w, texture_y);
-        draw::batch.coords(texture_x, texture_y);
+        batch->coords(texture_x, texture_y);
+        batch->coords(texture_x, texture_y + texture_h);
+        batch->coords(texture_x + texture_w, texture_y + texture_h);
+        batch->coords(texture_x + texture_w, texture_y + texture_h);
+        batch->coords(texture_x + texture_w, texture_y);
+        batch->coords(texture_x, texture_y);
 
         x += f_char.texture_x;
         this->previous = *i;
     }
 
-    draw::batch.factor(str_len + diff);
-    draw::batch.next();
+    batch->factor(str_len + diff);
+    batch->next();
 }

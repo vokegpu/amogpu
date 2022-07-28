@@ -1,8 +1,41 @@
-#include "amogpu/amogpu.hpp"
 #include <fstream>
+#include "amogpu/gpu_handler.hpp"
+#include "amogpu/font_renderer.hpp"
 
-float amogpu::clock::dt = 0.0f;
-uint32_t amogpu::clock::fps = 0;
+uint8_t amogpu::dynamic = 1;
+uint8_t amogpu::invoked = 2;
+
+void amogpu::gpu_gl_program::use() {
+	glUseProgram(this->program);
+}
+
+void amogpu::gpu_gl_program::end() {
+	glUseProgram(0);
+}
+
+void amogpu::gpu_gl_program::setb(const std::string &uniform_name, bool val) {
+	glUniform1i(glGetUniformLocation(this->program, uniform_name.c_str()), (int32_t) val);
+}
+
+void amogpu::gpu_gl_program::seti(const std::string &uniform_name, int32_t val) {
+	glUniform1i(glGetUniformLocation(this->program, uniform_name.c_str()), val);
+}
+
+void amogpu::gpu_gl_program::setf(const std::string &uniform_name, float val) {
+	glUniform1f(glGetUniformLocation(this->program, uniform_name.c_str()), val);
+}
+
+void amogpu::gpu_gl_program::set2f(const std::string &uniform_name, const float* val) {
+	glUniform2fv(glGetUniformLocation(this->program, uniform_name.c_str()), GL_TRUE, val);
+}
+
+void amogpu::gpu_gl_program::set4f(const std::string &uniform_name, const float* val) {
+	glUniform4fv(glGetUniformLocation(this->program, uniform_name.c_str()), GL_TRUE, val);
+}
+
+void amogpu::gpu_gl_program::setm4f(const std::string &uniform_name, const float* val) {
+	glUniformMatrix4fv(glGetUniformLocation(this->program, uniform_name.c_str()), 1, GL_FALSE, val);
+}
 
 void amogpu::init() {
 	dynamic_batching::init();
@@ -72,7 +105,20 @@ bool amogpu::create_program(gpu_gl_program &program, const char* vsh_path, const
 	bool flag = true;
 
 	flag = amogpu::read_file(vsh_src, vsh_path) && amogpu::read_file(fsh_src, fsh_path);
-	flag = flag && amogpu::compile_shader(vsh, GL_VERTEX_SHADER, vsh_src.c_str()) && amogpu::compile_shader(fsh, GL_FRAGMENT_SHADER, fsh_src.c_str());
+	flag = flag && amogpu::create_program_from_src(program, vsh_src.c_str(), fsh_src.c_str());
+
+	if (program.validation) {
+		amogpu::log("'" + std::string(vsh_path) + "' & '" + std::string(fsh_path) + "' shaders compiled.");
+	}
+
+	return program.validation;
+}
+
+bool amogpu::create_program_from_src(gpu_gl_program &program, const char* vsh_src, const char* fsh_src) {
+	GLuint vsh;
+	GLuint fsh;
+
+	bool flag = amogpu::compile_shader(vsh, GL_VERTEX_SHADER, vsh_src) && amogpu::compile_shader(fsh, GL_FRAGMENT_SHADER, fsh_src);
 
 	if (flag) {
 		program.program = glCreateProgram();
@@ -88,7 +134,7 @@ bool amogpu::create_program(gpu_gl_program &program, const char* vsh_path, const
 			char log[256];
 			glGetProgramInfoLog(program.program, 256, NULL, log);
 		} else {
-			amogpu::log("'" + std::string(vsh_path) + "' & '" + std::string(fsh_path) + "' shaders compiled.");
+			amogpu::log("Program linked.");
 		}
 		
 		program.validation = link_status;

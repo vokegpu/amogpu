@@ -1,49 +1,27 @@
 #include "amogpu/amogpu.hpp"
 
-dynamic_batching draw::batch;
-bool draw::refresh;
+float amogpu::clock::dt = 0.0f;
+uint32_t amogpu::clock::fps = 0;
 
-gpu_gl_program dynamic_batching::fx_shape;
+amogpu::gpu_gl_program dynamic_batching::fx_shape;
+dynamic_batching* dynamic_batching::invoked = nullptr;
+uint32_t dynamic_batching::depth = 0;
+
 float dynamic_batching::matrix_view_ortho[16];
 float dynamic_batching::matrix_viewport[4];
 
-void gpu_gl_program::use() {
-	glUseProgram(this->program);
-}
-
-void gpu_gl_program::end() {
-	glUseProgram(0);
-}
-
-void gpu_gl_program::setb(const std::string &uniform_name, bool val) {
-	glUniform1i(glGetUniformLocation(this->program, uniform_name.c_str()), (int32_t) val);
-}
-
-void gpu_gl_program::seti(const std::string &uniform_name, int32_t val) {
-	glUniform1i(glGetUniformLocation(this->program, uniform_name.c_str()), val);
-}
-
-void gpu_gl_program::setf(const std::string &uniform_name, float val) {
-	glUniform1f(glGetUniformLocation(this->program, uniform_name.c_str()), val);
-}
-
-void gpu_gl_program::set2f(const std::string &uniform_name, const float* val) {
-	glUniform2fv(glGetUniformLocation(this->program, uniform_name.c_str()), GL_TRUE, val);
-}
-
-void gpu_gl_program::set4f(const std::string &uniform_name, const float* val) {
-	glUniform4fv(glGetUniformLocation(this->program, uniform_name.c_str()), GL_TRUE, val);
-}
-
-void gpu_gl_program::setm4f(const std::string &uniform_name, const float* val) {
-	glUniformMatrix4fv(glGetUniformLocation(this->program, uniform_name.c_str()), 1, GL_FALSE, val);
-}
-
 void dynamic_batching::init() {
+	const char* vsh_src = "";
+	const char* fsh_src = "";
+
 	amogpu::create_program(dynamic_batching::fx_shape, "data/fx/fx_shape.vsh", "data/fx/fx_shape.fsh");
 }
 
 void dynamic_batching::matrix() {
+	// Reset the depth pos.
+	dynamic_batching::depth = 0;
+
+	// Calculate the matrixes.
 	amogpu::viewport(dynamic_batching::matrix_viewport);
 	amogpu::projection_view_ortho(dynamic_batching::matrix_view_ortho, 0.0f, dynamic_batching::matrix_viewport[2], dynamic_batching::matrix_viewport[3], 0.0f);
 }
@@ -51,24 +29,43 @@ void dynamic_batching::matrix() {
 void dynamic_batching::invoke() {
 	this->sizeof_allocated_gpu_data = 0;
 	this->sizeof_allocated_vertices = 0;
+
+	dynamic_batching::invoked = this;
 }
 
 void dynamic_batching::instance(float x, float y, int32_t factor) {
-	gpu_data &data = this->allocated_gpu_data[this->sizeof_allocated_gpu_data];
+	amogpu::gpu_data &data = this->allocated_gpu_data[this->sizeof_allocated_gpu_data];
 	
 	data.begin = this->sizeof_allocated_vertices;
 	data.texture = 0;
 	data.texture_slot = 0;
 
-	data.pos[0] = x;
-	data.pos[1] = y;
+	data.rect[0] = x;
+	data.rect[1] = y;
+
+	if (factor != -1) {
+		data.rect[2] = 0;
+		data.rect[3] = 0;
+	}
 
 	this->factor(factor);
 	this->sizeof_instanced_allocated_vertices = 0;
 }
 
+void dynamic_batching::modal(float w, float h) {
+	amogpu::gpu_data &data = this->allocated_gpu_data[this->sizeof_allocated_gpu_data];
+
+	data.rect[2] = w;
+	data.rect[3] = h;
+}
+
 void dynamic_batching::factor(int32_t factor) {
-	if (factor != -1 && this->allocated_gpu_data[this->sizeof_allocated_gpu_data].factor != factor) {
+	amogpu::gpu_data &data = this->allocated_gpu_data[this->sizeof_allocated_gpu_data];
+
+	data.rect[2] = 0;
+	data.rect[3] = 0;
+
+	if (factor != -1 && data.factor != factor) {
 		this->should_alloc_new_buffers = true;
 	}
 }
@@ -78,7 +75,7 @@ void dynamic_batching::fill(const amogpu::vec4f &color) {
 }
 
 void dynamic_batching::fill(float r, float g, float b, float a) {
-	gpu_data &data = this->allocated_gpu_data[this->sizeof_allocated_gpu_data];
+	amogpu::gpu_data &data = this->allocated_gpu_data[this->sizeof_allocated_gpu_data];
 
 	// RGBA - normalised value.
 	data.color[0] = r;
@@ -94,7 +91,7 @@ void dynamic_batching::vertex(float x, float y) {
 }
 
 void dynamic_batching::bind(GLuint texture) {
-	gpu_data &data = this->allocated_gpu_data[this->sizeof_allocated_gpu_data];
+	amogpu::gpu_data &data = this->allocated_gpu_data[this->sizeof_allocated_gpu_data];
 
 	// Why alloc more textures? there is no reason for that.
 	for (uint8_t i = 0; i < this->concurrent_allocated_textures.size(); i++) {
@@ -164,7 +161,7 @@ void dynamic_batching::draw() {
 	dynamic_batching::fx_shape.use();
 	dynamic_batching::fx_shape.setm4f("u_mat_projection", dynamic_batching::matrix_view_ortho);
 
-	gpu_data data;
+	amogpu::gpu_data data;
 	bool flag;
 
 	glBindVertexArray(this->vertex_arr_object);
@@ -175,10 +172,10 @@ void dynamic_batching::draw() {
 		data = this->allocated_gpu_data[i];
 		flag = data.texture != 0;
 
-		dynamic_batching::fx_shape.set2f("u_vec_pos", data.pos);
+		dynamic_batching::fx_shape.set4f("u_vec_rect", data.rect);
 		dynamic_batching::fx_shape.set4f("u_vec_color", data.color);
 		dynamic_batching::fx_shape.setb("u_bool_texture_active", flag);
-		dynamic_batching::fx_shape.setf("u_float_zdepth", static_cast<float>(i + 1));
+		dynamic_batching::fx_shape.setf("u_float_zdepth", static_cast<float>(dynamic_batching::depth + i + 1));
 
 		if (flag) {
 			glActiveTexture(GL_TEXTURE0 + data.texture_slot);
@@ -191,7 +188,10 @@ void dynamic_batching::draw() {
 		glBindTexture(GL_TEXTURE_2D, 0);
 	}
 
+	// Plus the concurrent allocated gpu data to global value of depth space.
+	dynamic_batching::depth += this->sizeof_allocated_gpu_data;
 	dynamic_batching::fx_shape.end();
+
 	glBindVertexArray(0);
 }
 

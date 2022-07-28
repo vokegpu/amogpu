@@ -9,20 +9,7 @@
 #include <iostream>
 #include <string>
 #include <gl/glew.h>
-
-/*
- * Store font data.
- */
-struct font_char {
-	float x = 0;
-	float texture_x = 0;
-
-	float w = 0;
-	float h = 0;
-
-	float top = 0;
-	float left = 0;
-};
+#include "amogpu/gpu_handler.hpp"
 
 /**
  * The amogpu font renderer, draw strings into a space.
@@ -45,8 +32,16 @@ protected:
 	std::string current_font_path;
 	uint8_t current_font_size;
 
-	font_char allocated_font_char[256];
+	dynamic_batching* binded_batch;
+	uint8_t batch_mode = 0;
+
+	amogpu::font_char allocated_font_char[256];
 public:
+	/*
+	 * Get the current binded batch.
+	 */
+	dynamic_batching* batch();
+
 	/*
 	 * Init Freetype library.
 	 */
@@ -63,6 +58,16 @@ public:
 	void load(const std::string &font_path, uint8_t font_size);
 
 	/*
+	 * Specify what batch the font renderer will use.
+	 */
+	void from(dynamic_batching *concurrent_batch);
+
+	/*
+	 * Specify what batch the font renderer will use.
+	 */
+	void from(uint8_t mode);
+
+	/*
 	 * Get input text width.
 	 */
 	float get_text_width(const std::string &text);
@@ -75,7 +80,7 @@ public:
 	/*
 	 * Send data for GPU to display text into screen space.
 	 */
-	void render(const std::string &text, float x, float y, const util::vec4f &color);
+	void render(const std::string &text, float x, float y, const amogpu::vec4f &color);
 };
 
 #endif
