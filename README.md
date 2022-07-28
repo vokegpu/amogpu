@@ -111,7 +111,7 @@ batch.revoke(); // Finalizamos esse segmento.
 Se você quiser ver um exemplo real recomendo olhar a pasta `test/` do projeto, no `main.cpp` você pode ver como usar as features `dynamic_batching` e `font_renderer` de forma otimizada.
 
 Aqui irei explicar como usar o `dynamic_batching` com multiplas instâncias.
-'Observação: Multiplas instâncias não tem nada haver com com instanced rendering, isso é outra coisa.`
+`Observação: Multiplas instâncias não tem nada haver com com instanced rendering, isso é outra coisa.`
 
 ```c++
 // ...
