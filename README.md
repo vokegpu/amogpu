@@ -16,6 +16,7 @@ Batch é salvar em forma de lote e utilizar depois, diferente de você enviar v�
 
 # Get Start
 
+Essa biblioteca foi compilado pra Windows-x86_x64, se você quiser contribuir com uma versão compilada em outro sistema fique a vontade.
 Primeiramente baixe o repositório e copie a pasta `include/` & `lib/` dentro do MinGW, pronto! Agora você deve linkar:
 
 `target_link_libraries(<projectname> amogpu)`
