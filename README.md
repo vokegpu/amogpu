@@ -183,9 +183,10 @@ f_renderer.from(&batch);
 
 // Você pode chamar o batch aplicado pelo método batch.
 f_renderer.batch()->invoke();
-f_renderer.render("vwc é linda(o)", 10, 10, amogpu::vec4(1.0f, 1.0f, 1.0f, 1.0f));
+f_renderer.render("vwc é linda(o)", 10, 10 + 1 + f_renderer.get_text_height(), amogpu::vec4(1.0f, 1.0f, 1.0f, 1.0f));
 f_renderer.batch()->revoke();
 
 // Ai no loop você faz.
 f_renderer.batch()->draw();
 ```
+![Alt text](splash/splash-font-rendering.png?raw=true)
