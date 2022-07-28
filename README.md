@@ -16,7 +16,8 @@ Batch é salvar em forma de lote e utilizar depois, diferente de você enviar v�
 
 # Get Start
 
-Primeiramente baixe o repositório e copie a pasta `include` e `libamogpu.a` dentro do MinGW (pastas `include` & `lib`), pronto, agora você deve linkar?
+Primeiramente baixe o repositório e copie a pasta `include` e `libamogpu.a` dentro do MinGW (pastas `include` & `lib`), pronto, agora você deve linkar:
+
 `target_link_libraries(<projectname> amogpu)`
 `g++ ... -lamogpu`
 
