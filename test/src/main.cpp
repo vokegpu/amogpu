@@ -56,7 +56,8 @@ void on_render() {
 	if (draw::refresh) {
 		draw::batch.invoke();
 		//draw::rectangle(50, 50, 200, 200, amogpu::vec4f(1.0f, 0.0f, 1.0f, 0.5f));
-		//draw::font.render("hi sou linda", 10, 10, amogpu::vec4f(0.0f, 0.0f, 1.0f, 0.5f));
+		draw::font.render("hi sou linwda", 10, 10, amogpu::vec4f(0.0f, 0.0f, 1.0f, 0.5f));
+		draw::font.render("vwc linda(o)", 10, 10 + 1 + draw::font.get_text_height(), amogpu::vec4f(0.0f, 0.0f, 1.0f, 0.5f));
 
 		_keyboard.on_draw_reload();
 		draw::batch.revoke();
@@ -112,7 +113,7 @@ int main(int argv, char** argc) {
 	update_window_viewport();
 
 	batch.invoke();
-	batch.instance(20, 20);
+	batch.instance(200, 200);
 	batch.fill(1.0f, 1.0f, 1.0f, 1.0f); // white;
 
 	float x = 0;
