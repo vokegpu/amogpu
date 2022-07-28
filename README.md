@@ -16,7 +16,7 @@ Batch é salvar em forma de lote e utilizar depois, diferente de você enviar v�
 
 # Get Start
 
-Inicialmento devemos iniciar a biblioteca.
+Devemos iniciar a biblioteca:
 ```c++
 #include <amogpu/amogpu.hpp>
 
@@ -29,7 +29,7 @@ amogpu::init(); // Não é pra ocorrer nenhum erro, caso sim reporte.
 while (true) {
   // ...
   // Você deve chamar essa função apenas 1 vez antes de desenhar qualquer coisa.
-  // Ela serve pra atualizar as matrizes de posição de camera.
+  // Ela serve pra atualizar as matrizes de posição da camêra.
   amogpu::matrix();
   
   // ...
@@ -48,7 +48,7 @@ while (true) {
 
 O funcionamento é simples:
 ```c++
-#include <amogpu/gpu_handler.hpp>
+#include <amogpu/gpu_handler.hpp> // ou só #include <amogpu/amogpu.hpp>
 
 // ...
 dynamic_batching batch;
