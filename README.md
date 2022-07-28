@@ -1,4 +1,4 @@
-# amogpu
+# Amogpu
 
 Entenda, a GPU é muito importante para nós programdores e programadoras, sem ela aplicações que nós usamos não teria o minimo de performance e design bonito!
 infelizmente poucas pessoas se interessam por este íncrivel lado do hardware!
