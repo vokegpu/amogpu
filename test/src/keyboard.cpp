@@ -1,6 +1,4 @@
 #include "keyboard.hpp"
-#include <amogpu/font_renderer.hpp>
-#include <amogpu/gpu_handler.hpp>
 
 void keyboard::set_size(float width, float height) {
 	if (this->rect.w != width || this->rect.h != height) {
@@ -61,7 +59,7 @@ void keyboard::calculate_scale() {
 	float x = 0;
 	float y = 0;
 
-	float text_height = font::renderer.get_text_height();
+	float text_height = draw::font.get_text_height();
 	float square_width = text_height + (text_height / 6);
 
 	this->key_list.clear();
@@ -94,7 +92,7 @@ void keyboard::calculate_scale() {
 			break;
 		}
 
-		util::rect rekt;
+		amogpu::rect rekt;
 
 		rekt.x = x;
 		rekt.y = y;
@@ -117,15 +115,15 @@ void keyboard::calculate_scale() {
 }
 
 void keyboard::on_draw_reload() {
-	util::vec4f color(1.0f, 1.0f, 1.0f, 0.9f);
-	util::vec4f color_highlight(200.0f / 255, 86.0f / 255, 121.0f / 255, 0.5f);
-	util::vec4f color_str(0.0f, 0.0f, 0.0f, 1.0f);
+	amogpu::vec4f color(1.0f, 1.0f, 1.0f, 0.9f);
+	amogpu::vec4f color_highlight(200.0f / 255, 86.0f / 255, 121.0f / 255, 0.5f);
+	amogpu::vec4f color_str(0.0f, 0.0f, 0.0f, 1.0f);
 
 	for (uint8_t i = 0; i < this->key_list.size(); i++) {
-		util::rect rekt = this->key_list.at(i);
+		amogpu::rect rekt = this->key_list.at(i);
 		const char* key = this->key_char_list.at(i);
 
 		draw::rectangle(this->rect.x + rekt.x, this->rect.y + rekt.y, rekt.w, rekt.h, key == this->char_highlight ? color_highlight : color);
-		font::renderer.render(std::string(key), this->rect.x + rekt.x + (rekt.w / 9), this->rect.y + rekt.y + (rekt.h / 9), color_str);
+		draw::font.render(std::string(key), this->rect.x + rekt.x + (rekt.w / 9), this->rect.y + rekt.y + (rekt.h / 9), color_str);
 	}
 }

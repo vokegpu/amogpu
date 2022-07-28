@@ -7,62 +7,6 @@ gpu_gl_program dynamic_batching::fx_shape;
 float dynamic_batching::matrix_view_ortho[16];
 float dynamic_batching::matrix_viewport[4];
 
-bool opengl::compile_shader(GLuint &shader, GLuint mode, const char* src) {
-	shader = glCreateShader(mode);
-
-	glShaderSource(shader, 1, &src, NULL);
-	glCompileShader(shader);
-
-	GLint compile_status = GL_TRUE;
-	glGetShaderiv(shader, GL_COMPILE_STATUS, &compile_status);
-
-	if (!compile_status) {
-		char log[256];
-		glGetShaderInfoLog(shader, 256, NULL, log);
-		amogpu::log(log);
-	}
-
-	return compile_status;
-}
-
-bool opengl::create_program(gpu_gl_program &program, const char* vsh_path, const char* fsh_path) {
-	std::string vsh_src;
-	std::string fsh_src;
-
-	GLuint vsh;
-	GLuint fsh;
-	
-	bool flag = true;
-
-	flag = amogpu::read_file(vsh_src, vsh_path) && amogpu::read_file(fsh_src, fsh_path);
-	flag = flag && opengl::compile_shader(vsh, GL_VERTEX_SHADER, vsh_src.c_str()) && opengl::compile_shader(fsh, GL_FRAGMENT_SHADER, fsh_src.c_str());
-
-	if (flag) {
-		program.program = glCreateProgram();
-
-		glAttachShader(program.program, vsh);
-		glAttachShader(program.program, fsh);
-		glLinkProgram(program.program);
-
-		GLint link_status = GL_FALSE;
-		glGetProgramiv(program.program, GL_LINK_STATUS, &link_status);
-
-		if (!link_status) {
-			char log[256];
-			glGetProgramInfoLog(program.program, 256, NULL, log);
-		} else {
-			amogpu::log("'" + std::string(vsh_path) + "' & '" + std::string(fsh_path) + "' shaders compiled.");
-		}
-		
-		program.validation = link_status;
-
-		glDeleteShader(vsh);
-		glDeleteShader(fsh);
-	}
-
-	return program.validation;
-}
-
 void gpu_gl_program::use() {
 	glUseProgram(this->program);
 }
@@ -96,7 +40,7 @@ void gpu_gl_program::setm4f(const std::string &uniform_name, const float* val) {
 }
 
 void dynamic_batching::init() {
-	opengl::create_program(dynamic_batching::fx_shape, "data/fx/fx_shape.vsh", "data/fx/fx_shape.fsh");
+	amogpu::create_program(dynamic_batching::fx_shape, "data/fx/fx_shape.vsh", "data/fx/fx_shape.fsh");
 }
 
 void dynamic_batching::matrix() {
@@ -254,44 +198,4 @@ void dynamic_batching::draw() {
 void dynamic_batching::free_buffers() {
 	glDeleteBuffers(1, &this->vbo_vertices);
 	glDeleteBuffers(1, &this->vbo_texture_coords);
-}
-
-void draw::rectangle(float x, float y, float w, float h, const amogpu::vec4f &color) {
-	// Clamp the sizes.
-	w = w < 0 ? 1 : w;
-	h = h < 0 ? 1 : h;
-
-	// NOTE: the factor value in instance is to mark concurrent changes in geometry,
-	// flagging it the gpu handler can alloc the new size buffer. 
-
-	// Call an instance of the global batch.
-	draw::batch.instance(x, y, w / h);
-
-	// We need to reset the coords for the geometry mesh.
-	x = 0;
-	y = 0;
-
-	// Fill with the color.
-	draw::batch.fill(color);
-
-	// First triangle part of rect.
-	draw::batch.vertex(x, y);
-	draw::batch.vertex(x, y + h);
-	draw::batch.vertex(x + w, y + h);
-
-	// Second triangle part of rect.
-	draw::batch.vertex(x + w, y + h);
-	draw::batch.vertex(x + w, y);
-	draw::batch.vertex(x, y);
-
-	// We do not need to set texture coords so set everything to 0.
-	draw::batch.coords(0.0f, 0.0f);
-	draw::batch.coords(0.0f, 0.0f);
-	draw::batch.coords(0.0f, 0.0f);
-	draw::batch.coords(0.0f, 0.0f);
-	draw::batch.coords(0.0f, 0.0f);
-	draw::batch.coords(0.0f, 0.0f);
-
-	// End the instance.
-	draw::batch.next();
 }

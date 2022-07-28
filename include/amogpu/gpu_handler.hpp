@@ -7,6 +7,9 @@
 #include <vector>
 #include <gl/glew.h>
 
+/**
+ * Mini-programs on GPU.
+ **/
 struct gpu_gl_program {
 	GLuint program = 0;
 	bool validation = false;
@@ -24,11 +27,9 @@ struct gpu_gl_program {
 	/* End of uniform setters. */
 };
 
-namespace opengl {
-	bool compile_shader(GLuint &shader, GLuint mode, const char* src);
-	bool create_program(gpu_gl_program &program, const char* vsh_path, const char* fsh_path);
-}
-
+/**
+ * Store GPU data.
+ **/
 struct gpu_data {
 	uint32_t factor;
 	float color[4];
@@ -41,6 +42,9 @@ struct gpu_data {
 	GLuint texture = 0;
 };
 
+/**
+ * Batch but dynamic, high performance.
+ **/
 struct dynamic_batching {
 protected:
 	std::vector<GLfloat> concurrent_allocated_textures;
@@ -65,32 +69,75 @@ protected:
 	static float matrix_view_ortho[16];
 	static float matrix_viewport[4];
 public:
+	/*
+	 * Init the dynamic batching.
+	 */
 	static void init();
+
+	/*
+	 * Update global matrices.
+	 */
 	static void matrix();
 
+	/*
+	 * Invoke GPU.
+	 */
 	void invoke();
+
+	/*
+	 * Create a sub-section into GPU section.
+	 */
 	void instance(float x, float y, int32_t factor = -1);
+
+	/*
+	 * For complex shapes as string or tile.
+	 */
 	void factor(int32_t factor);
 
+	/*
+	 * Fill with RGBA color normalised.
+	 */
 	void fill(const util::vec4f &color);
+
+    /*
+	 * Fill with RGBA color normalised.
+	 */
 	void fill(float r, float g, float b, float a = 1.0f);
+
+    /*
+	 * Add one vertex.
+	 */
 	void vertex(float x, float y);
 
+    /*
+	 * Bind a texture.
+	 */
 	void bind(GLuint texture);
+
+	/*
+	 * Add one uv coordinates for texture, if there is not any binded texture just put 0.0f at uv(s) parameters.
+	 */
 	void coords(float u, float v);
 
+	/*
+	 * End the sub-segment.
+	 */
 	void next();
+
+	/*
+	 * End GPU communication.
+	 */
 	void revoke();
 
+	/*
+	 * Draw the current batch.
+	 */
 	void draw();
+
+	/*
+	 * Delete the buffers of batch.
+	 */
 	void free_buffers();
 };
-
-namespace draw {
-	extern dynamic_batching batch;
-	extern bool refresh;
-
-	void rectangle(float x, float y, float w, float h, const util::vec4f &color);
-}
 
 #endif

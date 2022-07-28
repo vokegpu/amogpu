@@ -10,6 +10,9 @@
 #include <string>
 #include <gl/glew.h>
 
+/*
+ * Store font data.
+ */
 struct font_char {
 	float x = 0;
 	float texture_x = 0;
@@ -21,6 +24,9 @@ struct font_char {
 	float left = 0;
 };
 
+/**
+ * The amogpu font renderer, draw strings into a space.
+ **/
 class font_renderer {
 protected:
 	static FT_Library ft_library;
@@ -41,19 +47,35 @@ protected:
 
 	font_char allocated_font_char[256];
 public:
+	/*
+	 * Init Freetype library.
+	 */
 	static void init();
+
+	/*
+	 * End the Freetype library.
+	 */
 	static void end_ft_library();
 
+	/*
+	 * Load ttf font and size.
+	 */
 	void load(const std::string &font_path, uint8_t font_size);
 
+	/*
+	 * Get input text width.
+	 */
 	float get_text_width(const std::string &text);
+
+	/*
+	 * Get current font height.
+	 */
 	float get_text_height();
 
+	/*
+	 * Send data for GPU to display text into screen space.
+	 */
 	void render(const std::string &text, float x, float y, const util::vec4f &color);
-};
-
-namespace font {
-	extern font_renderer renderer;
 };
 
 #endif

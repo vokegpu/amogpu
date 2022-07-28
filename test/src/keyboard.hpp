@@ -2,7 +2,7 @@
 #ifndef KEYBOARD_H
 #define KEYBOARD_H
 
-#include <amogpu/util.hpp>
+#include "render.hpp"
 #include <vector>
 #include <SDL2/SDL.h>
 
@@ -11,12 +11,12 @@ protected:
 	bool should_accept_input;
 
 	std::vector<const char*> key_char_list;
-	std::vector<util::rect> key_list;
+	std::vector<amogpu::rect> key_list;
 
 	char* char_highlight;
 	float offset;
 public:
-	util::rect rect;
+	amogpu::rect rect;
 	
 	void set_size(float width, float height);
 	void set_pos(float x, float y);

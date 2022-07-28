@@ -1,7 +1,6 @@
 #include <SDL2/SDL.h>
 #include <gl/glew.h>
-#include <amogpu/font_renderer.hpp>
-#include <amogpu/gpu_handler.hpp>
+#include <amogpu/amogpu.hpp>
 #include "keyboard.hpp"
 
 SDL_Window* sdl_win;
@@ -19,7 +18,7 @@ void update_window_viewport() {
 	glViewport(0.0f, 0.0f, width, height);
 	dynamic_batching::matrix();
 
-	util::log("Window viewport update (" + std::to_string(width) + ", " + std::to_string(height) + ")");
+	amogpu::log("Window viewport update (" + std::to_string(width) + ", " + std::to_string(height) + ")");
 
 	// Also update the overlay stuff here, im coding in sublime so... it is hard to refactor every time.
 	_keyboard.set_pos((width / 2) - (_keyboard.rect.w / 2), (height / 2) + (_keyboard.rect.h / 4));
@@ -55,8 +54,8 @@ void on_render() {
 
 	if (draw::refresh) {
 		draw::batch.invoke();
-		draw::rectangle(50, 50, 200, 200, util::vec4f(1.0f, 0.0f, 1.0f, 0.5f));
-		font::renderer.render("hi sou linda", 10, 10, util::vec4f(0.0f, 0.0f, 1.0f, 0.5f));
+		draw::rectangle(50, 50, 200, 200, amogpu::vec4f(1.0f, 0.0f, 1.0f, 0.5f));
+		draw::font.render("hi sou linda", 10, 10, amogpu::vec4f(0.0f, 0.0f, 1.0f, 0.5f));
 		_keyboard.on_draw_reload();
 		draw::batch.revoke();
 	}
@@ -66,8 +65,8 @@ void on_render() {
 }
 
 int main(int argv, char** argc) {
-	util::log("The Jogo da Forca x GPU Edition ...");
-	util::log("Creating window");
+	amogpu::log("The Jogo da Forca x GPU Edition ...");
+	amogpu::log("Creating window");
 
 	SDL_Init(SDL_INIT_EVERYTHING);
 
@@ -83,7 +82,7 @@ int main(int argv, char** argc) {
 	SDL_GL_SetSwapInterval(1); // v-sync
 
 	glEnable(GL_DEPTH_TEST);
-	util::log("Window and OpenGL context created!");
+	amogpu::log("Window and OpenGL context created!");
 
 	SDL_Event sdl_event;
 
@@ -96,11 +95,10 @@ int main(int argv, char** argc) {
 	uint64_t current_ticks = 0;
 	uint64_t interval = 1000 / (uint64_t) cpu_fps;
 
-	util::log("Initinalising buffers!");
-	dynamic_batching::init();
+	amogpu::log("Initinalising buffers!");
+	amogpu::init();
 
-	font_renderer::init();
-	font::renderer.load("data/fonts/impact.ttf", 30);
+	draw::font.load("data/fonts/impact.ttf", 30);
 
 	_keyboard.init();
 	_keyboard.calculate_scale();
@@ -117,11 +115,11 @@ int main(int argv, char** argc) {
 			delta_fps += current_ticks;
 
 			// Set the DT based on current ticks (interval ms int divided by 100... 16 int -> 0.16f);
-			util::clock::dt = static_cast<float>(current_ticks) / 100;
+			amogpu::clock::dt = static_cast<float>(current_ticks) / 100;
 
 			// Flag and set the current frame rate based on CPU-ticks.
 			if (delta_fps > 1000) {
-				util::clock::fps = ticked_frames;
+				amogpu::clock::fps = ticked_frames;
 				ticked_frames = 0;
 				delta_fps = 0;
 			}
@@ -143,6 +141,6 @@ int main(int argv, char** argc) {
 		}
 	}
 
-	util::log("Game shutdown complete!");
+	amogpu::log("Game shutdown complete!");
 	return 1;
 }
