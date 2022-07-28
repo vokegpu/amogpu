@@ -6,6 +6,7 @@
 SDL_Window* sdl_win;
 keyboard _keyboard;
 bool running = true;
+dynamic_batching batch;
 
 void update_window_viewport() {
 	int32_t w, h;
@@ -53,22 +54,19 @@ void on_render() {
 	glClearColor(.5f, .5f, 1.0f, 1.0f);
 
 	if (draw::refresh) {
-		draw::font.batch()->invoke();
 		draw::batch.invoke();
+		//draw::rectangle(50, 50, 200, 200, amogpu::vec4f(1.0f, 0.0f, 1.0f, 0.5f));
+		//draw::font.render("hi sou linda", 10, 10, amogpu::vec4f(0.0f, 0.0f, 1.0f, 0.5f));
 
-		draw::rectangle(50, 50, 200, 200, amogpu::vec4f(1.0f, 0.0f, 1.0f, 0.5f));
 		_keyboard.on_draw_reload();
-		draw::font.render("hi sou linda", 10, 10, amogpu::vec4f(0.0f, 0.0f, 1.0f, 0.5f));
-
 		draw::batch.revoke();
-		draw::font.batch()->revoke();
 	}
 
 	// Draw the batch.
 	draw::batch.draw();
 
 	// Draw the batch 2;
-	draw::font.batch()->draw();
+	batch.draw();
 }
 
 int main(int argv, char** argc) {
@@ -105,16 +103,45 @@ int main(int argv, char** argc) {
 	amogpu::log("Initinalising buffers!");
 	amogpu::init();
 
-	dynamic_batching batch2;
-
 	draw::font.load("data/fonts/impact.ttf", 30);
-	draw::font.from(&batch2);
 
 	_keyboard.init();
 	_keyboard.calculate_scale();
 
 	draw::refresh = true;
 	update_window_viewport();
+
+	batch.invoke();
+	batch.instance(20, 20);
+	batch.fill(1.0f, 1.0f, 1.0f, 1.0f); // white;
+
+	float x = 0;
+	float y = 0;
+
+	float w = 30;
+	float h = 30;
+
+	for (uint8_t i = 0; i < 5; i++) {
+		batch.vertex(x, y);
+		batch.vertex(x, y + h);
+		batch.vertex(x + w, y + h);
+		batch.vertex(x + w, y + h);
+		batch.vertex(x + w, y);
+		batch.vertex(x, y);
+		
+		batch.coords(0.0f, 0.0f);
+		batch.coords(0.0f, 0.0f);
+		batch.coords(0.0f, 0.0f);
+		batch.coords(0.0f, 0.0f);
+		batch.coords(0.0f, 0.0f);
+		batch.coords(0.0f, 0.0f);
+	  
+		x += w + 5;
+	}
+
+	batch.factor(x / 5); // why x / 5? we flag it as a difference.
+	batch.next();
+	batch.revoke();
 
 	while (running) {
 		current_ticks = SDL_GetTicks64();
