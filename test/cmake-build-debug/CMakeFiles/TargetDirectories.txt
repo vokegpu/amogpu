@@ -1,3 +1,0 @@
-C:/Users/Diyng/Documents/GitHub/dynamic-batching/test/cmake-build-debug/CMakeFiles/testfun.dir
-C:/Users/Diyng/Documents/GitHub/dynamic-batching/test/cmake-build-debug/CMakeFiles/edit_cache.dir
-C:/Users/Diyng/Documents/GitHub/dynamic-batching/test/cmake-build-debug/CMakeFiles/rebuild_cache.dir
