@@ -11,10 +11,47 @@ float dynamic_batching::matrix_view_ortho[16];
 float dynamic_batching::matrix_viewport[4];
 
 void dynamic_batching::init() {
-	const char* vsh_src = "";
-	const char* fsh_src = "";
+    const char* vsh_src = "#version 330 core\n"
+                    "\n"
+                    "layout (location = 0) in vec2 attrib_vertexes;\n"
+                    "layout (location = 1) in vec2 attrib_tex_coords;\n"
+                    "\n"
+                    "uniform mat4 u_mat_projection;\n"
+                    "uniform vec4 u_vec_rect;\n"
+                    "uniform float u_float_zdepth;\n"
+                    "\n"
+                    "out vec2 varying_attrib_tex_coords;\n"
+                    "\n"
+                    "void main() {\n"
+                    "\tif (u_vec_rect.z != 0 || u_vec_rect.w != 0) {\n"
+                    "\t\tgl_Position = u_mat_projection * vec4((attrib_vertexes * u_vec_rect.zw) + u_vec_rect.xy, (u_float_zdepth / 100000), 1.0f);\n"
+                    "\t} else {\n"
+                    "\t\tgl_Position = u_mat_projection * vec4(attrib_vertexes + u_vec_rect.xy, (u_float_zdepth / 100000), 1.0f);\n"
+                    "\t}\n"
+                    "\n"
+                    "\tvarying_attrib_tex_coords = attrib_tex_coords;\n"
+                    "}";
 
-	amogpu::create_program(dynamic_batching::fx_shape, "data/fx/fx_shape.vsh", "data/fx/fx_shape.fsh");
+	const char* fsh_src = "#version 330 core\n"
+                    "\n"
+                    "uniform vec4 u_vec_color;\n"
+                    "uniform sampler2D u_sampler_texture_slot;\n"
+                    "uniform bool u_bool_texture_active;\n"
+                    "\n"
+                    "in vec2 varying_attrib_tex_coords;\n"
+                    "\n"
+                    "void main() {\n"
+                    "\tvec4 frag_color = u_vec_color;\n"
+                    "\n"
+                    "\tif (u_bool_texture_active) {\n"
+                    "\t\tfrag_color = texture(u_sampler_texture_slot, varying_attrib_tex_coords);\n"
+                    "\t\tfrag_color = vec4(frag_color.xyz - ((1.0 - u_vec_color.xyz) - 1.0), frag_color.w * u_vec_color.w);\n"
+                    "\t}\n"
+                    "\n"
+                    "\tgl_FragColor = frag_color;\n"
+                    "}";
+
+	amogpu::create_program_from_src(dynamic_batching::fx_shape, vsh_src, fsh_src);
 }
 
 void dynamic_batching::matrix() {
