@@ -72,8 +72,19 @@ batch.instance(20, 20); // Instancia contém 3 argumentos, 2 primeiros são [x, 
 batch.fill(1.0f, 1.0f, 1.0f, 1.0f); // definimos a cor em RGBA normalisados (1.0 - 0.0).
 batch.bind(texture); // texture é um uint que guarda dados de uma textura.
 
-// Note que esse factor é um metódo que vai ser descontinuado em versões futuras.
-batch.factor(triangle_width / triangle_height) // O que é isso? se o triangulo mudar de tamanho então devemos mencionar isso para o batch.
+// Como isso é um shape simples e não um grande desenho (e.g tile map, wireframe) você não precisa especificar um fator unico.
+batch.modal(triangle_width, triangle_height); // isso serve para definir o tamanho, mas isso só funciona pra shape simples.
+
+// Mesh de vértices.
+batch.vertex(triangle_width / 2, triangle_height / 2);
+batch.vertex(0, triangle_height);
+batch.vertex(triangle_width, triangle_height);
+
+// Se temos 3 vértices então devemos aplicar 3 vezes coordenadas uv.
+// Como é texturizado devemos pasar as coordenadas normalisadas, se não tiver textura inclusa é só passar 0.0f 3 vezes.
+batch.coords(0.5f, 0.5f);
+batch.coords(0.0f, 1.0f);
+batch.coords(1.0f, 1.0f);
 
 // Mesh de vértices.
 batch.vertex(triangle_width / 2, triangle_height / 2);
@@ -98,6 +109,46 @@ push_triangle(700, 250);
 batch.revoke(); // Finalizamos esse segmento.
 ```
 
+Usar o `dynamic_batching` para formas complexas.
+```c++
+// ...
+// Entretanto se você querer desenhar multiplos shapes na tela em uma unica instância, você tem que especificar o tamanho na hora de enviar as vértices.
+// e.g você dá 18 vértices e 18 coordenadas em uma unica instância, mas o tamanho de cada shape é unico, então você altera a posição
+// dá vértice e o tamanho de cada mesh, então ai que entra o factor, você tem que colocar no paramêtro alguma coisa que vá fazer sentido
+// para o dynamic batch alterar o buffer.
+// ...
+
+batch.instance(20, 20);
+batch.fill(1.0f, 1.0f, 1.0f, 1.0f, 1.0f); // white;
+
+float x = 0;
+float y = 0;
+
+float w = 30;
+float h = 30;
+
+for (uint8_t i = 0; i < 5; i++) {
+  batch.vertex(x, y);
+  batch.vertex(x, y + h);
+  batch.vertex(x + w, y + h);
+  batch.vertex(x + w, y + h);
+  batch.vertex(x + w, y);
+  batch.vertex(x, y);
+  
+  batch.coords(0.0f, 0.0f);
+  batch.coords(0.0f, 0.0f);
+  batch.coords(0.0f, 0.0f);
+  batch.coords(0.0f, 0.0f);
+  batch.coords(0.0f, 0.0f);
+  batch.coords(0.0f, 0.0f);
+  
+  x += w + 5;
+}
+
+batch.factor(x / 5); // why x / 5? we flag it as a difference.
+batch.next();
+```
+![Alt text](/splash/splash-multiples-instances.png?raw=true)
 Se você quiser ver um exemplo real recomendo olhar a pasta `test/` do projeto, no `main.cpp` você pode ver como usar as features `dynamic_batching` e `font_renderer` de forma otimizada.
 
 --- 
