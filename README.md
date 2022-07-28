@@ -148,7 +148,6 @@ for (uint8_t i = 0; i < 5; i++) {
 batch.factor(x / 5); // why x / 5? we flag it as a difference.
 batch.next();
 ```
-![Alt text](/splash/splash-multiples-instances.png?raw=true)
 Se você quiser ver um exemplo real recomendo olhar a pasta `test/` do projeto, no `main.cpp` você pode ver como usar as features `dynamic_batching` e `font_renderer` de forma otimizada.
 
 --- 
