@@ -98,7 +98,7 @@ push_triangle(700, 250);
 batch.revoke(); // Finalizamos esse segmento.
 ```
 
-Se você quiser ver um exemplo real recomendo olhar a pasta `test/` do projeto, no main.cpp você pode ver como eu uso o batch com o font renderer.
+Se você quiser ver um exemplo real recomendo olhar a pasta `test/` do projeto, no `main.cpp` você pode ver como usar as features `dynamic_batching` e `font_renderer` de forma otimizada.
 
 --- 
 # Font Rendering
