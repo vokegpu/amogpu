@@ -1,4 +1,4 @@
-#include "util.hpp"
+#include "amogpu/util.hpp"
 #include <fstream>
 #include <gl/glew.h>
 

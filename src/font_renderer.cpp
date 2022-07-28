@@ -1,5 +1,5 @@
-#include "font_renderer.hpp"
-#include "gpu_handler.hpp"
+#include "amogpu/font_renderer.hpp"
+#include "amogpu/gpu_handler.hpp"
 
 FT_Library font_renderer::ft_library;
 font_renderer font::renderer;

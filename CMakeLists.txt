@@ -1,11 +1,15 @@
 cmake_minimum_required(VERSION 3.13)
-project(jogodaforcagpu)
+project(amogpu)
 
 set(CMAKE_CXX_STANDARD 11)
-set(EXECUTABLE_OUTPUT_PATH ../build)
+set(LIBRARY_OUTPUT_PATH ../lib)
+
+file(GLOB_RECURSE HEADER_FILES "include/*.hpp")
 file(GLOB_RECURSE SRC_FILES "src/*.cpp")
 
-include_directories(src)
+include_directories(include)
+add_library(amogpu STATIC "${SRC_FILES}")
 
-add_executable(jogodaforcagpu ${SRC_FILES})
-target_link_libraries(jogodaforcagpu mingw32 glew32 opengl32 SDL2main SDL2 freetype)
+set_target_properties(amogpu PROPERTIES VERSION 1.0 SOVERSION 1)
+set_target_properties(amogpu PROPERTIES PUBLIC_HEADER "${HEADER_FILES}")
+target_include_directories(amogpu PUBLIC .)

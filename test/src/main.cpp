@@ -1,7 +1,7 @@
 #include <SDL2/SDL.h>
 #include <gl/glew.h>
-#include "font_renderer.hpp"
-#include "gpu_handler.hpp"
+#include <amogpu/font_renderer.hpp>
+#include <amogpu/gpu_handler.hpp>
 #include "keyboard.hpp"
 
 SDL_Window* sdl_win;

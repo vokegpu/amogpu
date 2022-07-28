@@ -2,7 +2,7 @@
 #ifndef KEYBOARD_H
 #define KEYBOARD_H
 
-#include "util.hpp"
+#include <amogpu/util.hpp>
 #include <vector>
 #include <SDL2/SDL.h>
 

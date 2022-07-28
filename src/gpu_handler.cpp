@@ -1,4 +1,4 @@
-#include "gpu_handler.hpp"
+#include "amogpu/gpu_handler.hpp"
 
 dynamic_batching draw::batch;
 bool draw::refresh;

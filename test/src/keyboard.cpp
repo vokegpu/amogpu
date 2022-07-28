@@ -1,6 +1,6 @@
 #include "keyboard.hpp"
-#include "font_renderer.hpp"
-#include "gpu_handler.hpp"
+#include <amogpu/font_renderer.hpp>
+#include <amogpu/gpu_handler.hpp>
 
 void keyboard::set_size(float width, float height) {
 	if (this->rect.w != width || this->rect.h != height) {
