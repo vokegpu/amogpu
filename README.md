@@ -85,6 +85,7 @@ batch.vertex(x + w, y + h);
 batch.vertex(x + w, y);
 batch.vertex(x, y);
 
+// Vamos desenhar a letra V.
 x = 0.922495f;
 w = 0.008192f;
 y = 0.000000f;
