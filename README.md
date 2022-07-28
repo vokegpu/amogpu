@@ -4,6 +4,8 @@ Entenda, a GPU é muito importante para nós programdores e programadoras, sem e
 infelizmente poucas pessoas se interessam por este íncrivel lado do hardware!
 Essa biblioteca mostra como podemos utilizar corretamente funções do OpenGL moderno.
 
+Tessellator e dynamic batching são conceitos que a biblioteca trabalha, aqui está um simples resumo do que são:
+
 - O que é tessellator?
 Do mesmo modo que traçamos linhas para formar um tecido, em computação trassamos linhas por vértices, quando tratamos de elementos UI que elaboram uma GUI, é preciso manipular cada evento de cada elemento UI sincronizado com o desenho, para isso preciamos passar para a GPU vértices e as posições na tela, entretanto não dá pra só atualizar a todo tick e passar vértices a todo tick e a todo momento.
 
