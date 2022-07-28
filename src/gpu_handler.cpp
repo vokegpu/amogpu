@@ -1,4 +1,4 @@
-#include "amogpu/gpu_handler.hpp"
+#include "amogpu/amogpu.hpp"
 
 dynamic_batching draw::batch;
 bool draw::refresh;
@@ -19,7 +19,7 @@ bool opengl::compile_shader(GLuint &shader, GLuint mode, const char* src) {
 	if (!compile_status) {
 		char log[256];
 		glGetShaderInfoLog(shader, 256, NULL, log);
-		util::log(log);
+		amogpu::log(log);
 	}
 
 	return compile_status;
@@ -34,7 +34,7 @@ bool opengl::create_program(gpu_gl_program &program, const char* vsh_path, const
 	
 	bool flag = true;
 
-	flag = util::read_file(vsh_src, vsh_path) && util::read_file(fsh_src, fsh_path);
+	flag = amogpu::read_file(vsh_src, vsh_path) && amogpu::read_file(fsh_src, fsh_path);
 	flag = flag && opengl::compile_shader(vsh, GL_VERTEX_SHADER, vsh_src.c_str()) && opengl::compile_shader(fsh, GL_FRAGMENT_SHADER, fsh_src.c_str());
 
 	if (flag) {
@@ -51,7 +51,7 @@ bool opengl::create_program(gpu_gl_program &program, const char* vsh_path, const
 			char log[256];
 			glGetProgramInfoLog(program.program, 256, NULL, log);
 		} else {
-			util::log("'" + std::string(vsh_path) + "' & '" + std::string(fsh_path) + "' shaders compiled.");
+			amogpu::log("'" + std::string(vsh_path) + "' & '" + std::string(fsh_path) + "' shaders compiled.");
 		}
 		
 		program.validation = link_status;
@@ -100,8 +100,8 @@ void dynamic_batching::init() {
 }
 
 void dynamic_batching::matrix() {
-	util::viewport(dynamic_batching::matrix_viewport);
-	util::projection_view_ortho(dynamic_batching::matrix_view_ortho, 0.0f, dynamic_batching::matrix_viewport[2], dynamic_batching::matrix_viewport[3], 0.0f);
+	amogpu::viewport(dynamic_batching::matrix_viewport);
+	amogpu::projection_view_ortho(dynamic_batching::matrix_view_ortho, 0.0f, dynamic_batching::matrix_viewport[2], dynamic_batching::matrix_viewport[3], 0.0f);
 }
 
 void dynamic_batching::invoke() {
@@ -129,7 +129,7 @@ void dynamic_batching::factor(int32_t factor) {
 	}
 }
 
-void dynamic_batching::fill(const util::vec4f &color) {
+void dynamic_batching::fill(const amogpu::vec4f &color) {
 	this->fill(color.x, color.y, color.z, color.w);
 }
 
@@ -256,7 +256,7 @@ void dynamic_batching::free_buffers() {
 	glDeleteBuffers(1, &this->vbo_texture_coords);
 }
 
-void draw::rectangle(float x, float y, float w, float h, const util::vec4f &color) {
+void draw::rectangle(float x, float y, float w, float h, const amogpu::vec4f &color) {
 	// Clamp the sizes.
 	w = w < 0 ? 1 : w;
 	h = h < 0 ? 1 : h;

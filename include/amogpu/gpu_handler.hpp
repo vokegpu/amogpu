@@ -2,7 +2,8 @@
 #ifndef GPU_HANDLER_H
 #define GPU_HANDLER_H
 
-#include "util.hpp"
+#include <iostream>
+#include <string>
 #include <vector>
 #include <gl/glew.h>
 

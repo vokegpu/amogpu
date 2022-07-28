@@ -6,8 +6,9 @@
 #ifndef FONT_RENDERER_H
 #define FONT_RENDERER_H
 
-#include "util.hpp"
-#include "gl/glew.h"
+#include <iostream>
+#include <string>
+#include <gl/glew.h>
 
 struct font_char {
 	float x = 0;

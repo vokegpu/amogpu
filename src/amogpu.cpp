@@ -1,19 +1,18 @@
-#include "amogpu/util.hpp"
+#include "amogpu/amogpu.hpp"
 #include <fstream>
-#include <gl/glew.h>
 
-float util::clock::dt = 0.0f;
-uint32_t util::clock::fps = 0;
+float amogpu::clock::dt = 0.0f;
+uint32_t amogpu::clock::fps = 0;
 
-bool util::rect::aabb_collide_with_point(float x, float y) {
+bool amogpu::rect::aabb_collide_with_point(float x, float y) {
 	return x > this->x && x < this->x + this->w && y > this->y && y < this->y + this->h;
 }
 
-void util::log(const std::string &input_str) {
+void amogpu::log(const std::string &input_str) {
 	std::cout << ("[MAIN] " + input_str).c_str() << std::endl;
 }
 
-bool util::read_file(std::string &input_str, const std::string &path) {
+bool amogpu::read_file(std::string &input_str, const std::string &path) {
 	std::ifstream ifs(path.c_str());
 
 	if (ifs.is_open()) {
@@ -26,17 +25,17 @@ bool util::read_file(std::string &input_str, const std::string &path) {
 		ifs.close();
 		return true;
 	} else {
-		util::log("Could not open file '" + path + "'.");
+		amogpu::log("Could not open file '" + path + "'.");
 	}
 
 	return false;
 }
 
-void util::viewport(float* mat) {
+void amogpu::viewport(float* mat) {
 	glGetFloatv(GL_VIEWPORT, mat);
 }
 
-void util::projection_view_ortho(float* mat, float left, float right, float bottom, float top) {
+void amogpu::projection_view_ortho(float* mat, float left, float right, float bottom, float top) {
 	const float znear = -1.0f;
 	const float zfar = 1.0f;
 	const float zinv = 1.0f / (zfar - znear);
@@ -64,7 +63,7 @@ void util::projection_view_ortho(float* mat, float left, float right, float bott
 	mat[15] = 1.0f;
 }
 
-util::vec4f::vec4f(float x, float y, float z, float w) {
+amogpu::vec4f::vec4f(float x, float y, float z, float w) {
 	this->x = x;
 	this->y = y;
 	this->z = z;

@@ -1,5 +1,4 @@
-#include "amogpu/font_renderer.hpp"
-#include "amogpu/gpu_handler.hpp"
+#include "amogpu/amogpu.hpp"
 
 FT_Library font_renderer::ft_library;
 font_renderer font::renderer;
@@ -17,8 +16,8 @@ void font_renderer::load(const std::string &font_path, uint8_t font_size) {
 		return;
 	}
 
-	if (FT_New_Face(font_renderer::ft_library, font_path.c_str(), 0, &this->ft_face)) {
-		util::log("Could not load font or invalid path.");
+	if (this->current_font_path != font && FT_New_Face(font_renderer::ft_library, font_path.c_str(), 0, &this->ft_face)) {
+		amogpu::log("Could not load font or invalid path.");
 		return;
 	}
 
@@ -81,7 +80,7 @@ void font_renderer::load(const std::string &font_path, uint8_t font_size) {
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 	glBindTexture(GL_TEXTURE_2D, 0);
 
-	util::log("Font loaded, created bitmap!");
+	amogpu::log("Font loaded, created bitmap!");
 }
 
 float font_renderer::get_text_width(const std::string &text) {
@@ -117,7 +116,7 @@ float font_renderer::get_text_height() {
 	return h + (h / 8);
 }
 
-void font_renderer::render(const std::string &text, float x, float y, const util::vec4f &color) {
+void font_renderer::render(const std::string &text, float x, float y, const amogpu::vec4f &color) {
 	const char* char_str = text.c_str();
 	const int32_t str_len = strlen(char_str);
 

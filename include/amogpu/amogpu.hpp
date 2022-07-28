@@ -2,11 +2,10 @@
 #ifndef UTIL_H
 #define UTIL_H
 
-#include <iostream>
-#include <iostream>
-#include <string>
+#include "font_renderer.hpp"
+#include "gpu_handler.hpp"
 
-namespace util {
+namespace amogpu {
 	void log(const std::string &input_str);
 	bool read_file(std::string &input_str, const std::string &path);
 	
