@@ -101,7 +101,7 @@ batch.revoke(); // Finalizamos esse segmento.
 Se você quiser ver um exemplo real recomendo olhar a pasta `test/` do projeto, no `main.cpp` você pode ver como usar as features `dynamic_batching` e `font_renderer` de forma otimizada.
 
 --- 
-# Font Rendering
+# Font Renderer
 
 ```c++
 #include <amogpu/amogpu.hpp>
@@ -111,11 +111,28 @@ font_renderer f_renderer;
 
 // Se você quiser alterar o tamanho ou mudar de fonte é só rodar esse método.
 f_renderer.load("path/to/font.ttf", 18);
+f_renderer.from(&batch); // isso vai dizer pro font renderer qual dynamic batch usar.
+
+// Se você quiser deixar automatico, é só fazer.
+f_renderer.from(amogpu::invoked);
 
 batch.invoke();
 f_renderer.render("hi sou linwda", 10, 10, amogpu::vec4(1.0f, 1.0f, 1.0f, 1.0f));
 batch.revoke();
 
-// Loop.
+// Ai no loop você dá draw.
 batch.draw();
+
+// Você também pode fazer combinações.
+// e.g
+dynamic_batch batch2;
+f_renderer.from(&batch);
+
+// Você pode chamar o batch aplicado pelo método batch.
+f_renderer.batch()->invoke();
+f_renderer.render("vwc é linda(o)", 10, 10, amogpu::vec4(1.0f, 1.0f, 1.0f, 1.0f));
+f_renderer.batch()->revoke();
+
+// Ai no loop você faz.
+f_renderer.batch()->draw();
 ```
