@@ -1,3 +1,0 @@
-"C:\Program Files\JetBrains\CLion 2022.1.2\bin\cmake\win\bin\cmake.exe" -E rm -f CMakeFiles\testfun.dir/objects.a
-C:\MinGW\bin\ar.exe qc CMakeFiles\testfun.dir/objects.a @CMakeFiles\testfun.dir\objects1.rsp
-C:\MinGW\bin\g++.exe -Wl,--whole-archive CMakeFiles\testfun.dir/objects.a -Wl,--no-whole-archive -o ..\build\testfun.exe -Wl,--out-implib,..\build\libtestfun.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\testfun.dir\linklibs.rsp

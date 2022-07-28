@@ -1,11 +1,10 @@
-# Dynamic Batching
+# Amogpu
 
 Entenda, a GPU é muito importante para nós programdores e programadoras, sem ela aplicações que nós usamos não teria o minimo de performance e design bonito!
-Ao longo dos anos sempre amei qualquer coisa que envolvia assuntos visuais que usam das APIs OpenGL, DirectX e Vulkan! Infelizmente poucas pessoas se interessam por este íncrivel lado do hardware!
+infelizmente poucas pessoas se interessam por este íncrivel lado do hardware!
+Essa biblioteca mostra como podemos utilizar corretamente funções do OpenGL moderno.
 
-Esse repo é um simples projeto mostrando como podemos utilizar corretamente funções do OpenGL moderno, diferente da versão legacy, lembre é preciso estudar um pouco o código antes de querer aplicar por aí em qualquer contexto GL (OpenGL ES, WebGL etc)!
-
----
+Tessellator e dynamic batching são conceitos que a biblioteca trabalha, aqui está um simples resumo do que são:
 
 - O que é tessellator?
 Do mesmo modo que traçamos linhas para formar um tecido, em computação trassamos linhas por vértices, quando tratamos de elementos UI que elaboram uma GUI, é preciso manipular cada evento de cada elemento UI sincronizado com o desenho, para isso preciamos passar para a GPU vértices e as posições na tela, entretanto não dá pra só atualizar a todo tick e passar vértices a todo tick e a todo momento.
@@ -15,11 +14,47 @@ Batch é salvar em forma de lote e utilizar depois, diferente de você enviar v�
 
 ---
 
+# Get Start
+
+Inicialmento devemos iniciar a biblioteca.
+```c++
+#include <amogpu/amogpu.hpp>
+
+// ...
+amogpu::init(); // Não é pra ocorrer nenhum erro, caso sim reporte.
+
+/**
+ * Mainloop.
+ **/
+while (true) {
+  // ...
+  // Você deve chamar essa função apenas 1 vez antes de desenhar qualquer coisa.
+  // Ela serve pra atualizar as matrizes de posição de camera.
+  amogpu::matrix();
+  
+  // ...
+  // Qualquer lugar após glClear & glClearColor.
+  batch1.draw();
+  batch3.draw();
+  batch2.draw();
+  
+  // ...
+  // Final do loop.
+}
+
+```
+
+# Dynamic Batching
+
 O funcionamento é simples:
 ```c++
+#include <amogpu/gpu_handler.hpp>
+
+// ...
 dynamic_batching batch;
 
 batch.invoke(); // Chamamos a GPU.
+// Enviamos dados para a GPU.
 batch.revoke(); // Finalizamos o segmento de desenhar da GPU.
 
 // Em um loop com contexto OpenGL.
@@ -61,4 +96,26 @@ push_triangle(90, 80);
 push_triangle(700, 250);
 
 batch.revoke(); // Finalizamos esse segmento.
+```
+
+Se você quiser ver um exemplo real recomendo olhar a pasta `test/` do projeto, no `main.cpp` você pode ver como usar as features `dynamic_batching` e `font_renderer` de forma otimizada.
+
+--- 
+# Font Rendering
+
+```c++
+#include <amogpu/amogpu.hpp>
+
+dynamic_batching batch;
+font_renderer f_renderer;
+
+// Se você quiser alterar o tamanho ou mudar de fonte é só rodar esse método.
+f_renderer.load("path/to/font.ttf", 18);
+
+batch.invoke();
+f_renderer.render("hi sou linwda", 10, 10, amogpu::vec4(1.0f, 1.0f, 1.0f, 1.0f));
+batch.revoke();
+
+// Loop.
+batch.draw();
 ```
