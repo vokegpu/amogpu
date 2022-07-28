@@ -110,6 +110,11 @@ batch.revoke(); // Finalizamos esse segmento.
 ```
 
 Usar o `dynamic_batching` para formas complexas.
+
+`
+Se você quiser ver um exemplo real recomendo olhar a pasta `test/` do projeto, no `main.cpp` você pode ver como usar as features `dynamic_batching` e `font_renderer` de forma otimizada.
+`
+
 ```c++
 // ...
 // Entretanto se você querer desenhar multiplos shapes na tela em uma unica instância, você tem que especificar o tamanho na hora de enviar as vértices.
@@ -148,10 +153,7 @@ for (uint8_t i = 0; i < 5; i++) {
 batch.factor(x / 5); // why x / 5? we flag it as a difference.
 batch.next();
 ```
-`
 ![Alt text](/splash/splash-multi-instances.png?raw=true)
-`
-Se você quiser ver um exemplo real recomendo olhar a pasta `test/` do projeto, no `main.cpp` você pode ver como usar as features `dynamic_batching` e `font_renderer` de forma otimizada.
 
 --- 
 # Font Renderer
