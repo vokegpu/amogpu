@@ -148,7 +148,7 @@ for (uint8_t i = 0; i < 5; i++) {
   x += w + 5;
 }
 
-batch.factor(x / 5); // why x / 5? we flag it as a difference.
+batch.factor(x / 5); // Por que x / 5? Se o tamanho de algum shape mudar, então o buffer precisa mudar.
 batch.next();
 ```
 ![Alt text](/splash/splash-multi-instances.png?raw=true)
