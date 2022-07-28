@@ -99,17 +99,19 @@ batch.coords(x + w, y + h);
 batch.coords(x + w, y);
 batch.coords(x, y);
 
-batch.next(); // Se você quiser desenhar 30 triangulos é só pegar esse sub-segmento de (instance() - next()) calls e replicar.
+batch.next(); // Se você quiser desenhar 30 rects é só pegar esse sub-segmento de (instance() - next()) calls e replicar.
 
 // e.g
 // você colocou todo o código acima dentro de uma função ou metódo com parametros para apenas a posição.
 // então você pode invocar muitas vezes.
-push_triangle(20, 50);
-push_triangle(90, 80);
-push_triangle(700, 250);
+push_rect(20, 50);
+push_rect(90, 80);
+push_rect(700, 250);
 
 batch.revoke(); // Finalizamos esse segmento.
 ```
+![Alt text](splash/splash-texture.png?raw=true)
+
 Se você quiser ver um exemplo real recomendo olhar a pasta `test/` do projeto, no `main.cpp` você pode ver como usar as features `dynamic_batching` e `font_renderer` de forma otimizada.
 
 Aqui irei explicar como usar o `dynamic_batching` com multiplas instâncias.
