@@ -65,37 +65,39 @@ Dentro do segmento de desenhar podemos renderizar muitos rects (dá pra facilmen
 ```c++
 batch.invoke(); // Iniciamos esse segmento.
 
-float triangle_width = 50;
-float triangle_height = 50;
+x = 0;
+y = 0;
+w = 1.0f;
+h = 1.0f;
 
-batch.instance(20, 20); // Instancia contém 3 argumentos, 2 primeiros são [x, y] e o ultimo é o factor, mas não precisa especificar agora.
+batch.instance(20, 50); // Instancia contém 3 argumentos, 2 primeiros são [x, y] e o ultimo é o factor, mas não precisa especificar agora.
 batch.fill(1.0f, 1.0f, 1.0f, 1.0f); // definimos a cor em RGBA normalisados (1.0 - 0.0).
-batch.bind(texture); // texture é um uint que guarda dados de uma textura.
+batch.bind(f_renderer.texture_bitmap); // texture é um uint que guarda dados de uma textura.
 
 // Como isso é um shape simples e não um grande desenho (e.g tile map, wireframe) você não precisa especificar um fator unico.
-batch.modal(triangle_width, triangle_height); // isso serve para definir o tamanho, mas isso só funciona pra shape simples.
+batch.modal(300, 300); // isso serve para definir o tamanho, mas isso só funciona pra shape simples.
 
 // Mesh de vértices.
-batch.vertex(triangle_width / 2, triangle_height / 2);
-batch.vertex(0, triangle_height);
-batch.vertex(triangle_width, triangle_height);
+batch.vertex(x, y);
+batch.vertex(x, y + h);
+batch.vertex(x + w, y + h);
+batch.vertex(x + w, y + h);
+batch.vertex(x + w, y);
+batch.vertex(x, y);
 
-// Se temos 3 vértices então devemos aplicar 3 vezes coordenadas uv.
-// Como é texturizado devemos pasar as coordenadas normalisadas, se não tiver textura inclusa é só passar 0.0f 3 vezes.
-batch.coords(0.5f, 0.5f);
-batch.coords(0.0f, 1.0f);
-batch.coords(1.0f, 1.0f);
+x = 0.922495f;
+w = 0.008192f;
+y = 0.000000f;
+h = 0.678571f;
 
-// Mesh de vértices.
-batch.vertex(triangle_width / 2, triangle_height / 2);
-batch.vertex(0, triangle_height);
-batch.vertex(triangle_width, triangle_height);
-
-// Se temos 3 vértices então devemos aplicar 3 vezes coordenadas uv.
-// Como é texturizado devemos pasar as coordenadas normalisadas, se não tiver textura inclusa é só passar 0.0f 3 vezes.
-batch.coords(0.5f, 0.5f);
-batch.coords(0.0f, 1.0f);
-batch.coords(1.0f, 1.0f);
+// Se temos 6 vértices então devemos aplicar 6 vezes coordenadas uv.
+// Como é texturizado devemos pasar as coordenadas normalisadas, se não tiver textura inclusa é só passar 0.0f 6 vezes.
+batch.coords(x, y);
+batch.coords(x, y + h);
+batch.coords(x + w, y + h);
+batch.coords(x + w, y + h);
+batch.coords(x + w, y);
+batch.coords(x, y);
 
 batch.next(); // Se você quiser desenhar 30 triangulos é só pegar esse sub-segmento de (instance() - next()) calls e replicar.
 
