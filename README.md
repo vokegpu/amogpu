@@ -23,6 +23,24 @@ Inicialmento devemos iniciar a biblioteca.
 // ...
 
 amogpu::init(); // Não é pra ocorrer nenhum erro, caso sim reporte.
+
+/*
+ * Mainloop.
+ */
+while (true) {
+  ...
+  // Você deve chamar essa função apenas 1 vez antes de desenhar qualquer coisa.
+  // Ela serve pra atualizar as matrizes de posição de camera.
+  amogpu::matrix();
+  
+  // ...
+  batch1.draw();
+  batch3.draw();
+  batch2.draw();
+  
+  // ...
+}
+
 ```
 
 # Dynamic Batching
