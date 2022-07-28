@@ -24,8 +24,6 @@ protected:
 	FT_UInt previous;
 	FT_Vector_ previous_char_vec;
 
-	GLuint texture_bitmap;
-
 	uint32_t texture_width;
 	uint32_t texture_height;
 
@@ -37,6 +35,11 @@ protected:
 
 	amogpu::font_char allocated_font_char[256];
 public:
+	/*
+	 * The texture bitmap.
+	 */
+	GLuint texture_bitmap;
+
 	/*
 	 * Get the current binded batch.
 	 */

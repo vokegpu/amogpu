@@ -17,8 +17,6 @@ void update_window_viewport() {
 
 	// Set the viewport of window.
 	glViewport(0.0f, 0.0f, width, height);
-	amogpu::matrix();
-
 	amogpu::log("Window viewport update (" + std::to_string(width) + ", " + std::to_string(height) + ")");
 
 	// Also update the overlay stuff here, im coding in sublime so... it is hard to refactor every time.
@@ -50,6 +48,8 @@ void on_update() {
 }
 
 void on_render() {
+	amogpu::matrix();
+
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glClearColor(.5f, .5f, 1.0f, 1.0f);
 
@@ -141,7 +141,37 @@ int main(int argv, char** argc) {
 	}
 
 	batch.factor(x / 5); // why x / 5? we flag it as a difference.
+	x = 0;
+	y = 0;
+
+	w = 1.0f;
+	h = 1.0f;
+
 	batch.next();
+	batch.instance(500, 50);
+	batch.bind(draw::font.texture_bitmap);
+	batch.fill(1.0f, 1.0f, 1.0f, 1.0f);
+	batch.modal(300, 300);
+	batch.vertex(x, y);
+	batch.vertex(x, y + h);
+	batch.vertex(x + w, y + h);
+	batch.vertex(x + w, y + h);
+	batch.vertex(x + w, y);
+	batch.vertex(x, y);
+
+	x = 0.922495f;
+	w = 0.008192f;
+	y = 0.000000f;
+	h = 0.678571f;
+
+	batch.coords(x, y);
+	batch.coords(x, y + h);
+	batch.coords(x + w, y + h);
+	batch.coords(x + w, y + h);
+	batch.coords(x + w, y);
+	batch.coords(x, y);
+	batch.next();
+
 	batch.revoke();
 
 	while (running) {
