@@ -108,12 +108,10 @@ push_triangle(700, 250);
 
 batch.revoke(); // Finalizamos esse segmento.
 ```
-
-Usar o `dynamic_batching` para formas complexas.
-
-`
 Se você quiser ver um exemplo real recomendo olhar a pasta `test/` do projeto, no `main.cpp` você pode ver como usar as features `dynamic_batching` e `font_renderer` de forma otimizada.
-`
+
+Aqui irei explicar como usar o `dynamic_batching` com multiplas instâncias.
+'Observação: Multiplas instâncias não tem nada haver com com instanced rendering, isso é outra coisa.`
 
 ```c++
 // ...
