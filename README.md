@@ -16,7 +16,7 @@ Batch é salvar em forma de lote e utilizar depois, diferente de você enviar v�
 
 # Get Start
 
-Inicial devemos iniciar a biblioteca.
+Inicialmento devemos iniciar a biblioteca.
 ```c++
 #include <amogpu/amogpu.hpp>
 
