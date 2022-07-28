@@ -92,7 +92,7 @@ font_renderer f_renderer;
 f_renderer.load("path/to/font.ttf", 18);
 
 batch.invoke();
-f_renderer.render("hi sou linwda", 10, 10, amogpu::vec4);
+f_renderer.render("hi sou linwda", 10, 10, amogpu::vec4(1.0f, 1.0f, 1.0f, 1.0f));
 batch.revoke();
 
 // Loop.
