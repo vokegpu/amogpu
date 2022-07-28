@@ -14,9 +14,14 @@ Batch é salvar em forma de lote e utilizar depois, diferente de você enviar v�
 
 ---
 
+# Get Start
+
 Inicial devemos iniciar a biblioteca.
 ```c++
 #include <amogpu/amogpu.hpp>
+
+// ...
+
 amogpu::init(); // Não é pra ocorrer nenhum erro, caso sim reporte.
 ```
 
@@ -83,9 +88,13 @@ batch.revoke(); // Finalizamos esse segmento.
 dynamic_batching batch;
 font_renderer f_renderer;
 
-f_renderer.load("path/to/font.ttf", 18); // if you want to load a new font just call it with a different name.
+// Se você quiser alterar o tamanho ou mudar de fonte é só rodar esse método.
+f_renderer.load("path/to/font.ttf", 18);
 
 batch.invoke();
 f_renderer.render("hi sou linwda", 10, 10, amogpu::vec4);
 batch.revoke();
+
+// Loop.
+batch.draw();
 ```
