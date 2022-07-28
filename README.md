@@ -21,7 +21,7 @@ Primeiramente baixe o repositório e copie a pasta `include/` & `lib/` dentro do
 `target_link_libraries(<projectname> amogpu)`
 `g++ ... -lamogpu`
 
-Inicialmente inclua `amogpu/amogpu` e chame a função `amogpu??init`, deste jeitinho ó:
+Inicialmente inclua `amogpu/amogpu` e chame a função `amogpu::init`, deste jeitinho ó:
 ```c++
 #include <amogpu/amogpu.hpp>
 
