@@ -1,9 +1,8 @@
-# Dynamic Batching
+# amogpu
 
 Entenda, a GPU é muito importante para nós programdores e programadoras, sem ela aplicações que nós usamos não teria o minimo de performance e design bonito!
-Ao longo dos anos sempre amei qualquer coisa que envolvia assuntos visuais que usam das APIs OpenGL, DirectX e Vulkan! Infelizmente poucas pessoas se interessam por este íncrivel lado do hardware!
-
-Esse repo é um simples projeto mostrando como podemos utilizar corretamente funções do OpenGL moderno, diferente da versão legacy, lembre é preciso estudar um pouco o código antes de querer aplicar por aí em qualquer contexto GL (OpenGL ES, WebGL etc)!
+infelizmente poucas pessoas se interessam por este íncrivel lado do hardware!
+Essa biblioteca mostra como podemos utilizar corretamente funções do OpenGL moderno.
 
 ---
 
