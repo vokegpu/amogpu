@@ -16,6 +16,10 @@ Batch é salvar em forma de lote e utilizar depois, diferente de você enviar v�
 
 O funcionamento é simples:
 ```c++
+#include <amogpu/gpu_handler.hpp>
+
+// ...
+
 dynamic_batching batch;
 
 batch.invoke(); // Chamamos a GPU.
