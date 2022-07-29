@@ -4,7 +4,7 @@
 #include "keyboard.hpp"
 
 SDL_Window* sdl_win;
-keyboard _keyboard;
+keyboard keyklass;
 bool running = true;
 dynamic_batching batch;
 
@@ -20,7 +20,7 @@ void update_window_viewport() {
 	amogpu::log("Window viewport update (" + std::to_string(width) + ", " + std::to_string(height) + ")");
 
 	// Also update the overlay stuff here, im coding in sublime so... it is hard to refactor every time.
-	_keyboard.set_pos((width / 2) - (_keyboard.rect.w / 2), (height / 2) + (_keyboard.rect.h / 4));
+	keyklass.set_pos((width / 2) - (keyklass.rect.w / 2), (height / 2) + (keyklass.rect.h / 4));
 }
 
 void on_poll_event(SDL_Event &sdl_event) {
@@ -40,7 +40,7 @@ void on_poll_event(SDL_Event &sdl_event) {
 		}
 	}
 
-	_keyboard.on_event(sdl_event);
+	keyklass.on_event(sdl_event);
 }
 
 void on_update() {
@@ -55,11 +55,11 @@ void on_render() {
 
 	if (draw::refresh) {
 		draw::batch.invoke();
-		//draw::rectangle(50, 50, 200, 200, amogpu::vec4f(1.0f, 0.0f, 1.0f, 0.5f));
-		draw::font.render("hi sou linwda", 10, 10, amogpu::vec4f(0.0f, 0.0f, 1.0f, 0.5f));
-		draw::font.render("vwc linda(o)", 10, 10 + 1 + draw::font.get_text_height(), amogpu::vec4f(0.0f, 0.0f, 1.0f, 0.5f));
+		draw::rectangle(50, 50, 200, 200, amogpu::vec4f(1.0f, 0.0f, 1.0f, 0.5f));
+		draw::font.render("hi sou linwd", 10, 10, amogpu::vec4f(0.0f, 0.0f, 1.0f, 0.5f));
+		draw::font.render("vwc lind(ao)", 10, 10 + 1 + draw::font.get_text_height(), amogpu::vec4f(0.0f, 0.0f, 1.0f, 0.5f));
 
-		_keyboard.on_draw_reload();
+		keyklass.on_draw_reload();
 		draw::batch.revoke();
 	}
 
@@ -76,16 +76,16 @@ int main(int argv, char** argc) {
 
 	SDL_Init(SDL_INIT_EVERYTHING);
 
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 4);
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
+	SDL_GL_SetSwapInterval(1); // v-sync
+
 	sdl_win = SDL_CreateWindow("The Jogo da Forca x GPU Edition", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 600, SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE);
 	SDL_GLContext sdl_gl_context = SDL_GL_CreateContext(sdl_win);
 
 	glewExperimental = true;
 	glewInit();
-
-	SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
-	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 4);
-	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
-	SDL_GL_SetSwapInterval(1); // v-sync
 
 	glEnable(GL_DEPTH_TEST);
 	amogpu::log("Window and OpenGL context created!");
@@ -106,8 +106,8 @@ int main(int argv, char** argc) {
 
 	draw::font.load("data/fonts/impact.ttf", 30);
 
-	_keyboard.init();
-	_keyboard.calculate_scale();
+	keyklass.init();
+	keyklass.calculate_scale();
 
 	draw::refresh = true;
 	update_window_viewport();

@@ -56,8 +56,11 @@ void font_renderer::load(const std::string &font_path, uint8_t font_size) {
 		glGenTextures(1, &this->texture_bitmap);
 	}
 
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
 	glBindTexture(GL_TEXTURE_2D, this->texture_bitmap);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_ALPHA, (int32_t) this->texture_width, (int32_t) this->texture_height, 0, GL_ALPHA, GL_UNSIGNED_BYTE, nullptr);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, (int32_t) this->texture_width, (int32_t) this->texture_height, 0, GL_RGBA, GL_UNSIGNED_BYTE, nullptr);
 
 	float offset = 0.0f;
 

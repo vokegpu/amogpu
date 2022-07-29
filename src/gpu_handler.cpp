@@ -34,6 +34,7 @@ void dynamic_batching::init() {
 
 	const char* fsh_src = "#version 330 core\n"
                     "\n"
+                    "out vec4 out_frag_color;\n"
                     "uniform vec4 u_vec_color;\n"
                     "uniform sampler2D u_sampler_texture_slot;\n"
                     "uniform bool u_bool_texture_active;\n"
@@ -48,7 +49,7 @@ void dynamic_batching::init() {
                     "\t\tfrag_color = vec4(frag_color.xyz - ((1.0 - u_vec_color.xyz) - 1.0), frag_color.w * u_vec_color.w);\n"
                     "\t}\n"
                     "\n"
-                    "\tgl_FragColor = frag_color;\n"
+                    "\tout_frag_color = frag_color;\n"
                     "}";
 
 	amogpu::create_program_from_src(dynamic_batching::fx_shape, vsh_src, fsh_src);
@@ -215,9 +216,9 @@ void dynamic_batching::draw() {
 		dynamic_batching::fx_shape.setf("u_float_zdepth", static_cast<float>(dynamic_batching::depth + i + 1));
 
 		if (flag) {
-			glActiveTexture(GL_TEXTURE0 + data.texture_slot);
+			glActiveTexture(GL_TEXTURE0);
 			glBindTexture(GL_TEXTURE_2D, data.texture);
-			
+
 			dynamic_batching::fx_shape.seti("u_sampler_texture_slot", data.texture_slot);
 		}
 
