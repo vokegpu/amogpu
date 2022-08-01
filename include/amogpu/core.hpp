@@ -17,6 +17,9 @@ namespace amogpu {
 	extern uint8_t dynamic;
 	extern uint8_t invoked;
 
+	extern float matrix_viewport[4];
+	extern float matrix_projection_ortho[16];
+
 	/*
 	 * Store font data.
 	 */

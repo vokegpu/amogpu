@@ -64,10 +64,10 @@ void on_render() {
 	}
 
 	// Draw the batch.
-	draw::batch.draw();
+	//draw::batch.draw();
 
 	// Draw the batch 2;
-	batch.draw();
+	//batch.draw();
 }
 
 int main(int argv, char** argc) {
@@ -111,6 +111,8 @@ int main(int argv, char** argc) {
 
 	draw::refresh = true;
 	update_window_viewport();
+
+	shape_builder shape;
 
 	batch.invoke();
 	batch.instance(200, 200);
@@ -200,6 +202,9 @@ int main(int argv, char** argc) {
 			// Update and render section.
 			on_update();
 			on_render();
+
+			shape.invoke(0, amogpu::vec4f(1.0f, 1.0f, 1.0f, 1.0f));
+			shape.draw(0, 0, 200, 200);
 
 			// Count ticked frames.
 			ticked_frames++;

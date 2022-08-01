@@ -1,9 +1,13 @@
 #include <fstream>
 #include "amogpu/gpu_handler.hpp"
 #include "amogpu/font_renderer.hpp"
+#include "amogpu/shape_builder.hpp"
 
 uint8_t amogpu::dynamic = 1;
 uint8_t amogpu::invoked = 2;
+
+float amogpu::matrix_viewport[4];
+float amogpu::matrix_projection_ortho[16];
 
 void amogpu::gpu_gl_program::use() {
 	glUseProgram(this->program);
@@ -40,14 +44,20 @@ void amogpu::gpu_gl_program::setm4f(const std::string &uniform_name, const float
 void amogpu::init() {
 	dynamic_batching::init();
 	font_renderer::init();
+	shape_builder::init();
 }
 
 void amogpu::quit() {
 	font_renderer::end_ft_library();
+	shape_builder::free_buffers();
 }
 
 void amogpu::matrix() {
 	dynamic_batching::matrix();
+
+	// Calculate the matrixes.
+	amogpu::viewport(amogpu::matrix_viewport);
+	amogpu::projection_view_ortho(amogpu::matrix_projection_ortho, 0.0f, amogpu::matrix_viewport[2], amogpu::matrix_viewport[3], 0.0f);
 }
 
 bool amogpu::rect::aabb_collide_with_point(float x, float y) {
@@ -55,7 +65,7 @@ bool amogpu::rect::aabb_collide_with_point(float x, float y) {
 }
 
 void amogpu::log(const std::string &input_str) {
-	std::cout << ("[MAIN] " + input_str).c_str() << std::endl;
+	std::cout << ("[AMOGPU] " + input_str).c_str() << std::endl;
 }
 
 bool amogpu::read_file(std::string &input_str, const std::string &path) {

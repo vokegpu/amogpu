@@ -7,9 +7,6 @@ amogpu::gpu_gl_program dynamic_batching::fx_shape;
 dynamic_batching* dynamic_batching::invoked = nullptr;
 uint32_t dynamic_batching::depth = 0;
 
-float dynamic_batching::matrix_view_ortho[16];
-float dynamic_batching::matrix_viewport[4];
-
 void dynamic_batching::init() {
     const char* vsh_src = "#version 330 core\n"
                     "\n"
@@ -58,10 +55,6 @@ void dynamic_batching::init() {
 void dynamic_batching::matrix() {
 	// Reset the depth pos.
 	dynamic_batching::depth = 0;
-
-	// Calculate the matrixes.
-	amogpu::viewport(dynamic_batching::matrix_viewport);
-	amogpu::projection_view_ortho(dynamic_batching::matrix_view_ortho, 0.0f, dynamic_batching::matrix_viewport[2], dynamic_batching::matrix_viewport[3], 0.0f);
 }
 
 void dynamic_batching::invoke() {
@@ -197,7 +190,7 @@ void dynamic_batching::revoke() {
 
 void dynamic_batching::draw() {
 	dynamic_batching::fx_shape.use();
-	dynamic_batching::fx_shape.setm4f("u_mat_projection", dynamic_batching::matrix_view_ortho);
+	dynamic_batching::fx_shape.setm4f("u_mat_projection", amogpu::matrix_projection_ortho);
 
 	amogpu::gpu_data data;
 	bool flag;

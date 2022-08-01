@@ -32,8 +32,6 @@ protected:
 	GLuint vbo_texture_coords;
 
 	static amogpu::gpu_gl_program fx_shape;
-	static float matrix_view_ortho[16];
-	static float matrix_viewport[4];
 public:
 	/*
 	 * The current invoked batch.
