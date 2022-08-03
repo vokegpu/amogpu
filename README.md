@@ -97,12 +97,15 @@ Detalhes:
 // ...
 dynamic_batching batch;
 
+// Em 1 tick ou em poucos ticks aonde queremos mudar alguma coisa.
 batch.invoke(); // Chamamos a GPU.
 // Enviamos dados para a GPU.
 batch.revoke(); // Finalizamos o segmento de desenhar da GPU.
 
 // Em um loop com contexto OpenGL.
-batch.draw();
+while (true) {
+   batch.draw();
+}
 ```
 
 Dentro do segmento de desenhar podemos renderizar muitos rects (dá pra facilmente renderizar circulos mas nesse caso é feito no fragment shader):
@@ -223,7 +226,9 @@ f_renderer.render("hi sou linwda", 10, 10, amogpu::vec4(1.0f, 1.0f, 1.0f, 1.0f))
 batch.revoke();
 
 // Ai no loop você dá draw.
-batch.draw();
+while (true) {
+    batch.draw();
+}
 
 // Você também pode fazer combinações.
 // e.g
@@ -236,6 +241,8 @@ f_renderer.render("vwc é linda(o)", 10, 10 + 1 + f_renderer.get_text_height(), 
 f_renderer.batch()->revoke();
 
 // Ai no loop você faz.
-f_renderer.batch()->draw();
+while (true) {
+     f_renderer.batch()->draw();
+}
 ```
 ![Alt text](splash/splash-font-rendering.png?raw=true)
