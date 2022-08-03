@@ -35,7 +35,7 @@ amogpu::init(); // Não é pra ocorrer nenhum erro, caso sim reporte.
 
 # Shape Builder
 
-Shape builder é uma forma de desenhar circulos e retangulos de forma rápida e eficiente, mas ela não serve pra contextos aonde você precisa de performance e controle.
+Shape builder é uma feature para desenhar circulos e retangulos de forma rápida e eficiente, mas ela não serve pra contextos aonde você precisa de performance e controle.
 ```c++
 shape_builder shape;
 
