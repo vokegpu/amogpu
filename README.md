@@ -43,11 +43,10 @@ while (true) {
    // Diferente de dynamic batching, você não precisa controlar invoke e revoke calls.
    shape.invoke();
    
-   // Atualmente, o primeiro argumento é um tipo amogpu::AAAB_CIRCLE ou amogpu::AABB_RECT mas ainda não foi implementada,
-   // por enquanto você pode colocar 0.
+   // Se você quiser criar um circulo use amogpu::shape::CIRCLE, se não use amogpu::shape::RECT
    shape.build(0, amogpu::vec4f(1.0f, 1.0f, 1.0f, 0.5f), 0); // o ultimo argumento é a texture id.
-   shape.modal(0.0f, 0.0f, 1.0f, 1.0f); // se não tiver uma textura embutida no shape então não é preciso chamar esse metódo!
-   shape.draw(20, 20, 200, 200); // (x, y, width, height);
+   shape.modal(0.0f, 0.0f, 1.0f, 1.0f); // se não tiver uma textura embutida no shape não é preciso chamar esse metódo!
+   shape.draw(20, 20, 200, 200); // (x, y, width, height), se você estiver renderizando um circle então deixe width e height iguais.
    
    // Pronto é só isso.
    // Você pode chamar quantas vezes quiser.
