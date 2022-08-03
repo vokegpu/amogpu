@@ -12,7 +12,7 @@ void shape_builder::init() {
 	"uniform vec4 u_vec_rect;\n"
 	"uniform mat4 u_mat_projection;\n"
 	"void main() {\n"
-	"gl_Position = u_mat_projection * vec4((attrib_vertexes * u_vec_rect.zw) + u_vec_rect.xy, 0.0, 1.0);\n"
+	"gl_Position = u_mat_projection * vec4((attrib_vertexes * u_vec_rect.zw) + u_vec_rect.xy, 0, 1.0);\n"
 	"varying_attrib_vertexes = attrib_vertexes;\n"
 	"}\n";
 
@@ -23,6 +23,7 @@ void shape_builder::init() {
 	"uniform bool u_bool_texture;\n"
 	"uniform sampler2D u_sampler_texture_slot;\n"
 	"uniform vec4 u_vec_uv_rect;\n"
+	"uniform bool u_bool_circle;\n"
 	"void main() {\n"
 	"vec4 color = u_vec_color;\n"
 	"if (u_bool_texture) {\n"
@@ -43,7 +44,7 @@ void shape_builder::init() {
 		0.0f, 0.0f
 	};
 
-	// Gen this buffer.
+	// Gen the buffers.
 	glGenBuffers(1, &shape_builder::vertex_buffer);
 	glGenVertexArrays(1, &shape_builder::vertex_array);
 	glBindVertexArray(shape_builder::vertex_array);
@@ -64,8 +65,11 @@ void shape_builder::free_buffers() {
 	glDeleteBuffers(1, &shape_builder::vertex_buffer);
 }
 
-void shape_builder::build(const uint16_t &format, const amogpu::vec4f &color, GLuint texture) {
+void shape_builder::build(const amogpu::shape &format, const amogpu::vec4f &color, GLuint texture) {
 	this->enum_flag_format = format;
+
+	// Set the shape type.
+	shape_builder::fx_shape.setb("u_bool_circle", enum_flag_format == amogpu::shape::CIRCLE);
 
 	// Set the index position.
 	this->concurrent_gpu_data.begin = 0;
@@ -113,6 +117,7 @@ void shape_builder::draw(float x, float y, float w, float h) {
 
 	shape_builder::fx_shape.set4f("u_vec_rect", this->concurrent_gpu_data.rect);
 
+	// Enable blending.
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
@@ -120,7 +125,6 @@ void shape_builder::draw(float x, float y, float w, float h) {
 	glDrawArrays(GL_TRIANGLES, this->concurrent_gpu_data.begin, this->concurrent_gpu_data.end);
 
 	// Bind off buffer and texture.
-	glBindVertexArray(0);
 	glBindTexture(GL_TEXTURE_2D, 0);
 }
 

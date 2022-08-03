@@ -21,6 +21,13 @@ namespace amogpu {
 	extern float matrix_projection_ortho[16];
 
 	/*
+	 * Shape type to shpae builder.
+	 */
+	enum shape {
+		RECT, CIRCLE
+	};
+
+	/*
 	 * Store font data.
 	 */
 	struct font_char {
