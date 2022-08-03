@@ -64,7 +64,7 @@ while (true) {
    shape.revoke();
 }
 ```
-![Alt text](splash/splash-builder.png?raw=true)
+![Alt text](splash/splash-shape-builder.png?raw=true)
 
 # Dynamic Batching
 
