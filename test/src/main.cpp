@@ -76,7 +76,7 @@ int main(int argv, char** argc) {
 	sdl_win = SDL_CreateWindow("The Jogo da Forca x GPU Edition", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 600, SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE);
 	SDL_GLContext sdl_gl_context = SDL_GL_CreateContext(sdl_win);
 
-	glewExperimental = true;
+	glewExperimental = false;
 	glewInit();
 
 	glDisable(GL_DEPTH_TEST);
@@ -93,8 +93,8 @@ int main(int argv, char** argc) {
 	uint64_t current_ticks = 0;
 	uint64_t interval = 1000 / (uint64_t) cpu_fps;
 
-	bool no_vsync = false;
-	SDL_GL_SetSwapInterval(no_vsync); // v-sync
+	bool no_vsync = true;
+	SDL_GL_SetSwapInterval(!no_vsync); // v-sync
 
 	amogpu::log("Initinalising buffers!");
 	amogpu::init();
@@ -198,6 +198,11 @@ int main(int argv, char** argc) {
 			// Update and render section.
 			on_update();
 			on_render();
+
+			shape.invoke();
+			shape.build(amogpu::shape::CIRCLE, amogpu::vec4f(1.0f, 1.0f, 1.0f, 1.0f));
+			shape.draw(20, 60, 200, 200);
+			shape.revoke();
 	
 			// Count ticked frames.
 			ticked_frames++;
