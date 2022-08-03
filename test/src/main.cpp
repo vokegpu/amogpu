@@ -55,19 +55,12 @@ void on_render() {
 
 	if (draw::refresh) {
 		draw::batch.invoke();
-		draw::rectangle(50, 50, 200, 200, amogpu::vec4f(1.0f, 0.0f, 1.0f, 0.5f));
-		draw::font.render("hi sou linwd", 10, 10, amogpu::vec4f(0.0f, 0.0f, 1.0f, 0.5f));
-		draw::font.render("vwc lind(ao)", 10, 10 + 1 + draw::font.get_text_height(), amogpu::vec4f(0.0f, 0.0f, 1.0f, 0.5f));
-
-		keyklass.on_draw_reload();
+		draw::font.render("hi the fps: " + std::to_string(amogpu::clock::fps), 10, 10, amogpu::vec4f(0.0f, 0.0f, 1.0f, 0.5f));
 		draw::batch.revoke();
 	}
 
 	// Draw the batch.
-	//draw::batch.draw();
-
-	// Draw the batch 2;
-	//batch.draw();
+	draw::batch.draw();
 }
 
 int main(int argv, char** argc) {
@@ -79,7 +72,6 @@ int main(int argv, char** argc) {
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 4);
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
-	SDL_GL_SetSwapInterval(1); // v-sync
 
 	sdl_win = SDL_CreateWindow("The Jogo da Forca x GPU Edition", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 600, SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE);
 	SDL_GLContext sdl_gl_context = SDL_GL_CreateContext(sdl_win);
@@ -100,6 +92,9 @@ int main(int argv, char** argc) {
 	uint64_t ticks_going_on = 0;
 	uint64_t current_ticks = 0;
 	uint64_t interval = 1000 / (uint64_t) cpu_fps;
+
+	bool no_vsync = false;
+	SDL_GL_SetSwapInterval(no_vsync); // v-sync
 
 	amogpu::log("Initinalising buffers!");
 	amogpu::init();
@@ -180,9 +175,9 @@ int main(int argv, char** argc) {
 		current_ticks = SDL_GetTicks64();
 		ticks_going_on = current_ticks - elapsed_ticks;
 
-		if (ticks_going_on > interval) {
+		if (ticks_going_on > interval || no_vsync) {
 			elapsed_ticks = current_ticks;
-			delta_fps += current_ticks;
+			delta_fps += ticks_going_on;
 
 			// Set the DT based on current ticks (interval ms int divided by 100... 16 int -> 0.16f);
 			amogpu::clock::dt = static_cast<float>(current_ticks) / 100;
@@ -192,6 +187,7 @@ int main(int argv, char** argc) {
 				amogpu::clock::fps = ticked_frames;
 				ticked_frames = 0;
 				delta_fps = 0;
+				draw::refresh = true;
 			}
 
 			// Input etc.
@@ -203,9 +199,18 @@ int main(int argv, char** argc) {
 			on_update();
 			on_render();
 
-			shape.invoke(0, amogpu::vec4f(1.0f, 1.0f, 1.0f, 1.0f));
-			shape.draw(0, 0, 200, 200);
+			// invoke shader.
+			shape.invoke();
 
+			for (uint32_t i = 0; i < 1; i++) {
+				shape.build(0, amogpu::vec4f(1.0f, 0.0f, 1.0f, 1.0f), draw::font.texture_bitmap);
+				shape.modal(x, y, w, h);
+				shape.draw(20, 20, 400, 400);
+			}
+
+			// revoke the shader.
+			shape.revoke();
+	
 			// Count ticked frames.
 			ticked_frames++;
 

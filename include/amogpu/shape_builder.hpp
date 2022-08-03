@@ -23,7 +23,11 @@ public:
 	static void init();
 	static void free_buffers();
 
-	void invoke(const uint16_t &format, const amogpu::vec4f &color, GLuint texture = 0);
+	void invoke();
+	void revoke();
+
+	void build(const uint16_t &format, const amogpu::vec4f &color, GLuint texture = 0);
+	void modal(float x, float y, float w, float h);
 	void draw(float x, float y, float w, float h);
 };
 
