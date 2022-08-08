@@ -31,6 +31,17 @@ Inicialmente inclua `amogpu/amogpu` e chame a função `amogpu::init`, deste jei
 
 // ...
 amogpu::init(); // Não é pra ocorrer nenhum erro, caso sim reporte.
+
+/**
+ * Mainloop.
+ **/
+while (true) {
+  // ...
+  // Você deve chamar essa função apenas 1 vez antes de desenhar qualquer coisa.
+  // Ela serve pra atualizar as matrizes de posição da camêra.
+  amogpu::matrix();
+  
+  // ...
 ```
 
 # Shape Builder
@@ -64,6 +75,8 @@ while (true) {
    shape.revoke();
 }
 ```
+
+A imagem a baixo é ilustrativa, se trata de outro código usando a feature shape_builder. 
 ![Alt text](splash/splash-shape-builder.png?raw=true)
 
 # Dynamic Batching
@@ -73,12 +86,7 @@ O funcionamento é simples:
 /**
  * Mainloop.
  **/
-while (true) {
-  // ...
-  // Você deve chamar essa função apenas 1 vez antes de desenhar qualquer coisa.
-  // Ela serve pra atualizar as matrizes de posição da camêra.
-  amogpu::matrix();
-  
+while (true) {  
   // ...
   // Qualquer lugar após glClear & glClearColor.
   batch1.draw();
