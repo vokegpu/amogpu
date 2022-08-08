@@ -13,7 +13,7 @@ Do mesmo modo que traçamos linhas para formar um tecido, em computação trassa
 Batch é salvar em forma de lote e utilizar depois, diferente de você enviar vértices todo instante (tick), podemos armazenar as vértices em lote e depois renderizar, e mais, salvar as posições, cor ou textura para renderizar sem a necessidade de mandar todas as vértices denovo para a GPU, com isso é possível ter uma performance muito maior se comparada com outros métodos.
 
 - O que é shape builder?
-Se você quiser renderizar formas geométricas rapidamente, então você pode utilizar essa feature, mas ela não é boa para UI complexas, builder por que ele constói um shape, e destrói logo em seguida.
+Se você quiser renderizar formas geométricas rapidamente, mas ela não é eficiênte para UI complexas, o nome builder por que ela constrói um shape e destrói logo em seguida.
 
 ---
 
