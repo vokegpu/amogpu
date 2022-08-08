@@ -58,17 +58,18 @@ while (true) {
    shape.invoke();
    
    // Se você quiser criar um circulo use amogpu::shape::CIRCLE, se não use amogpu::shape::RECT
-   shape.build(0, amogpu::vec4f(1.0f, 1.0f, 1.0f, 0.5f), 0); // o ultimo argumento é a texture id.
+   shape.build(amogpu::shape::RECT, amogpu::vec4f(1.0f, 1.0f, 1.0f, 0.5f), 0); // o ultimo argumento é a texture id.
    shape.modal(0.0f, 0.0f, 1.0f, 1.0f); // se não tiver uma textura embutida no shape não é preciso chamar esse metódo!
    shape.draw(20, 20, 200, 200); // (x, y, width, height), se você estiver renderizando um circle então deixe width e height iguais.
    
    // Pronto é só isso.
    // Você pode chamar quantas vezes quiser.
    
-   shape.build(0, amogpu::vec4f(1.0f, 1.0f, 1.0f, 1.0f)); 
+   shape.build(amogpu::shape::RECT, amogpu::vec4f(1.0f, 1.0f, 1.0f, 1.0f)); 
    shape.draw(20, 60, 200, 200);
    
-   shape.build(0, amogpu::vec4f(1.0f, 1.0f, 1.0f, 1.0f)); 
+   shape.build(amogpu::shape::RECT, amogpu::vec4f(1.0f, 1.0f, 1.0f, 1.0f), texture_cool_cat_id);
+   shape.modal(0.0f, 0.0f, 1.0f, 1.0f);
    shape.draw(0, 60, 200, 200);
    
    // Prontinho.
