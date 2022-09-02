@@ -58,6 +58,8 @@ namespace amogpu {
 		void set2f(const std::string &uniform_name, const float* val);
 		void set4f(const std::string &uniform_name, const float* val);
 		void setm4f(const std::string &uniform_name, const float* val);
+		void set3f(const std::string &uniform_name, const float* val);
+		void setm3f(const std::string &uniform_name, const float* val);
 		/* End of uniform setters. */
 	};
 	

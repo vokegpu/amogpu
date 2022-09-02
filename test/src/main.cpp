@@ -8,6 +8,12 @@ keyboard keyklass;
 bool running = true;
 dynamic_batching batch;
 
+float px = 0.0f;
+float py = 0.0f;
+
+float nx = 0.0f;
+float ny = 0.0f;
+
 void update_window_viewport() {
 	int32_t w, h;
 	SDL_GetWindowSize(sdl_win, &w, &h);
@@ -37,6 +43,12 @@ void on_poll_event(SDL_Event &sdl_event) {
 					break;
 				}
 			}
+		}
+
+		case SDL_MOUSEBUTTONDOWN: {
+			nx = (sdl_event.motion.x);
+			ny = (sdl_event.motion.y);
+			break;
 		}
 	}
 
@@ -81,8 +93,6 @@ int main(int argv, char** argc) {
 
 	glDisable(GL_DEPTH_TEST);
 	amogpu::log("Window and OpenGL context created!");
-
-	SDL_Event sdl_event;
 
 	uint32_t cpu_fps = 60;
 	uint32_t ticked_frames = 0;
@@ -171,6 +181,7 @@ int main(int argv, char** argc) {
 
 	batch.revoke();
 
+	SDL_Event sdl_event;
 	while (running) {
 		current_ticks = SDL_GetTicks64();
 		ticks_going_on = current_ticks - elapsed_ticks;
@@ -180,7 +191,7 @@ int main(int argv, char** argc) {
 			delta_fps += ticks_going_on;
 
 			// Set the DT based on current ticks (interval ms int divided by 100... 16 int -> 0.16f);
-			amogpu::clock::dt = static_cast<float>(current_ticks) / 100;
+			amogpu::clock::dt = static_cast<float>(current_ticks) / 100.0f;
 
 			// Flag and set the current frame rate based on CPU-ticks.
 			if (delta_fps > 1000) {
@@ -199,9 +210,14 @@ int main(int argv, char** argc) {
 			on_update();
 			on_render();
 
+			//px = px + (nx - px) * amogpu::clock::dt;
+			//py = py + (ny - py) * amogpu::clock::dt;
+
+			amogpu::log(std::to_string(ny));
+
 			shape.invoke();
 			shape.build(amogpu::shape::CIRCLE, amogpu::vec4f(1.0f, 1.0f, 1.0f, 1.0f));
-			shape.draw(20, 60, 200, 200);
+			shape.draw(px, py, 200, 200);
 			shape.revoke();
 	
 			// Count ticked frames.
@@ -215,83 +231,3 @@ int main(int argv, char** argc) {
 	amogpu::log("Game shutdown complete!");
 	return 1;
 }
-
-//uint32_t screen_width, screen_height;
-//
-//int main(int argv, char** argc) {
-//	// Iniciamos o SDL.
-//	SDL_Init(SDL_INIT_EVERYTHING);
-//
-//	// Definimos o contexto apenas para GL moderno (3+).
-//	SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
-//	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 4);
-//	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
-//	SDL_GL_SetSwapInterval(1); // Ligamos o VSYNC pra não usar 100% da GPU.
-//
-//	// Criamos a janela do SDL2.
-//	sdl_win = SDL_CreateWindow("hi", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, screen_width, screen_height, SDL_WINDOW_OPENGL);
-//
-//	// Agora criamos o contexto OpenGL.
-//	SDL_GLContext sdl_gl_context = SDL_GLContext(sdl_win);
-//
-//	// Habilitamos as extensões do opengl.
-//	glewExperimental = GL_TRUE;
-//	glewInit();
-//
-//	uint64_t fps = 0;
-//	uint64_t ticked_frames = 0;
-//	uint64_t delta = 0;
-//
-//	uint64_t elapsed_ticks = 0;
-//	uint64_t ticks_going_on = 0;
-//	uint64_t current_ticks = 0;
-//	uint16_t ticks_interval = 1000 / 60; // a um intervalo de 16ms cada tick.
-//
-//	float dt = 0.0f;
-//	SDL_Event sdl_event;
-//
-//	/*
-//	 * Mainloop.
-//	 */
-//	while (running) {
-//		current_ticks = SDL_GetTicks64();
-//		ticks_going_on = current_ticks - current_ticks;
-//
-//		if (ticks_going_on > ticks_interval) {
-//			elapsed_ticks = current_ticks; // resetamos e esperamos 16ms agora dps desse segmento.
-//			dt = static_cast<float>(current_ticks) / 100.0f;
-//			delta += current_ticks;
-//			
-//			// Contamos o fps (se for maior que 1s então resetamos).
-//			if (delta > 1000) {
-//				fps = ticked_frames;
-//				delta = 0;
-//			}
-//
-//			while (SDL_PollEvent(&sdl_event)) {
-//				switch (sdl_event.type) {
-//					running = false;
-//					break;
-//				}
-//			}
-//
-//			// ...
-//			// Segmento de atualização.
-//
-//			// ...
-//			// Segmento de renderização.
-//			glViewport(0.0f, 0.0f, static_cast<float>(screen_width), static_cast<float>(screen_height));
-//			glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
-//			glClearColor(0.5f, 0.5f, 1.0f, 1.0f);
-//
-//			// Prontinho podemos renderizar.
-//			// Bem aqui.
-//
-//			// Contams os ticks.
-//			ticked_frames++;
-//
-//			// Swap buffers.
-//			SDL_GL_SwapWindow(sdl_win);
-//		}
-//	}
-//}

@@ -41,6 +41,14 @@ void amogpu::gpu_gl_program::setm4f(const std::string &uniform_name, const float
 	glUniformMatrix4fv(glGetUniformLocation(this->program, uniform_name.c_str()), 1, GL_FALSE, val);
 }
 
+void amogpu::gpu_gl_program::setm3f(const std::string &uniform_name, const float* val) {
+	glUniformMatrix3fv(glGetUniformLocation(this->program, uniform_name.c_str()), 1, GL_FALSE, val);
+}
+
+void amogpu::gpu_gl_program::set3f(const std::string &uniform_name, const float* val) {
+	glUniform3fv(glGetUniformLocation(this->program, uniform_name.c_str()), GL_TRUE, val);
+}
+
 void amogpu::init() {
 	dynamic_batching::init();
 	font_renderer::init();
