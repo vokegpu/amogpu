@@ -56,11 +56,8 @@ void font_renderer::load(const std::string &font_path, uint8_t font_size) {
 		glGenTextures(1, &this->texture_bitmap);
 	}
 
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
 	glBindTexture(GL_TEXTURE_2D, this->texture_bitmap);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, (int32_t) this->texture_width, (int32_t) this->texture_height, 0, GL_RGBA, GL_UNSIGNED_BYTE, nullptr);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RED, (int32_t) this->texture_width, (int32_t) this->texture_height, 0, GL_RED, GL_UNSIGNED_BYTE, nullptr);
 
 	float offset = 0.0f;
 
@@ -79,15 +76,18 @@ void font_renderer::load(const std::string &font_path, uint8_t font_size) {
 		f_char.top = static_cast<float>(this->ft_glyph_slot->bitmap_top);
 		f_char.texture_x = static_cast<float>(this->ft_glyph_slot->advance.x >> 6);
 
-		glTexSubImage2D(GL_TEXTURE_2D, 0, static_cast<GLint>(offset), 0, f_char.w, f_char.h, GL_ALPHA, GL_UNSIGNED_BYTE, this->ft_glyph_slot->bitmap.buffer);
+		glTexSubImage2D(GL_TEXTURE_2D, 0, static_cast<GLint>(offset), 0, f_char.w, f_char.h, GL_RED, GL_UNSIGNED_BYTE, this->ft_glyph_slot->bitmap.buffer);
 		offset += f_char.w;
 	}
 
+	GLint data[] = {GL_ZERO, GL_ZERO, GL_ZERO, GL_RED};
+
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
-
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	glTexParameteriv(GL_TEXTURE_2D, GL_TEXTURE_SWIZZLE_RGBA, data);
+
 	glBindTexture(GL_TEXTURE_2D, 0);
 
 	amogpu::log("Font loaded, created bitmap!");
@@ -145,12 +145,12 @@ void font_renderer::render(const std::string &text, float x, float y, const amog
     int32_t diff = 1;
 
     x = static_cast<float>(static_cast<int32_t>(x));
-    y = static_cast<float>(static_cast<int32_t>(y));
+    y = static_cast<float>(static_cast<int32_t>(y - (impl / 2)));
 
     // Call GPU instance.
     dynamic_batching* batch = this->batch();
 
-    batch->instance(x, y - (impl / 2));
+    batch->instance(x, y);
     batch->fill(color);
     batch->bind(this->texture_bitmap);
 

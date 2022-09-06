@@ -44,12 +44,12 @@ void shape_builder::init() {
 		0.0f, 0.0f
 	};
 
-	// Gen the buffers.
+	// Create the buffers for rendering.
 	glGenBuffers(1, &shape_builder::vertex_buffer);
 	glGenVertexArrays(1, &shape_builder::vertex_array);
 	glBindVertexArray(shape_builder::vertex_array);
 
-	// 1 buffer is ok.
+	// 1 buffer is ok, do not need use another buffers to do rendering.
 	glBindBuffer(GL_ARRAY_BUFFER, shape_builder::vertex_buffer);
 	glEnableVertexAttribArray(0);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 12, mesh, GL_STATIC_DRAW);
@@ -57,7 +57,6 @@ void shape_builder::init() {
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glBindVertexArray(0);
 
-	// Log.
 	amogpu::log("Shape builder fx compiled.");
 }
 
@@ -67,11 +66,9 @@ void shape_builder::free_buffers() {
 
 void shape_builder::build(const amogpu::shape &format, const amogpu::vec4f &color, GLuint texture) {
 	this->enum_flag_format = format;
-
-	// Set the shape type.
 	shape_builder::fx_shape.setb("u_bool_circle", enum_flag_format == amogpu::shape::CIRCLE);
 
-	// Set the index position.
+	// Set the vertices amount (two triangles).
 	this->concurrent_gpu_data.begin = 0;
 	this->concurrent_gpu_data.end = 6;
 
@@ -81,11 +78,11 @@ void shape_builder::build(const amogpu::shape &format, const amogpu::vec4f &colo
 	this->concurrent_gpu_data.color[2] = color.z;
 	this->concurrent_gpu_data.color[3] = color.w;
 
-	// Set texture settings.
+	// Set texture settings and slot.
 	this->concurrent_gpu_data.texture = texture;
 	this->concurrent_gpu_data.texture_slot = 0;
 
-	// Set the details on build.
+	// Pass texture values to the shader.
 	shape_builder::fx_shape.setb("u_bool_texture", this->concurrent_gpu_data.texture != 0);
 	shape_builder::fx_shape.set4f("u_vec_color", this->concurrent_gpu_data.color);
 
@@ -116,10 +113,6 @@ void shape_builder::draw(float x, float y, float w, float h) {
 	this->concurrent_gpu_data.rect[3] = h;
 
 	shape_builder::fx_shape.set4f("u_vec_rect", this->concurrent_gpu_data.rect);
-
-	// Enable blending.
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 	// Bind buffer and draw it.
 	glDrawArrays(GL_TRIANGLES, this->concurrent_gpu_data.begin, this->concurrent_gpu_data.end);

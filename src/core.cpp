@@ -3,11 +3,12 @@
 #include "amogpu/font_renderer.hpp"
 #include "amogpu/shape_builder.hpp"
 
-uint8_t amogpu::dynamic = 1;
-uint8_t amogpu::invoked = 2;
+uint8_t amogpu::dynamic {1};
+uint8_t amogpu::invoked {2};
 
-float amogpu::matrix_viewport[4];
-float amogpu::matrix_projection_ortho[16];
+float amogpu::matrix_viewport[4] {};
+float amogpu::matrix_projection_ortho[16] {};
+std::string amogpu::gl_version {"#version 330 core"};
 
 void amogpu::gpu_gl_program::use() {
 	glUseProgram(this->program);
@@ -53,6 +54,9 @@ void amogpu::init() {
 	dynamic_batching::init();
 	font_renderer::init();
 	shape_builder::init();
+
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 }
 
 void amogpu::quit() {

@@ -19,6 +19,7 @@ namespace amogpu {
 
 	extern float matrix_viewport[4];
 	extern float matrix_projection_ortho[16];
+	extern std::string gl_version;
 
 	/*
 	 * Shape type to shpae builder.

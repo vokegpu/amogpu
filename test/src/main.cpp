@@ -8,11 +8,11 @@ keyboard keyklass;
 bool running = true;
 dynamic_batching batch;
 
-float px = 0.0f;
-float py = 0.0f;
+static float px {};
+static float py {};
 
-float nx = 0.0f;
-float ny = 0.0f;
+static float nx {};
+static float ny {};
 
 void update_window_viewport() {
 	int32_t w, h;
@@ -46,8 +46,8 @@ void on_poll_event(SDL_Event &sdl_event) {
 		}
 
 		case SDL_MOUSEBUTTONDOWN: {
-			nx = (sdl_event.motion.x);
-			ny = (sdl_event.motion.y);
+			nx = static_cast<float>(sdl_event.button.x);
+			ny = static_cast<float>(sdl_event.button.y);
 			break;
 		}
 	}
@@ -82,8 +82,9 @@ int main(int argv, char** argc) {
 	SDL_Init(SDL_INIT_EVERYTHING);
 
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
+	SDL_GL_SetAttribute(SDL_GL_ACCELERATED_VISUAL, 1);
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 4);
-	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 5);
 
 	sdl_win = SDL_CreateWindow("The Jogo da Forca x GPU Edition", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 600, SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE);
 	SDL_GLContext sdl_gl_context = SDL_GL_CreateContext(sdl_win);
@@ -106,6 +107,7 @@ int main(int argv, char** argc) {
 	bool no_vsync = true;
 	SDL_GL_SetSwapInterval(!no_vsync); // v-sync
 
+	amogpu::gl_version = "#version 450 core";
 	amogpu::log("Initinalising buffers!");
 	amogpu::init();
 
@@ -213,12 +215,8 @@ int main(int argv, char** argc) {
 			//px = px + (nx - px) * amogpu::clock::dt;
 			//py = py + (ny - py) * amogpu::clock::dt;
 
-			amogpu::log(std::to_string(ny));
 
-			shape.invoke();
-			shape.build(amogpu::shape::CIRCLE, amogpu::vec4f(1.0f, 1.0f, 1.0f, 1.0f));
-			shape.draw(px, py, 200, 200);
-			shape.revoke();
+			draw::batch.draw();
 	
 			// Count ticked frames.
 			ticked_frames++;

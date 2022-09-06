@@ -8,8 +8,7 @@ dynamic_batching* dynamic_batching::invoked = nullptr;
 uint32_t dynamic_batching::depth = 0;
 
 void dynamic_batching::init() {
-    const char* vsh_src = "#version 330 core\n"
-                    "\n"
+    std::string vsh_src = amogpu::gl_version + "\n"
                     "layout (location = 0) in vec2 attrib_vertexes;\n"
                     "layout (location = 1) in vec2 attrib_tex_coords;\n"
                     "\n"
@@ -29,8 +28,7 @@ void dynamic_batching::init() {
                     "\tvarying_attrib_tex_coords = attrib_tex_coords;\n"
                     "}";
 
-	const char* fsh_src = "#version 330 core\n"
-                    "\n"
+	std::string fsh_src = amogpu::gl_version + "\n"
                     "out vec4 out_frag_color;\n"
                     "uniform vec4 u_vec_color;\n"
                     "uniform sampler2D u_sampler_texture_slot;\n"
@@ -49,7 +47,7 @@ void dynamic_batching::init() {
                     "\tout_frag_color = frag_color;\n"
                     "}";
 
-	amogpu::create_program_from_src(dynamic_batching::fx_shape, vsh_src, fsh_src);
+	amogpu::create_program_from_src(dynamic_batching::fx_shape, vsh_src.c_str(), fsh_src.c_str());
 }
 
 void dynamic_batching::matrix() {
@@ -196,8 +194,6 @@ void dynamic_batching::draw() {
 	bool flag;
 
 	glBindVertexArray(this->vertex_arr_object);
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 	for (uint32_t i = 0; i < this->sizeof_allocated_gpu_data; i++) {
 		data = this->allocated_gpu_data[i];
@@ -209,7 +205,7 @@ void dynamic_batching::draw() {
 		dynamic_batching::fx_shape.setf("u_float_zdepth", static_cast<float>(dynamic_batching::depth + i + 1));
 
 		if (flag) {
-			glActiveTexture(GL_TEXTURE0);
+			glActiveTexture(GL_TEXTURE0 + data.texture_slot);
 			glBindTexture(GL_TEXTURE_2D, data.texture);
 
 			dynamic_batching::fx_shape.seti("u_sampler_texture_slot", data.texture_slot);
