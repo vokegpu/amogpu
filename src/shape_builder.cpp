@@ -11,8 +11,9 @@ void shape_builder::init() {
 	"out vec2 varying_attrib_vertexes;\n"
 	"uniform vec4 u_vec_rect;\n"
 	"uniform mat4 u_mat_projection;\n"
+    "uniform float u_float_depth;\n"
 	"void main() {\n"
-	"gl_Position = u_mat_projection * vec4((attrib_vertexes * u_vec_rect.zw) + u_vec_rect.xy, 0, 1.0);\n"
+	"gl_Position = u_mat_projection * vec4((attrib_vertexes * u_vec_rect.zw) + u_vec_rect.xy, u_float_depth, 1.0);\n"
 	"varying_attrib_vertexes = attrib_vertexes;\n"
 	"}\n";
 
@@ -113,6 +114,7 @@ void shape_builder::draw(float x, float y, float w, float h) {
 	this->concurrent_gpu_data.rect[3] = h;
 
 	shape_builder::fx_shape.set4f("u_vec_rect", this->concurrent_gpu_data.rect);
+    shape_builder::fx_shape.setf("u_float_depth", this->depth);
 
 	// Bind buffer and draw it.
 	glDrawArrays(GL_TRIANGLES, this->concurrent_gpu_data.begin, this->concurrent_gpu_data.end);

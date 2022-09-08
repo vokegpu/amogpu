@@ -18,6 +18,8 @@ protected:
 	amogpu::shape enum_flag_format;
 	amogpu::gpu_data concurrent_gpu_data;
 public:
+    float depth {};
+
 	/*
 	 * Init shape builder.
 	 */
