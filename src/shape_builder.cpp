@@ -115,7 +115,6 @@ void shape_builder::draw(float x, float y, float w, float h) {
 
 	shape_builder::fx_shape.set4f("u_vec_rect", this->concurrent_gpu_data.rect);
     shape_builder::fx_shape.setf("u_float_depth", this->depth);
-    
 
 	// Bind buffer and draw it.
 	glDrawArrays(GL_TRIANGLES, this->concurrent_gpu_data.begin, this->concurrent_gpu_data.end);
