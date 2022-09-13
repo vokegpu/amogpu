@@ -5,7 +5,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include <gl/glew.h>
+#include <GL/glew.h>
 #include "amogpu/core.hpp"
 
 /**

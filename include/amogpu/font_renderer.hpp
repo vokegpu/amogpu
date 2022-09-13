@@ -8,7 +8,7 @@
 
 #include <iostream>
 #include <string>
-#include <gl/glew.h>
+#include <GL/glew.h>
 #include "amogpu/gpu_handler.hpp"
 
 /**
