@@ -1,6 +1,6 @@
 # Amogpu
 
-The reason to this readme is written in another language and not english is because there is not good materials for learn OpenGL in portuguese (Brasil).
+The reason to this readme is written in another language and not english is because there is not good materials to learn OpenGL in portuguese (Brasil).
 
 --
 
