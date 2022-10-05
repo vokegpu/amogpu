@@ -1,5 +1,9 @@
 # Amogpu
 
+The reason to this readme is written in another language and not english is because there is not good materials for learn OpenGL in portuguese (Brasil).
+
+--
+
 Entenda, a GPU é muito importante para nós programdores e programadoras, sem ela aplicações que nós usamos não teria o minimo de performance e design bonito!
 infelizmente poucas pessoas se interessam por este incrível lado do hardware!
 Essa biblioteca mostra como podemos utilizar corretamente funções do OpenGL moderno.
