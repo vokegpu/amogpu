@@ -2,7 +2,12 @@ cmake_minimum_required(VERSION 3.13)
 project(amogpu)
 
 set(CMAKE_CXX_STANDARD 11)
-set(LIBRARY_OUTPUT_PATH ../lib)
+
+if(WIN32)
+	set(LIBRARY_OUTPUT_PATH ../lib/win/)
+else()
+	set(LIBRARY_OUTPUT_PATH ../lib/linux/)
+endif()
 
 file(GLOB_RECURSE HEADER_FILES "include/*.hpp")
 file(GLOB_RECURSE SRC_FILES "src/*.cpp")
