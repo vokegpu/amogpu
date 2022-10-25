@@ -18,9 +18,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="587366ac-1a0a-44fd-9d1e-4cd3854b45f2" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/libamogpu.a" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/amogpu/core.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/include/amogpu/core.hpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -89,7 +88,7 @@
       <workItem from="1662479421794" duration="286000" />
       <workItem from="1662604250241" duration="1000" />
       <workItem from="1663035800266" duration="349000" />
-      <workItem from="1666656909635" duration="52000" />
+      <workItem from="1666656909635" duration="489000" />
     </task>
     <servers />
   </component>
