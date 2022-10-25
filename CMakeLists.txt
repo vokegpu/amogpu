@@ -14,6 +14,7 @@ file(GLOB_RECURSE SRC_FILES "src/*.cpp")
 
 include_directories(include)
 add_library(amogpu STATIC "${SRC_FILES}")
+add_compile_options(-O3)
 
 set_target_properties(amogpu PROPERTIES VERSION 1.0 SOVERSION 1)
 set_target_properties(amogpu PROPERTIES PUBLIC_HEADER "${HEADER_FILES}")
