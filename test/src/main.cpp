@@ -119,7 +119,7 @@ int main(int argv, char** argc) {
 	draw::refresh = true;
 	update_window_viewport();
 
-	shape_builder shape;
+	shape_builder shape {};
 
 	batch.invoke();
 	batch.instance(200, 200);
@@ -182,6 +182,7 @@ int main(int argv, char** argc) {
 	batch.next();
 
 	batch.revoke();
+    batch.set_frustum_depth(true);
 
 	SDL_Event sdl_event;
 	while (running) {
