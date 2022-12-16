@@ -136,10 +136,10 @@ float font_renderer::get_text_height() {
 }
 
 void font_renderer::render(const std::string &text, float x, float y, const amogpu::vec4f &color) {
-	const char* char_str = text.c_str();
-	const int32_t str_len = strlen(char_str);
+    const char* char_str = text.c_str();
+    const int32_t str_len = strlen(char_str);
 
-  	float render_x = 0, render_y = 0, render_w = 0, render_h = 0;
+    render_x = 0, render_y = 0, render_w = 0, render_h = 0;
     float texture_x = 0, texture_y = 0, texture_w = 0, texture_h = 0;
     float impl = (static_cast<float>(this->texture_height) / 8);
     int32_t diff = 1;
