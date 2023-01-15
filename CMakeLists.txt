@@ -1,21 +1,44 @@
 cmake_minimum_required(VERSION 3.13)
-project(amogpu)
-
-set(CMAKE_CXX_STANDARD 11)
+project(source/amogpu)
+set(CMAKE_CXX_STANDARD 17)
 
 if(WIN32)
-	set(LIBRARY_OUTPUT_PATH ../lib/win/)
+	set(LIBRARY_OUTPUT_PATH ../build/libs/win/)
 else()
-	set(LIBRARY_OUTPUT_PATH ../lib/linux/)
+	set(LIBRARY_OUTPUT_PATH ../build/libs/linux/)
 endif()
 
-file(GLOB_RECURSE HEADER_FILES "include/*.hpp")
-file(GLOB_RECURSE SRC_FILES "src/*.cpp")
+file(GLOB_RECURSE HEADER_FILES "source/amogpu/*.hpp")
+file(GLOB_RECURSE SRC_FILES "source/src/*.cpp")
 
-include_directories(include)
+include_directories(source/)
 add_library(amogpu STATIC "${SRC_FILES}")
 add_compile_options(-O3)
 
 set_target_properties(amogpu PROPERTIES VERSION 1.0 SOVERSION 1)
 set_target_properties(amogpu PROPERTIES PUBLIC_HEADER "${HEADER_FILES}")
 target_include_directories(amogpu PUBLIC .)
+
+set(ENABLE_TESTING true)
+
+if (ENABLE_TESTING)
+	project(amogputesting)
+
+	set(CURRENT_OS "")
+	set(CMAKE_CXX_STANDARD 17)
+	set(LINKER_OPTIONS "")
+
+	if(WIN32)
+		set(CURRENT_OS "win")
+		set(LINKER_OPTIONS glew32 SDL2main SDL2 freetype)
+	else()
+		set(CURRENT_OS "linux")
+		set(LINKER_OPTIONS glew SDL2main SDL2 freetype)
+	endif()
+
+	set(EXECUTABLE_OUTPUT_PATH ../build/${CURRENT_OS}/)
+
+	add_compile_options(-O3)
+	add_executable(amogputesting "tests/main.cpp")
+	target_link_libraries(amogputesting ${LINKER_OPTIONS} "${CMAKE_CURRENT_SOURCE_DIR}/build/libs/${CURRENT_OS}/libamogpu.a")
+endif()
