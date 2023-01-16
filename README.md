@@ -58,7 +58,7 @@ shape_builder shape;
  * Main loop.
  */
 while (true) {
-   // Diferente de dynamic batching, você não precisa controlar invoke e revoke calls.
+   // Diferente de dynamic batch, você não precisa controlar invoke e revoke calls.
    shape.invoke();
    
    // Se você quiser criar um circulo use amogpu::shape::CIRCLE, se não use amogpu::shape::RECT
