@@ -33,10 +33,10 @@ if (ENABLE_TESTING)
 		set(LINKER_OPTIONS glew32 SDL2main SDL2 freetype)
 	else()
 		set(CURRENT_OS "linux")
-		set(LINKER_OPTIONS glew SDL2main SDL2 freetype)
+		set(LINKER_OPTIONS GLEW SDL2main SDL2 freetype)
 	endif()
 
-	set(EXECUTABLE_OUTPUT_PATH ../build/${CURRENT_OS}/)
+	set(EXECUTABLE_OUTPUT_PATH ../build/tests/${CURRENT_OS}/)
 
 	add_compile_options(-O3)
 	add_executable(amogputesting "tests/main.cpp")

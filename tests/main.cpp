@@ -2,6 +2,6 @@
 #include <amogpu/amogpu.hpp>
 
 int32_t main(int32_t, char**) {
-    amogpu::foo();
+    amogpu::init();
     return 0;
 }
