@@ -4,19 +4,21 @@
 
 /* Start of AmoGPU batch segment. */
 
-float amogpu::batch::mat4x4_orthographic[16] {};
 amogpu::shader *amogpu::batch::p_shader_batch_default {nullptr};
 
 void amogpu::batch::invoke() {
-
+    if (this->buffer_vao == 0) glGenVertexArrays(1, &this->buffer_vao);
+    glBindVertexArray(this->buffer_vao);
 }
 
 void amogpu::batch::revoke() {
-
+    glBindVertexArray(0);
 }
 
 void amogpu::batch::draw() {
+    for (amogpu::batch_data &p_batch_data : this->batching_data) {
 
+    }
 }
 
 /* End of AmoGPU batch segment. */
@@ -135,6 +137,7 @@ bool amogpu::read_file(std::string_view path, std::string &string_builder) {
 /* Start of AmoGPU setup segment. */
 
 const char *amogpu::glversion {"#version 330 core"};
+float amogpu::mat4x4_orthographic[16] {};
 
 void amogpu::init() {
     amogpu::log("AmoGPU.Setup: Initialising.");
@@ -182,6 +185,44 @@ void amogpu::init() {
         {vsh_shader_source, amogpu::shading::vertex, true},
         {fsh_shader_source, amogpu::shading::fragment, true}
     });
+}
+
+void amogpu::swap_buffers() {
+    float viewport[4] {};
+    glGetFloatv(GL_VIEWPORT, viewport);
+
+    /* Calculate orthographic matrix. */
+
+    const float left {0.0f};
+    const float right {viewport[0]};
+    const float bottom {viewport[1]};
+    const float top {0.0f};
+
+    const float depth_near {-1.0f};
+    const float depth_far {1.0f};
+    const float depth_inv {1.0f / (depth_far - depth_near)};
+    const float y_inv {1.0f / (top - bottom)};
+    const float x_inv {1.0f / (right - left)};
+
+    amogpu::mat4x4_orthographic[0] = 2.0f * x_inv;
+    amogpu::mat4x4_orthographic[1] = 0.0f;
+    amogpu::mat4x4_orthographic[2] = 0.0f;
+    amogpu::mat4x4_orthographic[3] = 0.0f;
+
+    amogpu::mat4x4_orthographic[4] = 0.0f;
+    amogpu::mat4x4_orthographic[5] = 2.0f * y_inv;
+    amogpu::mat4x4_orthographic[6] = 0.0f;
+    amogpu::mat4x4_orthographic[7] = 0.0f;
+
+    amogpu::mat4x4_orthographic[8] = 0.0f;
+    amogpu::mat4x4_orthographic[9] = 0.0f;
+    amogpu::mat4x4_orthographic[10] = -2.0f * depth_inv;
+    amogpu::mat4x4_orthographic[11] = 0.0f;
+
+    amogpu::mat4x4_orthographic[12] = -(right + left) * x_inv;
+    amogpu::mat4x4_orthographic[13] = -(top + bottom) * y_inv;
+    amogpu::mat4x4_orthographic[14] = -(depth_far + depth_near) * depth_inv;
+    amogpu::mat4x4_orthographic[15] = 1.0f;
 }
 
 void amogpu::quit() {

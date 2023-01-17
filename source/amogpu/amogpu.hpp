@@ -110,8 +110,10 @@ namespace amogpu {
         uint32_t buffer_vao {};
         uint32_t buffer_vertices {};
         uint32_t buffer_textcoords {};
+
+        std::vector<amogpu::batch_data> batching_data {};
+        std::vector<float> mesh_vertex_data {};
     public:
-        static float mat4x4_orthographic[16];
         static amogpu::shader *p_shader_batch_default;
 
         void invoke();
@@ -148,8 +150,10 @@ namespace amogpu {
 
     /* GL version specified in GLSL source code. */
     extern const char *glversion;
+    extern float mat4x4_orthographic[16];
 
     void init();
+    void swap_buffers();
     void quit();
 }
 
