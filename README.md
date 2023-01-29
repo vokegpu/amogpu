@@ -1,7 +1,9 @@
+# This library is deprecated and old.
+# do not use
+
 # Amogpu
 
 The reason to this readme is written in another language and not english is because there is not good materials to learn OpenGL in portuguese (Brasil).
-
 --
 
 Entenda, a GPU é muito importante para nós programdores e programadoras, sem ela aplicações que nós usamos não teria o minimo de performance e design bonito!
